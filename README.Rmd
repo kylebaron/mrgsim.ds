@@ -34,3 +34,28 @@ devtools::install_github("kylebaron/mrgsim.ds")
 ## Example 
 
 We will illustrate mrgsim.ds by doing a simulation. 
+
+```{r}
+library(mrgsim.ds)
+
+mod <- modlib("1005")
+
+data <- expand.ev(amt = 100, ID = 1:1000)
+```
+
+mrgsim.ds provides a new `mrgsim()` variant - `mrgsim_ds()`:
+
+```{r}
+out <- mrgsim_ds(mod, data)
+
+out
+```
+
+The output object doesn't actually carry the simulated data, but
+rather a pointer to the data in parquet files on your disk.
+
+
+```{r}
+as_ds_sims(out)
+```
+
