@@ -1,20 +1,3 @@
-# Copyright (C) 2013 - 2026  Metrum Research Group
-#
-# This file is part of mrgsolve.
-#
-# mrgsolve is free software: you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 2 of the License, or
-# (at your option) any later version.
-#
-# mrgsolve is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with mrgsolve.  If not, see <http://www.gnu.org/licenses/>.
-
 setClass("mrgsimsds")
 
 check_mrgsimsds <- function(x) {
@@ -23,11 +6,18 @@ check_mrgsimsds <- function(x) {
   }
 }
 
-valid_ds <- function(x) {
-  invalid <- identical(x$ds$pointer(), new("externalptr"))
+valid_ds_abort <- function(x) {
+  invalid <- !valid_ds(x)
   if(invalid) {
     abort("dataset pointer is invalid; run refresh_ds().", call = caller_env())  
   }
+}
+valid_ds <- function(x) {
+  !identical(x$ds$pointer(), new("externalptr"))  
+}
+safe_ds <- function(x) {
+  if(!valid_ds(x)) x <- refresh_ds(x)
+  x
 }
 
 #' @export
@@ -77,7 +67,7 @@ mrgsim_ds <- function(x,  ..., file = tempfile(), verbose = FALSE) {
 #' @md
 as_table_sims <- function(x, ...) {
   check_mrgsimsds(x)
-  valid_ds(x)
+  x <- safe_ds(x)
   as_arrow_table(x$ds)
 }
 
@@ -85,7 +75,7 @@ as_table_sims <- function(x, ...) {
 #' @md
 as_tibble_sims <- function(x, ...) {
   check_mrgsimsds(x)
-  valid_ds(x)
+  x <- safe_ds(x)
   tibble::as_tibble(x$ds)  
 }
 
@@ -93,15 +83,21 @@ as_tibble_sims <- function(x, ...) {
 #' @md
 as_ds_sims <- function(x, ...) {
   check_mrgsimsds(x)
-  valid_ds(x)
+  x <- safe_ds(x)
   x$ds
 }
 
 #' @export
 #' @md
-refresh_ds <- function(x) {
-  check_mrgsimsds(x)
+refresh_ds <- function(x, ...) UseMethod("refresh_ds")
+#' @export
+refresh_ds.mrgsimsds <- function(x, ...) {
   x$ds <- arrow::open_dataset(x$files)
+  x
+}
+#' @export
+refresh_ds.list <- function(x, ...) {
+  x <- lapply(x, refresh_ds)
   x
 }
 
