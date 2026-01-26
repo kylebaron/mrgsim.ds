@@ -17,12 +17,6 @@
 
 setClass("mrgsimsds")
 
-require_arrow <- function() {
-  if(!requireNamespace("arrow", quitely = TRUE)) {
-    abort("this function requires the arrow package to be installed.")  
-  }
-}
-
 check_mrgsimsds <- function(x) {
   if(!is_mrgsimsds(x)) {
     abort("`x` is not an mrgsimsds object.", call = rlang::caller_env()) 
@@ -45,7 +39,7 @@ is_mrgsimsds <- function(x) {
 #' @export
 #' @md
 as_mrgsimsds <- function(out, file = tempfile(), verbose = FALSE) {
-  require_arrow()
+
   verbose <- isTRUE(verbose)
   
   if(verbose) message("Writing to parquet.")
@@ -82,7 +76,6 @@ mrgsim_ds <- function(x,  ..., file = tempfile(), verbose = FALSE) {
 #' @export
 #' @md
 as_table_sims <- function(x, ...) {
-  require_arrow()
   check_mrgsimsds(x)
   valid_ds(x)
   as_arrow_table(x$ds)
@@ -91,7 +84,6 @@ as_table_sims <- function(x, ...) {
 #' @export
 #' @md
 as_tibble_sims <- function(x, ...) {
-  require_arrow()
   check_mrgsimsds(x)
   valid_ds(x)
   tibble::as_tibble(x$ds)  
@@ -100,7 +92,6 @@ as_tibble_sims <- function(x, ...) {
 #' @export
 #' @md
 as_ds_sims <- function(x, ...) {
-  require_arrow()
   check_mrgsimsds(x)
   valid_ds(x)
   x$ds
@@ -109,7 +100,6 @@ as_ds_sims <- function(x, ...) {
 #' @export
 #' @md
 refresh_ds <- function(x) {
-  require_arrow()
   check_mrgsimsds(x)
   x$ds <- arrow::open_dataset(x$files)
   x
@@ -118,7 +108,6 @@ refresh_ds <- function(x) {
 #' @export
 #' @md
 print.mrgsimsds <- function(x, n = 8, ...) {
-  require_arrow()
   dm <- x$dim
   size <- sum(sapply(x$files, file.size))
   class(size) <- "object_size"
