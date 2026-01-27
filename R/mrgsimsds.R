@@ -1,31 +1,5 @@
 setClass("mrgsimsds")
 
-check_mrgsimsds <- function(x) {
-  if(!is_mrgsimsds(x)) {
-    abort("`x` is not an mrgsimsds object.", call = rlang::caller_env()) 
-  }
-}
-
-valid_ds_abort <- function(x) {
-  invalid <- !valid_ds(x)
-  if(invalid) {
-    abort("dataset pointer is invalid; run refresh_ds().", call = caller_env())  
-  }
-}
-valid_ds <- function(x) {
-  !identical(x$ds$pointer(), new("externalptr"))  
-}
-safe_ds <- function(x) {
-  if(!valid_ds(x)) x <- refresh_ds(x)
-  x
-}
-
-#' @export
-#' @md
-is_mrgsimsds <- function(x) {
-  inherits(x, "mrgsimsds")  
-}
-
 #' @export
 #' @md
 as_mrgsimsds <- function(out, file = tempfile(), verbose = FALSE) {
@@ -61,64 +35,6 @@ mrgsim_ds <- function(x,  ..., file = tempfile(), verbose = FALSE) {
   out <- mrgsim(x, output = NULL, ...)
   ans <- as_mrgsimsds(out = out, file = file, verbose = verbose)
   ans
-}
-
-#' @export
-#' @md
-as_table_sims <- function(x, ...) {
-  check_mrgsimsds(x)
-  x <- safe_ds(x)
-  as_arrow_table(x$ds)
-}
-
-#' @export
-#' @md
-as_tibble_sims <- function(x, ...) {
-  check_mrgsimsds(x)
-  x <- safe_ds(x)
-  tibble::as_tibble(x$ds)  
-}
-
-#' @export
-#' @md
-as_ds_sims <- function(x, ...) {
-  check_mrgsimsds(x)
-  x <- safe_ds(x)
-  x$ds
-}
-
-#' @export
-#' @md
-refresh_ds <- function(x, ...) UseMethod("refresh_ds")
-#' @export
-refresh_ds.mrgsimsds <- function(x, ...) {
-  x$ds <- arrow::open_dataset(x$files)
-  x
-}
-#' @export
-refresh_ds.list <- function(x, ...) {
-  x <- lapply(x, refresh_ds)
-  x
-}
-
-#' @export
-#' @md
-print.mrgsimsds <- function(x, n = 8, ...) {
-  dm <- x$dim
-  size <- sum(sapply(x$files, file.size))
-  class(size) <- "object_size"
-  size <- format(size, units = "auto")
-  message("Model: ", x$mod@model)
-  message("Dim  : ", dm[1L], " ", dm[2L])
-  message("Files: ", length(x$files), " [", size, "]")
-  chunk <- head(x$head, n = n)
-  rownames(chunk) <- paste0(seq(nrow(chunk)), ": ")
-  print(chunk)
-  invalid <- identical(x$ds$pointer(), new("externalptr"))
-  if(invalid) {
-    message("! pointer is invalid; run refresh_ds().")  
-  }
-  return(invisible(NULL))
 }
 
 #' Return the first several rows of the object. 
