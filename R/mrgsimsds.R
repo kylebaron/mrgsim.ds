@@ -1,7 +1,6 @@
 setClass("mrgsimsds")
 
 #' @export
-#' @md
 as_mrgsimsds <- function(out, file = tempfile(), verbose = FALSE) {
 
   verbose <- isTRUE(verbose)
@@ -11,8 +10,8 @@ as_mrgsimsds <- function(out, file = tempfile(), verbose = FALSE) {
   
   if(verbose) message("Wrapping up.")
   ans <- list()
-  ans$files <- normalizePath(file)
-  ans$ds <- arrow::open_dataset(file)
+  ans$ds <- open_dataset(file)
+  ans$files <- ans$ds$files
   ans$mod <- out@mod
   ans$dim <- dim(ans$ds)
   ans$head <- out@data[seq(20), ]
@@ -26,9 +25,7 @@ as_mrgsimsds <- function(out, file = tempfile(), verbose = FALSE) {
   ans
 }
 
-
 #' @export
-#' @md
 mrgsim_ds <- function(x,  ..., file = tempfile(), verbose = FALSE) {
   verbose <- isTRUE(verbose)
   if(verbose) message("Simulating.")
@@ -43,7 +40,6 @@ mrgsim_ds <- function(x,  ..., file = tempfile(), verbose = FALSE) {
 #' @param n number of rows to show.  
 #' @param ... passed to [head()].
 #' @export
-#' @md
 setMethod("head", "mrgsimsds", function(x, n = 6L, ...) {
   if(n > nrow(x$head)) {
     msg <- "there are only {nrow(x$head)} rows available for head()."
@@ -53,32 +49,37 @@ setMethod("head", "mrgsimsds", function(x, n = 6L, ...) {
 })
 
 #' @export
-#' @md
 setMethod("tail", "mrgsimsds", function(x,...) {
   abort("there is no `tail()` method for this object (mrgsimsds).") 
 })
 
-#' 
 #' @export
-#' @md
 dim.mrgsimsds <- function(x) {
   x$dim
 }
 
 #' @export
-#' @md
 nrow.mrgsimsds <- function(x) {
   x$dim[1L]
 }
 
 #' @export
-#' @md
 ncol.mrgsimsds <- function(x) {
   x$dim[2L]
 }
 
 #' @export
-#' @md
-setMethod("plot", "mrgsimsds", function(x,...) {
-  abort("there is no `plot()` method for this object (mrgsimsds).")
-})
+plot.mrgsimsds <- function(x, y, ...) {
+  abort("no print method for mrgsimsds objects.")
+  # ds <- as_arrow_ds(x)
+  # h <- head(ds, 1)
+  # h <- collect(h)
+  # data <- filter(ds, ID %in% h$ID[1])
+  # data <- collect(data)
+  # time <- names(data)[2]
+  # vars <- names(data)[seq(3, ncol(data), 1)]
+  # lhs <- paste0(vars, collapse = "+")
+  # form <- paste0(lhs, "~", time)
+  # form <- as.formula(form)
+  # plot_sims(data, .f = form)
+}

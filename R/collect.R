@@ -1,19 +1,16 @@
 #' @export
-#' @md
 as_arrow_table.mrgsimsds <- function(x, ...) {
   x <- safe_ds(x)
   as_arrow_table(x$ds)
 }
 
 #' @export
-#' @md
 as_tibble.mrgsimsds <- function(x, ...) {
   x <- safe_ds(x)
   as_tibble(x$ds)  
 }
 
 #' @export
-#' @md
 as_arrow_ds <- function(x, ... ) UseMethod("as_arrow_ds")
 #' @export
 as_arrow_ds.mrgsimsds <- function(x, ...) {
