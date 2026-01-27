@@ -1,36 +1,69 @@
 setClass("mrgsimsds")
 
+#' Coerce an mrgsims object to arrow-backed mrgsimsds
+#' 
+#' @param x an mrgsims object. 
+#' @param file path to file where output will be written using 
+#' [arrow::write_dataset()].
+#' @param verbose if `TRUE`, print progress information to the console.
+#' 
+#' @examples
+#' mod <- modlib("pk1")
+#' data <- expand.ev(amt = 100, ID = 1:10)
+#' out <- mrgsim(mod, data)
+#' obj <- as_mrgsimsds(obj)
+#' 
+#' @return
+#' An object with class `mrgsimsds`.
+#' 
+#' @seealso [mrgsim_ds()].
+#' 
 #' @export
-as_mrgsimsds <- function(out, file = tempfile(), verbose = FALSE) {
+as_mrgsimsds <- function(x, file = tempfile(), verbose = FALSE) {
 
   verbose <- isTRUE(verbose)
   
   if(verbose) message("Writing to parquet.")
-  arrow::write_parquet(x = out@data, sink = file)
+  write_parquet(x = x@data, sink = file)
   
   if(verbose) message("Wrapping up.")
   ans <- list()
   ans$ds <- open_dataset(file)
   ans$files <- ans$ds$files
-  ans$mod <- out@mod
+  ans$mod <- x@mod
   ans$dim <- dim(ans$ds)
-  ans$head <- out@data[seq(20), ]
+  ans$head <- x@data[seq(20), ]
   ans$names <- names(ans$head)
   ans$pid <- Sys.getpid()
   
-  rm(out)
+  rm(x)
   
   class(ans) <- c("mrgsimsds", "list")
   
   ans
 }
 
+#' Simulate from a model object, returning an arrow-backed output object
+#' 
+#' @inheritParams as_mrgsimsds
+#' @param x a model object. 
+#' @param ... passed to [mrgsolve::mrgsim()]. 
+#' 
+#' @examples
+#' mod <- modlib("1005")
+#' data <- expand.ev(amt = 100, ID = 1:10)
+#' out <- mrgsim_ds(mod, data, end = 72, delta = 0.1)
+#' out
+#' 
+#' @return 
+#' An object with class `mrgsimsds`.
+#' 
 #' @export
 mrgsim_ds <- function(x,  ..., file = tempfile(), verbose = FALSE) {
   verbose <- isTRUE(verbose)
   if(verbose) message("Simulating.")
   out <- mrgsim(x, output = NULL, ...)
-  ans <- as_mrgsimsds(out = out, file = file, verbose = verbose)
+  ans <- as_mrgsimsds(x = out, file = file, verbose = verbose)
   ans
 }
 
