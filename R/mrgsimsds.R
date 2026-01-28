@@ -1,17 +1,16 @@
-setClass("mrgsimsds")
 
-#' Coerce an mrgsims object to arrow-backed mrgsimsds
+#' Coerce an mrgsims object to arrow-backed mrgsimsds object
 #' 
 #' @param x an mrgsims object. 
 #' @param file path to file where output will be written using 
-#' [arrow::write_dataset()].
+#' [arrow::write_parquet()].
 #' @param verbose if `TRUE`, print progress information to the console.
 #' 
 #' @examples
 #' mod <- modlib("pk1")
 #' data <- expand.ev(amt = 100, ID = 1:10)
 #' out <- mrgsim(mod, data)
-#' obj <- as_mrgsimsds(obj)
+#' obj <- as_mrgsim_ds(obj)
 #' 
 #' @return
 #' An object with class `mrgsimsds`.
@@ -19,11 +18,11 @@ setClass("mrgsimsds")
 #' @seealso [mrgsim_ds()].
 #' 
 #' @export
-as_mrgsimsds <- function(x, file = tempfile(), verbose = FALSE) {
+as_mrgsim_ds <- function(x, file = tempfile(), verbose = FALSE) {
 
   verbose <- isTRUE(verbose)
   
-  if(verbose) message("Writing to parquet.")
+  if(verbose) message("Writing to dataset.")
   write_parquet(x = x@data, sink = file)
   
   if(verbose) message("Wrapping up.")
@@ -45,62 +44,93 @@ as_mrgsimsds <- function(x, file = tempfile(), verbose = FALSE) {
 
 #' Simulate from a model object, returning an arrow-backed output object
 #' 
-#' @inheritParams as_mrgsimsds
+#' @inheritParams as_mrgsim_ds
 #' @param x a model object. 
 #' @param ... passed to [mrgsolve::mrgsim()]. 
+#' @param tag a named list of atomic data to tag (or mutate) the simulated 
+#' output.
 #' 
 #' @examples
 #' mod <- modlib("1005")
 #' data <- expand.ev(amt = 100, ID = 1:10)
 #' out <- mrgsim_ds(mod, data, end = 72, delta = 0.1)
-#' out
+#' 
+#' out <- mrgsim_ds(mod, data, tag = list(rep = 1))
+#' head(out)
 #' 
 #' @return 
 #' An object with class `mrgsimsds`.
 #' 
 #' @export
-mrgsim_ds <- function(x,  ..., file = tempfile(), verbose = FALSE) {
+mrgsim_ds <- function(x,  ..., file = tempfile(), tag = list(), 
+                      verbose = FALSE) {
   verbose <- isTRUE(verbose)
   if(verbose) message("Simulating.")
   out <- mrgsim(x, output = NULL, ...)
-  ans <- as_mrgsimsds(x = out, file = file, verbose = verbose)
+  if(is.list(tag) && length(tag)) {
+    if(!is_named(tag)) {
+      abort("`tag` must be a named list.")  
+    }
+    for(j in names(tag)) {
+      out@data[[j]] <- tag[[j]]  
+    }
+  }
+  ans <- as_mrgsim_ds(x = out, file = file, verbose = verbose)
   ans
 }
 
-#' Return the first several rows of the object. 
+#' Interact with mrgsimsds objects
 #' 
-#' @param x a object with class `mrgsimsds`.
-#' @param n number of rows to show.  
-#' @param ... passed to [head()].
-#' @export
-setMethod("head", "mrgsimsds", function(x, n = 6L, ...) {
-  if(n > nrow(x$head)) {
-    msg <- "there are only {nrow(x$head)} rows available for head()."
-    warn(glue(msg))  
-  }
-  head(x$head, n = n, ...)
-})
-
-#' @export
-setMethod("tail", "mrgsimsds", function(x,...) {
-  abort("there is no `tail()` method for this object (mrgsimsds).") 
-})
-
+#' @param x an mrgsimsds object, output from 
+#' [mrgsim_ds()] or [as_mrgsim_ds()].
+#' @param y not used. 
+#' 
+#' @examples
+#' mod <- modlib("1005")
+#' out <- mrgsim_ds(mod, events = ev(amt = 100))
+#' 
+#' dim(out)
+#' head(out)
+#' nrow(out)
+#' ncol(out)
+#' head(out)
+#' try(tail(out))
+#' 
+#' @name mrgsimsds-methods
 #' @export
 dim.mrgsimsds <- function(x) {
   x$dim
 }
 
+#' @name mrgsimsds-methods
 #' @export
 nrow.mrgsimsds <- function(x) {
   x$dim[1L]
 }
 
+#' @name mrgsimsds-methods
 #' @export
 ncol.mrgsimsds <- function(x) {
   x$dim[2L]
 }
 
+#' @name mrgsimsds-methods
+#' @export
+head.mrgsimsds <-  function(x, n = 6L, ...) {
+  if(n > nrow(x$head)) {
+    msg <- "there are only {nrow(x$head)} rows available for head()."
+    warn(glue(msg))  
+  }
+  as_tibble(head(x$head, n = n, ...))
+}
+
+#' @name mrgsimsds-methods
+#' @export
+tail.mrgsimsds <- function(x, ...) {
+  abort("there is no `tail()` method for this object (mrgsimsds).") 
+}
+
+#' @name mrgsimsds-methods
 #' @export
 plot.mrgsimsds <- function(x, y, ...) {
   abort("no print method for mrgsimsds objects.")

@@ -1,15 +1,37 @@
+#' Coerce an mrgsimsds object to an arrow table
+#' 
+#' @param x an mrgsimsds object. 
+#' @param ... passed to [arrow::as_arrow_able()]. 
+#'
 #' @export
 as_arrow_table.mrgsimsds <- function(x, ...) {
   x <- safe_ds(x)
-  as_arrow_table(x$ds)
+  as_arrow_table(x$ds, ...)
 }
 
+#' Coerce an mrgsimsds object to a tibble
+#' 
+#' @param x an mrgsimsds object. 
+#' @param ... passed to [dplyr::as_tibble()] or 
+#' [dplyr::collect()]. 
+#'
 #' @export
 as_tibble.mrgsimsds <- function(x, ...) {
   x <- safe_ds(x)
-  as_tibble(x$ds)  
+  as_tibble(x$ds, ...)  
+}
+#' @rdname as_tibble.mrgsimsds
+#' @export
+collect.mrgsimsds <- function(x, ...) {
+  x <- safe_ds(x)
+  collect(x$ds, ... )  
 }
 
+#' Coerce an mrgsimsds object to an arrow data set
+#' 
+#' @param x an mrgsimsds object. 
+#' @param ... not used. 
+#'
 #' @export
 as_arrow_ds <- function(x, ... ) UseMethod("as_arrow_ds")
 #' @export
@@ -29,8 +51,4 @@ as_arrow_ds.list <- function(x, unique_files = TRUE, ...) {
   open_dataset(sources = files)
 }
 
-#' @export
-collect.mrgsimsds <- function(x, ...) {
-  x <- safe_ds(x)
-  collect(x$ds)  
-}
+
