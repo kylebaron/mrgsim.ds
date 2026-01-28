@@ -14,3 +14,7 @@ as_arrow_ds(x, ...)
 \description{
 Coerce an mrgsimsds object to an arrow data set
 }
+\details{
+The method for list will retain only list positions containing an \code{mrgsimsds}
+object. A single data set object is returned.
+}

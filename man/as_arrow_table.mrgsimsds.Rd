@@ -9,7 +9,7 @@
 \arguments{
 \item{x}{an mrgsimsds object.}
 
-\item{...}{passed to \code{\link[arrow:as_arrow_able]{arrow::as_arrow_able()}}.}
+\item{...}{passed to \code{\link[arrow:as_arrow_table]{arrow::as_arrow_table()}}.}
 }
 \description{
 Coerce an mrgsimsds object to an arrow table
