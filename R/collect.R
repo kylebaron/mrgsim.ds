@@ -29,7 +29,7 @@ collect.mrgsimsds <- function(x, ...) {
 
 #' Coerce an mrgsimsds object to an arrow data set
 #' 
-#' @param x an mrgsimsds object. 
+#' @param x an mrgsimsds object or a list of mrgsimsds objects. 
 #' @param ... not used. 
 #' 
 #' @details
@@ -45,12 +45,32 @@ as_arrow_ds.mrgsimsds <- function(x, ...) {
 }
 #' @export
 as_arrow_ds.list <- function(x, unique_files = TRUE, ...) {
-  classes <- simlist_classes(x)
-  x <- x[classes]
+  x <- prune_ds(x, inform = TRUE)
   if(isTRUE(unique_files)) {
     files <- simlist_files(x)
     x <- x[!duplicated(files)]
   }
   files <- simlist_files(x)
   open_dataset(sources = files)
+}
+
+#' Coerce an mrgsimsds object to a DuckDB table
+#' 
+#' @param x an mrgsimsds object or a list of mrgsimsds objects. 
+#' @param ... passed to [as_arrow_ds()]. 
+#' 
+#' @details
+#' The conversaion is handled by [as_arrow_ds()].
+#' 
+#' @seealso [as_arrow_ds()]
+#' 
+#' @export
+as_duckdb_ds <- function(x, ...) UseMethod("as_duckdb_ds")
+#' @export
+as_duckdb_ds.mrgsimsds <- function(x, ...) {
+  to_duckdb(as_arrow_ds(x, ...))  
+}
+#' @export
+as_duckb_ds.list <- function(x, ...) {
+  to_duckdb(as_arrow_ds(x, ...))  
 }

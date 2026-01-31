@@ -11,7 +11,7 @@
 #' @param ... for future use.
 #' 
 #' @examples
-#' mod <- modlib("1005")
+#' mod <- mrgsolve::house()
 #' data <- ev_expand(amt = 100, ID = 1:100)
 #' 
 #' out <- lapply(1:3, function(rep) {

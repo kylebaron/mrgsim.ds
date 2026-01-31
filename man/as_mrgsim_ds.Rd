@@ -21,10 +21,10 @@ An object with class \code{mrgsimsds}.
 Coerce an mrgsims object to arrow-backed mrgsimsds object
 }
 \examples{
-mod <- modlib("pk1")
-data <- expand.ev(amt = 100, ID = 1:10)
-out <- mrgsim(mod, data)
-obj <- as_mrgsim_ds(obj)
+mod <- mrgsolve::house()
+data <- mrgsolve::ev_expand(amt = 100, ID = 1:10)
+out <- mrgsolve::mrgsim(mod, data)
+obj <- as_mrgsim_ds(out)
 
 }
 \seealso{

@@ -26,8 +26,8 @@ An object with class \code{mrgsimsds}.
 Simulate from a model object, returning an arrow-backed output object
 }
 \examples{
-mod <- modlib("1005")
-data <- expand.ev(amt = 100, ID = 1:10)
+mod <- mrgsolve::house()
+data <- mrgsolve::ev_expand(amt = 100, ID = 1:10)
 out <- mrgsim_ds(mod, data, end = 72, delta = 0.1)
 
 out <- mrgsim_ds(mod, data, tag = list(rep = 1))

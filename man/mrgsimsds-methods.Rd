@@ -26,14 +26,18 @@ ncol.mrgsimsds(x)
 \item{x}{an mrgsimsds object, output from
 \code{\link[=mrgsim_ds]{mrgsim_ds()}} or \code{\link[=as_mrgsim_ds]{as_mrgsim_ds()}}.}
 
+\item{n}{number of rows to return.}
+
+\item{...}{arguments to be passed to or from other methods.}
+
 \item{y}{not used.}
 }
 \description{
 Interact with mrgsimsds objects
 }
 \examples{
-mod <- modlib("1005")
-out <- mrgsim_ds(mod, events = ev(amt = 100))
+mod <- mrgsolve::house()
+out <- mrgsim_ds(mod, events = mrgsolve::ev(amt = 100))
 
 dim(out)
 head(out)

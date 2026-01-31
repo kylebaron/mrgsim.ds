@@ -7,10 +7,10 @@
 #' @param verbose if `TRUE`, print progress information to the console.
 #' 
 #' @examples
-#' mod <- modlib("pk1")
-#' data <- expand.ev(amt = 100, ID = 1:10)
-#' out <- mrgsim(mod, data)
-#' obj <- as_mrgsim_ds(obj)
+#' mod <- mrgsolve::house()
+#' data <- mrgsolve::ev_expand(amt = 100, ID = 1:10)
+#' out <- mrgsolve::mrgsim(mod, data)
+#' obj <- as_mrgsim_ds(out)
 #' 
 #' @return
 #' An object with class `mrgsimsds`.
@@ -51,8 +51,8 @@ as_mrgsim_ds <- function(x, file = tempfile(), verbose = FALSE) {
 #' output.
 #' 
 #' @examples
-#' mod <- modlib("1005")
-#' data <- expand.ev(amt = 100, ID = 1:10)
+#' mod <- mrgsolve::house()
+#' data <- mrgsolve::ev_expand(amt = 100, ID = 1:10)
 #' out <- mrgsim_ds(mod, data, end = 72, delta = 0.1)
 #' 
 #' out <- mrgsim_ds(mod, data, tag = list(rep = 1))
@@ -84,10 +84,12 @@ mrgsim_ds <- function(x,  ..., file = tempfile(), tag = list(),
 #' @param x an mrgsimsds object, output from 
 #' [mrgsim_ds()] or [as_mrgsim_ds()].
 #' @param y not used. 
+#' @param n number of rows to return.
+#' @param ... arguments to be passed to or from other methods.
 #' 
 #' @examples
-#' mod <- modlib("1005")
-#' out <- mrgsim_ds(mod, events = ev(amt = 100))
+#' mod <- mrgsolve::house()
+#' out <- mrgsim_ds(mod, events = mrgsolve::ev(amt = 100))
 #' 
 #' dim(out)
 #' head(out)

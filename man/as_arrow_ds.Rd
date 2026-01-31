@@ -7,7 +7,7 @@
 as_arrow_ds(x, ...)
 }
 \arguments{
-\item{x}{an mrgsimsds object.}
+\item{x}{an mrgsimsds object or a list of mrgsimsds objects.}
 
 \item{...}{not used.}
 }
