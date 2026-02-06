@@ -62,7 +62,10 @@ as_mrgsim_ds <- function(x, file = tempfile(), verbose = FALSE) {
 #' An object with class `mrgsimsds`.
 #' 
 #' @export
-mrgsim_ds <- function(x,  ..., file = tempfile(), tag = list(), 
+mrgsim_ds <- function(x,  ..., 
+                      file = temp_file(), 
+                      path = tempdir(), 
+                      tag = list(), 
                       verbose = FALSE) {
   verbose <- isTRUE(verbose)
   if(verbose) message("Simulating.")
