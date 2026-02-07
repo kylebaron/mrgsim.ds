@@ -1,4 +1,3 @@
-
 #' Refresh the arrow dataset pointers.
 #' 
 #' Pointers to arrow data sets will be invalid when 
@@ -26,6 +25,7 @@ refresh_ds <- function(x, ...) UseMethod("refresh_ds")
 #' @rdname refresh_ds
 #' @export
 refresh_ds.mrgsimsds <- function(x, ...) {
+  files_exist(x, fatal = TRUE)
   x$ds <- open_dataset(x$files)
   x$dim <- dim(x$ds)
   x$pid <- Sys.getpid()

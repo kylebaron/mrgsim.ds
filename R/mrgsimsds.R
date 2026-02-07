@@ -23,6 +23,9 @@ as_mrgsim_ds <- function(x, file = temp_file(x), verbose = FALSE) {
   verbose <- isTRUE(verbose)
   
   if(verbose) message("Writing to dataset.")
+  if(!dir.exists(dirname(file))) {
+    dir.create(dirname(file), recursive = TRUE)  
+  }
   write_parquet(x = x@data, sink = file)
   
   if(verbose) message("Wrapping up.")
@@ -63,10 +66,14 @@ as_mrgsim_ds <- function(x, file = temp_file(x), verbose = FALSE) {
 #' 
 #' @export
 mrgsim_ds <- function(x,  ..., 
+                      label = NULL, 
                       file = temp_file(x),
                       tag = list(), 
                       verbose = FALSE) {
   verbose <- isTRUE(verbose)
+  if(is.character(label)) {
+    file <- file.path(tempdir(), file_name_ds(label))
+  }
   if(verbose) message("Simulating.")
   out <- mrgsim(x, output = NULL, ...)
   if(is.list(tag) && length(tag)) {

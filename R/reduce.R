@@ -51,6 +51,7 @@ simlist_reduce_ok <- function(x) {
 reduce_ds <- function(x, ...) UseMethod("reduce_ds")
 #' @export
 reduce_ds.mrgsimsds <- function(x, ...) {
+  files_exist(x, fatal = TRUE)
   x <- safe_ds(x)
   x
 }
@@ -59,8 +60,9 @@ reduce_ds.list <- function(x, ...) {
   simlist_reduce_ok(x)
   files <- simlist_files(x)
   x <- x[[1]]
-  x$ds <- open_dataset(sources = files)
-  x$files <- x$ds$files
+  x$files <- files
+  files_exist(x, fatal = TRUE)
+  x$ds <- open_dataset(sources = x$files)
   x$dim <- dim(x$ds)
   x$pid <- Sys.getpid()
   class(x) <- c("mrgsimsds", "list")

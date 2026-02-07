@@ -1,12 +1,27 @@
 total_size <- function(files) {
   size <- vapply(files, FUN = file.size, FUN.VALUE = 1.0)
   if(any(is.na(size))) {
-    abort("file(s) backing this object do not exist.")  
+    abort(
+      "file(s) backing this object do not exist.", 
+      call = caller_env()
+    )  
   }
   size <- sum(size)
   class(size) <- "object_size"
   size <- format(size, units = "auto")
   size
+}
+
+files_exist <- function(x, fatal = TRUE) {
+  ans <- all(file.exists(x$files))
+  if(!isTRUE(fatal)) return(ans)
+  if(!ans) {
+    abort(
+      "file(s) backing this object do not exist.", 
+      call = caller_env()
+    )    
+  }
+  return(invisible(ans))
 }
 
 valid_ds <- function(x) {
@@ -86,9 +101,13 @@ get_output_ds <- function(x) {
   ans
 }
 
-#' @export
-random_file <- function(ext = ".parquet") {
-  basename(tempfile(pattern = "mrgsims-ds-", fileext = ext))  
+file_name_ds <- function(base = NULL, ext = ".parquet") {
+  if(is.character(base)) {
+    file <- paste0("mrgsims-ds-", base, ext)
+  } else {
+    file <- basename(tempfile(pattern = "mrgsims-ds-", fileext = ext))    
+  }
+  return(file)
 }
 
 #' @export
@@ -98,5 +117,5 @@ temp_file <- function(x = NULL) {
   } else {
     path <- tempdir()
   }
-  file.path(path, random_file())
+  file.path(path, file_name_ds())
 }
