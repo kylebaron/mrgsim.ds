@@ -17,5 +17,5 @@ After calling \code{modlib()}, the model object is passed through either
 \code{\link[=set_output_ds]{set_output_ds()}} or \code{\link[=set_temp_ds]{set_temp_ds()}}.
 }
 \seealso{
-\code{\link[=mread_ds]{mread_ds()}}, \code{\link[=mcode_ds]{mcode_ds()}}.
+\code{\link[=mread_ds]{mread_ds()}}, \code{\link[=mcode_ds]{mcode_ds()}}, \code{\link[=house_ds]{house_ds()}}.
 }

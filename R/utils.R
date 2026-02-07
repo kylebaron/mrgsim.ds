@@ -18,17 +18,25 @@ is_mrgsimsds <- function(x) {
 }
 
 # Formatter from the scales package
-format_big <- label_number(
+format_big <- scales::label_number(
   accuracy = 0.1, 
-  scale_cut = cut_short_scale()
+  scale_cut = scales::cut_short_scale()
 )
 
-
+#' Set default temporary output directory
+#' 
+#' @param x a model object. 
+#' 
 #' @export
 set_temp_ds <- function(x) {
   set_output_ds(x, tempdir()) 
 }
 
+#' Set default output directory
+#' 
+#' @param x a model object. 
+#' @param output_dir path to output directory. 
+#' 
 #' @export
 set_output_ds <- function(x, output_dir) {
   assign("mrgsim.ds_output_dir", output_dir, x@envir)

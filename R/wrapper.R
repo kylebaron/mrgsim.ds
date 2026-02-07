@@ -8,7 +8,7 @@
 #' After calling `mcode()`, the model object is passed through either
 #' [set_output_ds()] or [set_temp_ds()].
 #' 
-#' @seealso [mcode_ds()], [modlib_ds()].
+#' @seealso [mcode_ds()], [modlib_ds()], [house_ds()].
 #' 
 #' @export
 mread_ds <- function(..., output_dir = NULL) {
@@ -31,7 +31,7 @@ mread_ds <- function(..., output_dir = NULL) {
 #' After calling `mcode()`, the model object is passed through either
 #' [set_output_ds()] or [set_temp_ds()].
 #' 
-#' @seealso [mread_ds()], [modlib_ds()].
+#' @seealso [mread_ds()], [modlib_ds()], [house_ds()].
 #' 
 #' @export
 mcode_ds <- function(..., output_dir = NULL) {
@@ -54,11 +54,34 @@ mcode_ds <- function(..., output_dir = NULL) {
 #' After calling `modlib()`, the model object is passed through either
 #' [set_output_ds()] or [set_temp_ds()].
 #' 
-#' @seealso [mread_ds()], [mcode_ds()].
+#' @seealso [mread_ds()], [mcode_ds()], [house_ds()].
 #' 
 #' @export
 modlib_ds <- function(..., output_dir = NULL) {
   x <- modlib(...)
+  if(is.character(output_dir)) {
+    x <- set_output_ds(x, output_dir)  
+  } else {
+    x <- set_temp_ds(x)  
+  }
+  x
+}
+
+#' Return a pre-compiled, PK/PD model for Arrow-backed simulation
+#' 
+#' This is a very-light wrapper around [mrgsolve::house()].
+#' 
+#' @param ... passed to [mrgsolve::house()].
+#' 
+#' @details
+#' After calling `house()`, the model object is passed through either
+#' [set_output_ds()] or [set_temp_ds()].
+#' 
+#' @seealso [mcode_ds()], [mread_ds()], [mcode_ds()].
+#' 
+#' @export
+house_ds <- function(..., output_dir = NULL) {
+  x <- house(...)
   if(is.character(output_dir)) {
     x <- set_output_ds(x, output_dir)  
   } else {

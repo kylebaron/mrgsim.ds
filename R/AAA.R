@@ -6,7 +6,7 @@
 #' @importFrom scales label_number cut_short_scale
 #' @importFrom glue glue
 #' @importFrom mrgsolve mrgsim ev ev_expand house ev
-#' @importFrom mrgsolve mread mcode modlib
+#' @importFrom mrgsolve mread mcode modlib house
 #' @importFrom methods new
 NULL
 
