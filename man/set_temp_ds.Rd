@@ -2,13 +2,24 @@
 % Please edit documentation in R/utils.R
 \name{set_temp_ds}
 \alias{set_temp_ds}
-\title{Set default temporary output directory}
+\alias{get_temp_ds}
+\title{Set or get default temporary output directory}
 \usage{
 set_temp_ds(x)
+
+get_temp_ds(x)
 }
 \arguments{
 \item{x}{a model object.}
 }
 \description{
-Set default temporary output directory
+Set or get default temporary output directory
+}
+\examples{
+mod <- mrgsolve::house()
+
+mod <- set_temp_ds(mod)
+
+get_temp_ds(mod)
+
 }

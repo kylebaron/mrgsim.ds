@@ -1,3 +1,14 @@
+total_size <- function(files) {
+  size <- vapply(files, FUN = file.size, FUN.VALUE = 1.0)
+  if(any(is.na(size))) {
+    abort("file(s) backing this object do not exist.")  
+  }
+  size <- sum(size)
+  class(size) <- "object_size"
+  size <- format(size, units = "auto")
+  size
+}
+
 valid_ds <- function(x) {
   !identical(x$ds$pointer(), new("externalptr"))  
 }
@@ -12,7 +23,6 @@ safe_ds <- function(x) {
 #' @param x object to check. 
 #' 
 #' @export
-#' @md
 is_mrgsimsds <- function(x) {
   inherits(x, "mrgsimsds")  
 }
@@ -23,19 +33,41 @@ format_big <- scales::label_number(
   scale_cut = scales::cut_short_scale()
 )
 
-#' Set default temporary output directory
+#' Set or get default temporary output directory
 #' 
 #' @param x a model object. 
+#' 
+#' @examples
+#' mod <- mrgsolve::house()
+#' 
+#' mod <- set_temp_ds(mod)
+#' 
+#' get_temp_ds(mod)
 #' 
 #' @export
 set_temp_ds <- function(x) {
   set_output_ds(x, tempdir()) 
 }
+#' @name get_temp_ds
+#' @rdname set_temp_ds
+#' @export
+get_temp_ds <- function(x) {
+  get_output_ds(x)
+}
 
-#' Set default output directory
+#' Set or get default output directory
 #' 
 #' @param x a model object. 
 #' @param output_dir path to output directory. 
+#' 
+#' @examples
+#' mod <- mrgsolve::house()
+#' 
+#' path <- file.path(tempfile(), "foo")
+#' 
+#' mod <- set_output_ds(mod, path)
+#' 
+#' get_output_ds(mod)
 #' 
 #' @export
 set_output_ds <- function(x, output_dir) {
@@ -43,11 +75,8 @@ set_output_ds <- function(x, output_dir) {
   invisible(x)
 }
 
-#' @export
-get_temp_ds <- function(x) {
-  get_output_ds(x)
-}
-
+#' @name get_output_ds
+#' @rdname get_output_ds
 #' @export
 get_output_ds <- function(x) {
   ans <- x@envir$mrgsim.ds_output_dir 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/wrapper.R
 \name{modlib_ds}
 \alias{modlib_ds}
-\title{Internal model library for 'Arrow'-backed simulation outputs}
+\title{Internal model library for 'Apache' 'Arrow'-backed simulation outputs}
 \usage{
 modlib_ds(..., output_dir = NULL)
 }

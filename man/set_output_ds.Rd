@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{set_output_ds}
 \alias{set_output_ds}
-\title{Set default output directory}
+\title{Set or get default output directory}
 \usage{
 set_output_ds(x, output_dir)
 }
@@ -12,5 +12,15 @@ set_output_ds(x, output_dir)
 \item{output_dir}{path to output directory.}
 }
 \description{
-Set default output directory
+Set or get default output directory
+}
+\examples{
+mod <- mrgsolve::house()
+
+path <- file.path(tempfile(), "foo")
+
+mod <- set_output_ds(mod, path)
+
+get_output_ds(mod)
+
 }
