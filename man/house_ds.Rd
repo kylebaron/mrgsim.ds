@@ -2,7 +2,8 @@
 % Please edit documentation in R/wrapper.R
 \name{house_ds}
 \alias{house_ds}
-\title{Return a pre-compiled, PK/PD model for Arrow-backed simulation}
+\title{Return a pre-compiled, PK/PD model for 'Arrow'-backed simulation
+outputs}
 \usage{
 house_ds(..., output_dir = NULL)
 }

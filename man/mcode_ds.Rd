@@ -2,7 +2,8 @@
 % Please edit documentation in R/wrapper.R
 \name{mcode_ds}
 \alias{mcode_ds}
-\title{Write, compile, and load model code for Arrow-backed simulation}
+\title{Write, compile, and load model code for 'Arrow'-backed simulation
+outputs}
 \usage{
 mcode_ds(..., output_dir = NULL)
 }

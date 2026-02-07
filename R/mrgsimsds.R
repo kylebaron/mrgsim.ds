@@ -1,5 +1,5 @@
 
-#' Coerce an mrgsims object to arrow-backed mrgsimsds object
+#' Coerce an mrgsims object to 'Arrow'-backed mrgsimsds object
 #' 
 #' @param x an mrgsims object. 
 #' @param file path to file where output will be written using 

@@ -2,7 +2,8 @@
 % Please edit documentation in R/wrapper.R
 \name{mread_ds}
 \alias{mread_ds}
-\title{Read a model specification file for Arrow-backed simulation}
+\title{Read a model specification file for 'Arrow'-backed simulation
+outputs}
 \usage{
 mread_ds(..., output_dir = NULL)
 }

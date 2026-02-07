@@ -2,7 +2,7 @@
 % Please edit documentation in R/mrgsimsds.R
 \name{as_mrgsim_ds}
 \alias{as_mrgsim_ds}
-\title{Coerce an mrgsims object to arrow-backed mrgsimsds object}
+\title{Coerce an mrgsims object to 'Arrow'-backed mrgsimsds object}
 \usage{
 as_mrgsim_ds(x, file = temp_file(x), verbose = FALSE)
 }
@@ -18,7 +18,7 @@ as_mrgsim_ds(x, file = temp_file(x), verbose = FALSE)
 An object with class \code{mrgsimsds}.
 }
 \description{
-Coerce an mrgsims object to arrow-backed mrgsimsds object
+Coerce an mrgsims object to 'Arrow'-backed mrgsimsds object
 }
 \examples{
 mod <- mrgsolve::house()

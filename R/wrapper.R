@@ -1,4 +1,5 @@
-#' Read a model specification file for Arrow-backed simulation
+#' Read a model specification file for 'Arrow'-backed simulation
+#' outputs
 #' 
 #' This is a very-light wrapper around [mrgsolve::mread()].
 #' 
@@ -21,7 +22,8 @@ mread_ds <- function(..., output_dir = NULL) {
   x
 }
 
-#' Write, compile, and load model code for Arrow-backed simulation
+#' Write, compile, and load model code for 'Arrow'-backed simulation
+#' outputs
 #' 
 #' This is a very-light wrapper around [mrgsolve::mcode()]. 
 #' 
@@ -44,7 +46,7 @@ mcode_ds <- function(..., output_dir = NULL) {
   x  
 }
 
-#' Internal model library for Arrow-backed simulation
+#' Internal model library for 'Arrow'-backed simulation outputs
 #' 
 #' This is a very-light wrapper around [mrgsolve::modlib()].
 #' 
@@ -67,7 +69,8 @@ modlib_ds <- function(..., output_dir = NULL) {
   x
 }
 
-#' Return a pre-compiled, PK/PD model for Arrow-backed simulation
+#' Return a pre-compiled, PK/PD model for 'Arrow'-backed simulation
+#' outputs
 #' 
 #' This is a very-light wrapper around [mrgsolve::house()].
 #' 
