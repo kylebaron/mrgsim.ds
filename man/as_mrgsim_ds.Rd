@@ -4,7 +4,7 @@
 \alias{as_mrgsim_ds}
 \title{Coerce an mrgsims object to arrow-backed mrgsimsds object}
 \usage{
-as_mrgsim_ds(x, file = tempfile(), verbose = FALSE)
+as_mrgsim_ds(x, file = temp_file(x), verbose = FALSE)
 }
 \arguments{
 \item{x}{an mrgsims object.}

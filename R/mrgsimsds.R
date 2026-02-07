@@ -18,7 +18,7 @@
 #' @seealso [mrgsim_ds()].
 #' 
 #' @export
-as_mrgsim_ds <- function(x, file = tempfile(), verbose = FALSE) {
+as_mrgsim_ds <- function(x, file = temp_file(x), verbose = FALSE) {
 
   verbose <- isTRUE(verbose)
   
@@ -63,8 +63,7 @@ as_mrgsim_ds <- function(x, file = tempfile(), verbose = FALSE) {
 #' 
 #' @export
 mrgsim_ds <- function(x,  ..., 
-                      file = temp_file(), 
-                      path = tempdir(), 
+                      file = temp_file(x),
                       tag = list(), 
                       verbose = FALSE) {
   verbose <- isTRUE(verbose)

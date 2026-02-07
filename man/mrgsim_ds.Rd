@@ -4,14 +4,7 @@
 \alias{mrgsim_ds}
 \title{Simulate from a model object, returning an arrow-backed output object}
 \usage{
-mrgsim_ds(
-  x,
-  ...,
-  file = temp_file(),
-  path = tempdir(),
-  tag = list(),
-  verbose = FALSE
-)
+mrgsim_ds(x, ..., file = temp_file(x), tag = list(), verbose = FALSE)
 }
 \arguments{
 \item{x}{a model object.}
