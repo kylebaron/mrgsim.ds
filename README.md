@@ -29,7 +29,7 @@ library(dplyr)
 
 mod <- modlib_ds("popex", end = 240, outvars = c("IPRED,CL"))
 
-data <- expand.ev(amt = 100, ii = 24, total = 6, ID = 1:1000)
+data <- expand.ev(amt = 100, ii = 24, total = 6, ID = 1:3000)
 ```
 
 mrgsim.ds provides a new `mrgsim()` variant - `mrgsim_ds()`:
@@ -39,17 +39,17 @@ out <- mrgsim_ds(mod, data)
 
 out
 . Model: popex
-. Dim  : 482.0K 4
-. Files: 1 [4.1 Mb]
-.     ID time        CL    IPRED
-. 1:   1  0.0 0.5023461 0.000000
-. 2:   1  0.0 0.5023461 0.000000
-. 3:   1  0.5 0.5023461 1.761039
-. 4:   1  1.0 0.5023461 2.736933
-. 5:   1  1.5 0.5023461 3.269940
-. 6:   1  2.0 0.5023461 3.553198
-. 7:   1  2.5 0.5023461 3.695697
-. 8:   1  3.0 0.5023461 3.758940
+. Dim  : 1.4M 4
+. Files: 1 [11.9 Mb]
+.     ID time       CL    IPRED
+. 1:   1  0.0 1.953717 0.000000
+. 2:   1  0.0 1.953717 0.000000
+. 3:   1  0.5 1.953717 1.419314
+. 4:   1  1.0 1.953717 2.340898
+. 5:   1  1.5 1.953717 2.919591
+. 6:   1  2.0 1.953717 3.262844
+. 7:   1  2.5 1.953717 3.445188
+. 8:   1  3.0 1.953717 3.518285
 ```
 
 The output object doesn’t actually carry the simulated data, but rather
@@ -57,7 +57,7 @@ a pointer to the data in parquet files on your disk.
 
 ``` r
 out$files
-. [1] "/private/var/folders/zv/v6tkdhrn1_bb1ndrc0c0j31w0000gp/T/RtmpLImC8l/mrgsims-ds-871d3dccd5ee.parquet"
+. [1] "/private/var/folders/zv/v6tkdhrn1_bb1ndrc0c0j31w0000gp/T/Rtmpb0nTjd/mrgsims-ds-899f7763ffb8.parquet"
 ```
 
 This means there is almost nothing inside the object itself
@@ -66,7 +66,7 @@ This means there is almost nothing inside the object itself
 lobstr:::obj_size(out)
 . 292.09 kB
 dim(out)
-. [1] 482000      4
+. [1] 1446000       4
 ```
 
 What if we did the same simulation with regular `mrgsim()`?
@@ -75,9 +75,9 @@ What if we did the same simulation with regular `mrgsim()`?
 x <- mrgsim(mod, data)
 
 lobstr::obj_size(x)
-. 15.45 MB
+. 46.30 MB
 dim(x)
-. [1] 482000      4
+. [1] 1446000       4
 ```
 
 The object is very light weight despite carrying the same data.
@@ -96,24 +96,24 @@ head(out)
 . # A tibble: 6 × 4
 .      ID  time    CL IPRED
 .   <dbl> <dbl> <dbl> <dbl>
-. 1     1   0   0.502  0   
-. 2     1   0   0.502  0   
-. 3     1   0.5 0.502  1.76
-. 4     1   1   0.502  2.74
-. 5     1   1.5 0.502  3.27
-. 6     1   2   0.502  3.55
+. 1     1   0    1.95  0   
+. 2     1   0    1.95  0   
+. 3     1   0.5  1.95  1.42
+. 4     1   1    1.95  2.34
+. 5     1   1.5  1.95  2.92
+. 6     1   2    1.95  3.26
 tail(out)
 . # A tibble: 6 × 4
-.      ID  time    CL  IPRED
-.   <dbl> <dbl> <dbl>  <dbl>
-. 1  1000  238.  1.29 0.0796
-. 2  1000  238   1.29 0.0782
-. 3  1000  238.  1.29 0.0769
-. 4  1000  239   1.29 0.0755
-. 5  1000  240.  1.29 0.0742
-. 6  1000  240   1.29 0.0729
+.      ID  time    CL IPRED
+.   <dbl> <dbl> <dbl> <dbl>
+. 1  3000  238. 0.493 0.170
+. 2  3000  238  0.493 0.167
+. 3  3000  238. 0.493 0.164
+. 4  3000  239  0.493 0.161
+. 5  3000  240. 0.493 0.158
+. 6  3000  240  0.493 0.155
 dim(out)
-. [1] 482000      4
+. [1] 1446000       4
 ```
 
 This includes coercing to different types of objects. We can get the
@@ -121,20 +121,20 @@ usual R data frames
 
 ``` r
 as_tibble(out)
-. # A tibble: 482,000 × 4
+. # A tibble: 1,446,000 × 4
 .       ID  time    CL IPRED
 .    <dbl> <dbl> <dbl> <dbl>
-.  1     1   0   0.502  0   
-.  2     1   0   0.502  0   
-.  3     1   0.5 0.502  1.76
-.  4     1   1   0.502  2.74
-.  5     1   1.5 0.502  3.27
-.  6     1   2   0.502  3.55
-.  7     1   2.5 0.502  3.70
-.  8     1   3   0.502  3.76
-.  9     1   3.5 0.502  3.78
-. 10     1   4   0.502  3.77
-. # ℹ 481,990 more rows
+.  1     1   0    1.95  0   
+.  2     1   0    1.95  0   
+.  3     1   0.5  1.95  1.42
+.  4     1   1    1.95  2.34
+.  5     1   1.5  1.95  2.92
+.  6     1   2    1.95  3.26
+.  7     1   2.5  1.95  3.45
+.  8     1   3    1.95  3.52
+.  9     1   3.5  1.95  3.52
+. 10     1   4    1.95  3.47
+. # ℹ 1,445,990 more rows
 ```
 
 Or stay in the arrow ecosystem
@@ -174,14 +174,14 @@ collect(dd)
 .    <dbl> <dbl>
 .  1   0    0   
 .  2   0.5  1.10
-.  3   1    1.79
-.  4   1.5  2.26
-.  5   2    2.57
-.  6   2.5  2.79
+.  3   1    1.80
+.  4   1.5  2.27
+.  5   2    2.58
+.  6   2.5  2.80
 .  7   3    2.94
 .  8   3.5  3.04
-.  9  16.5  2.21
-. 10  17.5  2.13
+.  9  16.5  2.19
+. 10  17.5  2.11
 . # ℹ 471 more rows
 ```
 
@@ -194,37 +194,35 @@ library(future.apply)
 
 plan(multisession, workers = 5L)
 
-out2 <- future_lapply(1:10, \(x) {
-  mrgsim_ds(mod, data)  
-}, future.seed = TRUE)
+out2 <- future_lapply(1:10, \(x) { mrgsim_ds(mod, data) }, future.seed = TRUE)
 
 out2 <- reduce_ds(out2)
 
 out2
 . Model: popex
-. Dim  : 4.8M 4
-. Files: 10 [40.7 Mb]
-.     ID time        CL     IPRED
-. 1:   1  0.0 0.5439483 0.0000000
-. 2:   1  0.0 0.5439483 0.0000000
-. 3:   1  0.5 0.5439483 0.5103261
-. 4:   1  1.0 0.5439483 0.9546902
-. 5:   1  1.5 0.5439483 1.3409097
-. 6:   1  2.0 0.5439483 1.6758834
-. 7:   1  2.5 0.5439483 1.9656988
-. 8:   1  3.0 0.5439483 2.2157278
+. Dim  : 14.5M 4
+. Files: 10 [119.1 Mb]
+.     ID time        CL    IPRED
+. 1:   1  0.0 0.4453814 0.000000
+. 2:   1  0.0 0.4453814 0.000000
+. 3:   1  0.5 0.4453814 1.205096
+. 4:   1  1.0 0.4453814 2.088543
+. 5:   1  1.5 0.4453814 2.732958
+. 6:   1  2.0 0.4453814 3.199767
+. 7:   1  2.5 0.4453814 3.534646
+. 8:   1  3.0 0.4453814 3.771554
 ```
 
 All arrow files are stored in the tempdir in parquet format
 
 ``` r
 list_temp()
-. 11 files [44.7 Mb]
-. - mrgsims-ds-871d3dccd5ee.parquet
-. - mrgsims-ds-875a32394d6c.parquet
+. 11 files [131.1 Mb]
+. - mrgsims-ds-899f7763ffb8.parquet
+. - mrgsims-ds-89dc2697d7f6.parquet
 .    ...
-. - mrgsims-ds-875e61e66c22.parquet
-. - mrgsims-ds-875e64740858.parquet
+. - mrgsims-ds-89e01f93072b.parquet
+. - mrgsims-ds-89e0580a9845.parquet
 ```
 
 This directory is eventually removed when the R session ends. Tools are
@@ -235,12 +233,12 @@ retain_temp(out2)
 . Discarding 1 files.
 
 list_temp()
-. 10 files [40.7 Mb]
-. - mrgsims-ds-875a32394d6c.parquet
-. - mrgsims-ds-875ad75a262.parquet
+. 10 files [119.1 Mb]
+. - mrgsims-ds-89dc2697d7f6.parquet
+. - mrgsims-ds-89dc332687b6.parquet
 .    ...
-. - mrgsims-ds-875e61e66c22.parquet
-. - mrgsims-ds-875e64740858.parquet
+. - mrgsims-ds-89e01f93072b.parquet
+. - mrgsims-ds-89e0580a9845.parquet
 ```
 
 We also put a finalizer on each object so that, when it goes out of
@@ -254,9 +252,7 @@ plan(multisession, workers = 5L)
 
 out1 <- mrgsim_ds(mod, data) %>% rename_ds("out1")
 
-out2 <- future_lapply(1:10, \(x) {
-  mrgsim_ds(mod, data)  
-}, future.seed = TRUE)
+out2 <- future_lapply(1:10, \(x) { mrgsim_ds(mod, data) }, future.seed = TRUE)
 
 out2 <- reduce_ds(out2) %>% rename_ds("out2")
 
@@ -265,7 +261,7 @@ out3 <- mrgsim_ds(mod, data) %>% rename_ds("out3")
 
 ``` r
 list_temp()
-. 12 files [48.8 Mb]
+. 12 files [143 Mb]
 . - mrgsims-ds-out1-0001.parquet
 . - mrgsims-ds-out2-0001.parquet
 .    ...
@@ -280,12 +276,12 @@ cleaned up.
 
 ``` r
 gc()
-.           used (Mb) gc trigger  (Mb) limit (Mb) max used  (Mb)
-. Ncells 1695952 90.6    2815062 150.4         NA  2815062 150.4
-. Vcells 7036759 53.7   14597925 111.4      16384 11090570  84.7
+.            used  (Mb) gc trigger  (Mb) limit (Mb) max used  (Mb)
+. Ncells  1695948  90.6    3059967 163.5         NA  2673065 142.8
+. Vcells 14761732 112.7   30249854 230.8      16384 26543820 202.6
 
 list_temp()
-. 2 files [8.1 Mb]
+. 2 files [23.8 Mb]
 . - mrgsims-ds-out1-0001.parquet
 . - mrgsims-ds-out3-0001.parquet
 ```

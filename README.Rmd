@@ -131,9 +131,7 @@ library(future.apply)
 
 plan(multisession, workers = 5L)
 
-out2 <- future_lapply(1:10, \(x) {
-  mrgsim_ds(mod, data)  
-}, future.seed = TRUE)
+out2 <- future_lapply(1:10, \(x) { mrgsim_ds(mod, data) }, future.seed = TRUE)
 
 out2 <- reduce_ds(out2)
 
@@ -167,9 +165,7 @@ plan(multisession, workers = 5L)
 
 out1 <- mrgsim_ds(mod, data) %>% rename_ds("out1")
 
-out2 <- future_lapply(1:10, \(x) {
-  mrgsim_ds(mod, data)  
-}, future.seed = TRUE)
+out2 <- future_lapply(1:10, \(x) { mrgsim_ds(mod, data) }, future.seed = TRUE)
 
 out2 <- reduce_ds(out2) %>% rename_ds("out2")
 
