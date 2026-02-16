@@ -64,6 +64,7 @@ This means there is almost nothing inside the object itself
 
 ```{r}
 lobstr:::obj_size(out)
+
 dim(out)
 ```
 
@@ -73,6 +74,7 @@ What if we did the same simulation with regular `mrgsim()`?
 x <- mrgsim(mod, data)
 
 lobstr::obj_size(x)
+
 dim(x)
 ```
 
@@ -87,7 +89,9 @@ object.
 ```{r plot_head_tail_dim, fig.height = 4}
 plot(out, nid = 12)
 head(out)
+
 tail(out)
+
 dim(out)
 ```
 
