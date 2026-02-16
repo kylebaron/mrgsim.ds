@@ -8,7 +8,8 @@
 #' @importFrom scales label_number cut_short_scale
 #' @importFrom glue glue
 #' @importFrom mrgsolve mrgsim ev ev_expand house ev
-#' @importFrom mrgsolve mread mcode modlib house
+#' @importFrom mrgsolve mread mcode mread_cache modlib house
+#' @importFrom mrgsolve plot_sims
 #' @importFrom methods new
 #' @importFrom fs file_move dir_exists dir_create file_delete
 #' @importFrom stats as.formula

@@ -9,11 +9,12 @@ is_mrgsimsds <- function(x) {
 }
 
 # Formatter from the scales package
-format_big <- scales::label_number(
-  accuracy = 0.1, 
-  scale_cut = scales::cut_short_scale()
-)
-
+format_big <- function() {
+  scales::label_number(
+    accuracy = 0.1, 
+    scale_cut = scales::cut_short_scale()
+  )
+}
 #' Save information about the R process that loded a model
 #' 
 #' @param x a model object. 

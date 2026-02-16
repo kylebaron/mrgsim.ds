@@ -10,14 +10,14 @@ move_ds(x, path)
 write_ds(x, sink, ...)
 }
 \arguments{
+\item{x}{an mrgsimsds object.}
+
 \item{path}{the new directory location for backing files.}
 
 \item{sink}{the complete path (including file name) for a single parquet
 file containing all simulated data.}
 
 \item{...}{passed to \code{\link[arrow:write_parquet]{arrow::write_parquet()}}.}
-
-\item{an}{mrgsimsds object.}
 }
 \value{
 Both functions return the mrgsimsds object; it is critical to capture the

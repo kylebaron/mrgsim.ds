@@ -8,3 +8,4 @@ mrgsim.ds*.tar.gz
 .Ruserdata
 .DS_Store
 docs
+mrgsim.ds.Rcheck

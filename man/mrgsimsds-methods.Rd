@@ -34,6 +34,14 @@
 
 \item{y}{a formula for plotting simulated data; if not provided, all
 columns will be plotted.}
+
+\item{nid}{number of subjects to plot.}
+
+\item{batch_size}{size of batch when reading data for plot method.}
+
+\item{logy}{if \code{TRUE}, plot data with log y-axis.}
+
+\item{.dots}{a list of items to pass to \code{\link[mrgsolve:plot_sims]{mrgsolve::plot_sims()}}.}
 }
 \description{
 Interact with mrgsimsds objects

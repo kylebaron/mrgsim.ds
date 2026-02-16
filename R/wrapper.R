@@ -23,7 +23,7 @@ mread_ds <- function(...) {
 #' @export
 mcode_ds <- function(...) {
   x <- mcode(...)
-  saved_process_info(x)
+  save_process_info(x)
 }
 
 #' @rdname mread_ds

@@ -5,8 +5,8 @@ NEWS\.md
 ^\.Rproj\.user$
 test\.R
 Makefile
-^paquet_.*\.tar\.gz
-paquet\.Rcheck
+^mrgsim.ds_.*\.tar\.gz
+mrgsim\.ds\.Rcheck
 \.Rhistory
 README\.md
 README\.Rmd
@@ -15,7 +15,6 @@ man/figures
 docs
 ^.*\.tar\.gz$
 ^\.github$
-
 ^README\.Rmd$
 ^_pkgdown\.yml$
 ^docs$

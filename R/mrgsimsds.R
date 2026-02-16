@@ -108,6 +108,10 @@ mrgsim_ds <- function(x,  ..., id = NULL, tags = list(), verbose = FALSE) {
 #' @param y a formula for plotting simulated data; if not provided, all 
 #' columns will be plotted. 
 #' @param n number of rows to return.
+#' @param nid number of subjects to plot.
+#' @param batch_size size of batch when reading data for plot method.
+#' @param logy if `TRUE`, plot data with log y-axis.
+#' @param .dots a list of items to pass to [mrgsolve::plot_sims()].
 #' @param ... arguments to be passed to or from other methods.
 #' 
 #' @details

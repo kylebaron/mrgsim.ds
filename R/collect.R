@@ -2,6 +2,7 @@
 #' 
 #' @param x an mrgsimsds object. 
 #' @param ... passed to [arrow::as_arrow_table()]. 
+#' @param schema passed to [arrow::as_arrow_table()].
 #' 
 #' @examples
 #' mod <- house_ds(end = 5)
@@ -107,6 +108,6 @@ as_duckdb_ds.mrgsimsds <- function(x, ...) {
   to_duckdb(as_arrow_ds(x, ...))  
 }
 #' @export
-as_duckb_ds.list <- function(x, ...) {
+as_duckdb_ds.list <- function(x, ...) {
   to_duckdb(as_arrow_ds(x, ...))  
 }

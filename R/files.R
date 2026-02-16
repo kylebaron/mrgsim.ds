@@ -78,7 +78,7 @@ list_temp <- function() {
     message("No files in tempdir.")
     return(invisible(temp))
   }
-  size <- mrgsim.ds:::total_size(temp)
+  size <- total_size(temp)
   if(length(temp) < 6) {
     show <- paste0("- ", basename(temp))
   } else {
@@ -98,7 +98,7 @@ list_temp <- function() {
 retain_temp <- function(...) {
   x <- list(...)
   x <- lapply(x, reduce_ds)
-  cl <- mrgsim.ds:::simlist_classes(x)
+  cl <- simlist_classes(x)
   x <- x[cl]
   temp <- list.files(tempdir(), pattern = .global$file.re, full.names = TRUE)
   files <- sapply(x, function(xx) xx$files)
@@ -125,7 +125,7 @@ purge_temp <- function() {
 #' move the files, but also condenses all simulation output in to a single 
 #' parquet file if multiple files are backing the mrgsimsds object.
 #' 
-#' @param an mrgsimsds object. 
+#' @param x an mrgsimsds object. 
 #' @param path the new directory location for backing files.
 #' @param sink the complete path (including file name) for a single parquet
 #' file containing all simulated data.

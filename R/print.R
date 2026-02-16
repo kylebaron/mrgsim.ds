@@ -8,7 +8,7 @@ print.mrgsimsds <- function(x, n = 8, ...) {
     dm1 <- format(dm1, scientific = FALSE,  big.mark = ',')
   }
   if(dm1 > 99999) {
-    dm1 <- format_big(dm1)  
+    dm1 <- format_big()(dm1)  
   }
   message("Model: ", x$mod@model)
   message("Dim  : ", dm1, " ", dm[2L])

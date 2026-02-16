@@ -14,7 +14,7 @@ License: GPL (>=2)
 Depends: 
   R (>= 4.1), 
   mrgsolve
-Imports: arrow, rlang, dplyr, scales, glue, methods, fs
+Imports: arrow, rlang, dplyr, scales, glue, methods, fs, tibble
 Suggests: testthat, knitr, rmarkdown
 Encoding: UTF-8
 URL: https://github.com/kylebaron/mrgsim.ds
