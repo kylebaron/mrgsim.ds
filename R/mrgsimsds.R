@@ -108,6 +108,29 @@ mrgsim_ds <- function(x,  ..., id = NULL, tags = list(), verbose = FALSE,
   ans
 }
 
+#' Copy an mrgsims object
+#' 
+#' @param x the object to copy.
+#' 
+#' @return
+#' An mrgsims object with identical fields, but updated pid. 
+#' 
+#' @export
+copy_ds <- function(x) {
+  names_in <- names(x)
+  ans <- new.env(parent = emptyenv())
+  ans$ds <- open_dataset(x$files)
+  ans$files <- ans$ds$files
+  ans$mod <- x$mod
+  ans$dim <- x$dim
+  ans$head <- x$head
+  ans$names <- x$names
+  ans$pid <- Sys.getpid()
+  ans$gc <- ans$gc
+  names_in <- names(ans)
+  stopifnot(identical(names_in, names_out))
+  ans
+}
 
 #' Interact with mrgsimsds objects
 #' 
