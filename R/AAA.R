@@ -6,7 +6,7 @@
 #' @importFrom tibble as_tibble
 #' @importFrom utils head tail
 #' @importFrom scales label_number cut_short_scale
-#' @importFrom glue glue
+#' @importFrom glue glue glue_data
 #' @importFrom mrgsolve mrgsim ev ev_expand house ev
 #' @importFrom mrgsolve mread mcode mread_cache modlib house
 #' @importFrom mrgsolve plot_sims

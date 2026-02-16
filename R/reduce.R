@@ -60,14 +60,16 @@ reduce_ds.mrgsimsds <- function(x, ...) {
 reduce_ds.list <- function(x, ...) {
   simlist_reduce_ok(x)
   files <- simlist_files(x)
-  x <- x[[1]]
-  x$files <- files
-  files_exist(x, fatal = TRUE)
-  x$ds <- open_dataset(sources = x$files)
-  x$fiels <- x$ds$files
-  x$dim <- dim(x$ds)
-  x$pid <- Sys.getpid()
-  class(x) <- c("mrgsimsds", "list")
-  x
+  ans <- x[[1]]
+  run_gc <- isTRUE(ans$gc)
+  rm(x)
+  ans$files <- files
+  files_exist(ans, fatal = TRUE)
+  ans$ds <- open_dataset(sources = ans$files)
+  ans$fiels <- ans$ds$files
+  ans$dim <- dim(ans$ds)
+  ans$pid <- Sys.getpid()
+  if(run_gc) reg.finalizer(ans, clean_up_ds)
+  class(ans) <- c("mrgsimsds", "environment")
+  ans
 }
-

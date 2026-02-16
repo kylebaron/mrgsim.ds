@@ -4,7 +4,7 @@
 \alias{as_mrgsim_ds}
 \title{Coerce an mrgsims object to 'Arrow'-backed mrgsimsds object}
 \usage{
-as_mrgsim_ds(x, id = NULL, verbose = FALSE)
+as_mrgsim_ds(x, id = NULL, verbose = FALSE, gc = TRUE)
 }
 \arguments{
 \item{x}{an mrgsims object.}
@@ -12,6 +12,9 @@ as_mrgsim_ds(x, id = NULL, verbose = FALSE)
 \item{id}{used to label output files; see details.}
 
 \item{verbose}{if \code{TRUE}, print progress information to the console.}
+
+\item{gc}{if \code{TRUE}, a finalizer function will attempt to remove files once
+the object is out of scope.}
 }
 \value{
 An object with class \code{mrgsimsds}.

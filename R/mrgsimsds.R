@@ -21,7 +21,7 @@
 #' @seealso [mrgsim_ds()].
 #' 
 #' @export
-as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE) {
+as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE, gc = TRUE) {
   
   verbose <- isTRUE(verbose)
   
@@ -39,7 +39,7 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE) {
   
   if(verbose) message("Wrapping up [3/3].")
   
-  ans <- list()
+  ans <- new.env(parent = emptyenv())
   ans$ds <- open_dataset(file)
   ans$files <- ans$ds$files
   ans$mod <- x@mod
@@ -47,10 +47,15 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE) {
   ans$head <- x@data[seq(10),]
   ans$names <- names(ans$head)
   ans$pid <- Sys.getpid()
+  ans$gc <- isTRUE(gc)
   
   rm(x)
   
-  class(ans) <- c("mrgsimsds", "list")
+  if(isTRUE(ans$gc)) {
+    reg.finalizer(ans, clean_up_ds)
+  }
+  
+  class(ans) <- c("mrgsimsds", "environment")
   
   ans
 }
@@ -66,6 +71,8 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE) {
 #' @param tags a named list of atomic data to tag (or mutate) the simulated 
 #' output.
 #' @param verbose if `TRUE`, print progress information to the console.
+#' @param gc if `TRUE`, a finalizer function will attempt to remove files once 
+#' the object is out of scope.
 #' 
 #' @examples
 #' mod <- house_ds()
@@ -84,7 +91,8 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE) {
 #' @seealso [as_mrgsim_ds()], [mrgsimsds-methods].
 #' 
 #' @export
-mrgsim_ds <- function(x,  ..., id = NULL, tags = list(), verbose = FALSE) {
+mrgsim_ds <- function(x,  ..., id = NULL, tags = list(), verbose = FALSE, 
+                      gc = TRUE) {
   verbose <- isTRUE(verbose)
   if(verbose) message("Simulating data [1/3].")
   out <- mrgsim(x, output = NULL, ...)
@@ -96,7 +104,7 @@ mrgsim_ds <- function(x,  ..., id = NULL, tags = list(), verbose = FALSE) {
       out@data[[j]] <- tags[[j]]  
     }
   }
-  ans <- as_mrgsim_ds(x = out, id = id, verbose = verbose)
+  ans <- as_mrgsim_ds(x = out, id = id, verbose = verbose, gc = gc)
   ans
 }
 

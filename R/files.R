@@ -24,6 +24,11 @@ files_exist <- function(x, fatal = TRUE) {
   return(invisible(ans))
 }
 
+clean_up_ds <- function(x) {
+  if(getOption("mrgsim.ds.gc", FALSE)) message("cleaning up ...")
+  if(x$gc) unlink(x$files, recursive = TRUE)
+}
+
 #' Create an output file name
 #' 
 #' @param id a tag used to form the file name; if not provided, a random name 
@@ -127,6 +132,8 @@ purge_temp <- function() {
 #' 
 #' @param x an mrgsimsds object. 
 #' @param path the new directory location for backing files.
+#' @param id a short name used to create data set files for the simulated 
+#' output.
 #' @param sink the complete path (including file name) for a single parquet
 #' file containing all simulated data.
 #' @param ... passed to [arrow::write_parquet()].
@@ -156,7 +163,27 @@ move_ds <- function(x, path) {
   if(!dir_exists(path)) {
     dir_create(path)  
   }
+  if(basename(path) != basename(tempdir())) {
+    x$finalize <- FALSE  
+  }
   x$files <- file_move(files, path)
+  x <- refresh_ds(x)
+  x$files <- x$ds$files
+  x
+}
+
+#' @rdname move_ds
+#' @export
+rename_ds <- function(x, id) {
+  files <- x$files
+  if(length(files) > 1) {
+    i <- seq_along(files)
+    width <- floor(log10(length(i)))+1
+    i <- formatC(i, width = width, flag = "0")
+    id <- paste0(id, "-", i)
+  }
+  new_names <- file_ds(id = id)
+  x$files <- file_move(files, file.path(dirname(files), new_names))
   x <- refresh_ds(x)
   x$files <- x$ds$files
   x
@@ -166,8 +193,9 @@ move_ds <- function(x, path) {
 #' @export
 write_ds <- function(x, sink, ...) {
   write_parquet(x$ds, sink, ...)
-  file_delete(x$ds$files)
+  unlink(x$ds$files, recursive = TRUE)
   x$files <- sink
   x <- refresh_ds(x)
+  x$finalizer <- FALSE
   x
 }

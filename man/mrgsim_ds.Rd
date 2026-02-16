@@ -4,7 +4,7 @@
 \alias{mrgsim_ds}
 \title{Simulate from a model object, returning an arrow-backed output object}
 \usage{
-mrgsim_ds(x, ..., id = NULL, tags = list(), verbose = FALSE)
+mrgsim_ds(x, ..., id = NULL, tags = list(), verbose = FALSE, gc = TRUE)
 }
 \arguments{
 \item{x}{a model object loaded through \code{\link[=mread_ds]{mread_ds()}}, \code{\link[=mcode_ds]{mcode_ds()}},
@@ -18,6 +18,9 @@ mrgsim_ds(x, ..., id = NULL, tags = list(), verbose = FALSE)
 output.}
 
 \item{verbose}{if \code{TRUE}, print progress information to the console.}
+
+\item{gc}{if \code{TRUE}, a finalizer function will attempt to remove files once
+the object is out of scope.}
 }
 \value{
 An object with class \code{mrgsimsds}.

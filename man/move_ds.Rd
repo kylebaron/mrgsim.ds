@@ -2,10 +2,13 @@
 % Please edit documentation in R/files.R
 \name{move_ds}
 \alias{move_ds}
+\alias{rename_ds}
 \alias{write_ds}
 \title{Move data set files to a new directory.}
 \usage{
 move_ds(x, path)
+
+rename_ds(x, id)
 
 write_ds(x, sink, ...)
 }
@@ -13,6 +16,9 @@ write_ds(x, sink, ...)
 \item{x}{an mrgsimsds object.}
 
 \item{path}{the new directory location for backing files.}
+
+\item{id}{a short name used to create data set files for the simulated
+output.}
 
 \item{sink}{the complete path (including file name) for a single parquet
 file containing all simulated data.}
