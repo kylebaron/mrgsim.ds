@@ -5,17 +5,13 @@
 \title{Return a pre-compiled, PK/PD model for 'Apache' 'Arrow'-backed simulation
 outputs}
 \usage{
-house_ds(..., output_dir = NULL)
+house_ds(...)
 }
 \arguments{
 \item{...}{passed to \code{\link[mrgsolve:house]{mrgsolve::house()}}.}
 }
 \description{
 This is a very-light wrapper around \code{\link[mrgsolve:house]{mrgsolve::house()}}.
-}
-\details{
-After calling \code{house()}, the model object is passed through either
-\code{\link[=set_output_ds]{set_output_ds()}} or \code{\link[=set_temp_ds]{set_temp_ds()}}.
 }
 \seealso{
 \code{\link[=mcode_ds]{mcode_ds()}}, \code{\link[=mread_ds]{mread_ds()}}, \code{\link[=mcode_ds]{mcode_ds()}}.

@@ -18,23 +18,30 @@
 #' @seealso [mrgsim_ds()].
 #' 
 #' @export
-as_mrgsim_ds <- function(x, file = temp_file(x), verbose = FALSE) {
-
+as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE) {
+  
   verbose <- isTRUE(verbose)
   
-  if(verbose) message("Writing to dataset.")
-  if(!dir.exists(dirname(file))) {
-    dir.create(dirname(file), recursive = TRUE)  
+  if(verbose) message("Writing dataset [2/3].")
+  stopifnot(mread_with_ds(x@mod))
+  
+  dir <- get_mread_tempdir(x@mod)
+  
+  file <- file.path(dir, file_name_ds(id))
+  if(grepl(" ", file)) {
+    abort("output file name cannot contain spaces.")  
   }
+  
   write_parquet(x = x@data, sink = file)
   
-  if(verbose) message("Wrapping up.")
+  if(verbose) message("Wrapping up [3/3].")
+  
   ans <- list()
   ans$ds <- open_dataset(file)
   ans$files <- ans$ds$files
   ans$mod <- x@mod
   ans$dim <- dim(ans$ds)
-  ans$head <- x@data[seq(20), ]
+  ans$head <- x@data[seq(20),]
   ans$names <- names(ans$head)
   ans$pid <- Sys.getpid()
   
@@ -65,28 +72,22 @@ as_mrgsim_ds <- function(x, file = temp_file(x), verbose = FALSE) {
 #' An object with class `mrgsimsds`.
 #' 
 #' @export
-mrgsim_ds <- function(x,  ..., 
-                      label = NULL, 
-                      file = temp_file(x),
-                      tag = list(), 
-                      verbose = FALSE) {
+mrgsim_ds <- function(x,  ..., id = NULL, tags = list(), verbose = FALSE) {
   verbose <- isTRUE(verbose)
-  if(is.character(label)) {
-    file <- file.path(tempdir(), file_name_ds(label))
-  }
-  if(verbose) message("Simulating.")
+  if(verbose) message("Simulating data [1/3].")
   out <- mrgsim(x, output = NULL, ...)
-  if(is.list(tag) && length(tag)) {
-    if(!is_named(tag)) {
-      abort("`tag` must be a named list.")  
+  if(is.list(tags) && length(tags)) {
+    if(!is_named(tags)) {
+      abort("`tags` must be a named list.")  
     }
-    for(j in names(tag)) {
-      out@data[[j]] <- tag[[j]]  
+    for(j in names(tags)) {
+      out@data[[j]] <- tags[[j]]  
     }
   }
-  ans <- as_mrgsim_ds(x = out, file = file, verbose = verbose)
+  ans <- as_mrgsim_ds(x = out, id = id, verbose = verbose)
   ans
 }
+
 
 #' Interact with mrgsimsds objects
 #' 
@@ -143,17 +144,33 @@ tail.mrgsimsds <- function(x, ...) {
 
 #' @name mrgsimsds-methods
 #' @export
-plot.mrgsimsds <- function(x, y, ...) {
-  abort("no print method for mrgsimsds objects.")
-  # ds <- as_arrow_ds(x)
-  # h <- head(ds, 1)
-  # h <- collect(h)
-  # data <- filter(ds, ID %in% h$ID[1])
-  # data <- collect(data)
-  # time <- names(data)[2]
-  # vars <- names(data)[seq(3, ncol(data), 1)]
-  # lhs <- paste0(vars, collapse = "+")
-  # form <- paste0(lhs, "~", time)
-  # form <- as.formula(form)
-  # plot_sims(data, .f = form)
+plot.mrgsimsds <- function(x, y = NULL, nid = 5, batch_size = 10000, ...) {
+  x <- safe_ds(x)
+  ds <- x$ds
+  scanner <- Scanner$create(ds, batch_size = batch_size)
+  reader <- scanner$ToRecordBatchReader()
+  count_id <- 1
+  iter <- 0
+  simsl <- vector(mode = "list", length = nid)
+  while(count_id < (nid+2)) {
+    iter <- iter + 1
+    batch <- as.data.frame(reader$read_next_batch())
+    ids <- unique(batch$ID)
+    count_id <- count_id + length(ids)
+    simsl[[iter]] <- batch
+  }
+  simsl <- simsl[seq(iter)]
+  sims <- bind_rows(simsl)
+  uid <- unique(sims$ID)
+  uid <- uid[seq(nid)]
+  sims <- sims[sims$ID %in% uid,]
+  if(!rlang::is_formula(y)) {
+    cols <- names(sims)
+    cols <- cols[!(cols %in% c("ID", "id", "TIME", "time"))]
+    y <- paste0(cols, collapse = "+")
+    y <- paste0("~", y)
+    y <- as.formula(y, env = emptyenv())
+  }
+  print(plot_sims(sims, .f = y))
+  return(invisible(sims))
 }

@@ -5,21 +5,12 @@
 #' 
 #' @param ... passed to [mrgsolve::mread()].
 #' 
-#' @details
-#' After calling `mcode()`, the model object is passed through either
-#' [set_output_ds()] or [set_temp_ds()].
-#' 
 #' @seealso [mcode_ds()], [modlib_ds()], [house_ds()].
 #' 
 #' @export
-mread_ds <- function(..., output_dir = NULL) {
+mread_ds <- function(...) {
   x <- mread(...)
-  if(is.character(output_dir)) {
-    x <- set_output_ds(x, output_dir)  
-  } else {
-    x <- set_temp_ds(x)  
-  }
-  x
+  save_process_info(x)
 }
 
 #' Write, compile, and load model code for 'Apache' 'Arrow'-backed simulation
@@ -29,21 +20,12 @@ mread_ds <- function(..., output_dir = NULL) {
 #' 
 #' @param ... passed to [mrgsolve::mcode()].
 #' 
-#' @details
-#' After calling `mcode()`, the model object is passed through either
-#' [set_output_ds()] or [set_temp_ds()].
-#' 
 #' @seealso [mread_ds()], [modlib_ds()], [house_ds()].
 #' 
 #' @export
-mcode_ds <- function(..., output_dir = NULL) {
+mcode_ds <- function(...) {
   x <- mcode(...)
-  if(is.character(output_dir)) {
-    x <- set_output_ds(x, output_dir)  
-  } else {
-    x <- set_temp_ds(x)  
-  }
-  x  
+  saved_process_info(x)
 }
 
 #' Internal model library for 'Apache' 'Arrow'-backed simulation outputs
@@ -52,21 +34,12 @@ mcode_ds <- function(..., output_dir = NULL) {
 #' 
 #' @param ... passed to [mrgsolve::modlib()].
 #' 
-#' @details
-#' After calling `modlib()`, the model object is passed through either
-#' [set_output_ds()] or [set_temp_ds()].
-#' 
 #' @seealso [mread_ds()], [mcode_ds()], [house_ds()].
 #' 
 #' @export
-modlib_ds <- function(..., output_dir = NULL) {
+modlib_ds <- function(...) {
   x <- modlib(...)
-  if(is.character(output_dir)) {
-    x <- set_output_ds(x, output_dir)  
-  } else {
-    x <- set_temp_ds(x)  
-  }
-  x
+  save_process_info(x)
 }
 
 #' Return a pre-compiled, PK/PD model for 'Apache' 'Arrow'-backed simulation
@@ -76,19 +49,10 @@ modlib_ds <- function(..., output_dir = NULL) {
 #' 
 #' @param ... passed to [mrgsolve::house()].
 #' 
-#' @details
-#' After calling `house()`, the model object is passed through either
-#' [set_output_ds()] or [set_temp_ds()].
-#' 
 #' @seealso [mcode_ds()], [mread_ds()], [mcode_ds()].
 #' 
 #' @export
-house_ds <- function(..., output_dir = NULL) {
+house_ds <- function(...) {
   x <- house(...)
-  if(is.character(output_dir)) {
-    x <- set_output_ds(x, output_dir)  
-  } else {
-    x <- set_temp_ds(x)  
-  }
-  x
+  save_process_info(x)
 }

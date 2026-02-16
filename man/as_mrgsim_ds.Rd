@@ -4,15 +4,15 @@
 \alias{as_mrgsim_ds}
 \title{Coerce an mrgsims object to 'Arrow'-backed mrgsimsds object}
 \usage{
-as_mrgsim_ds(x, file = temp_file(x), verbose = FALSE)
+as_mrgsim_ds(x, id = NULL, verbose = FALSE)
 }
 \arguments{
 \item{x}{an mrgsims object.}
 
+\item{verbose}{if \code{TRUE}, print progress information to the console.}
+
 \item{file}{path to file where output will be written using
 \code{\link[arrow:write_parquet]{arrow::write_parquet()}}.}
-
-\item{verbose}{if \code{TRUE}, print progress information to the console.}
 }
 \value{
 An object with class \code{mrgsimsds}.

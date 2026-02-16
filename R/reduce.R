@@ -63,6 +63,7 @@ reduce_ds.list <- function(x, ...) {
   x$files <- files
   files_exist(x, fatal = TRUE)
   x$ds <- open_dataset(sources = x$files)
+  x$fiels <- x$ds$files
   x$dim <- dim(x$ds)
   x$pid <- Sys.getpid()
   class(x) <- c("mrgsimsds", "list")

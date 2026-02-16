@@ -5,17 +5,13 @@
 \title{Write, compile, and load model code for 'Apache' 'Arrow'-backed simulation
 outputs}
 \usage{
-mcode_ds(..., output_dir = NULL)
+mcode_ds(...)
 }
 \arguments{
 \item{...}{passed to \code{\link[mrgsolve:mcode]{mrgsolve::mcode()}}.}
 }
 \description{
 This is a very-light wrapper around \code{\link[mrgsolve:mcode]{mrgsolve::mcode()}}.
-}
-\details{
-After calling \code{mcode()}, the model object is passed through either
-\code{\link[=set_output_ds]{set_output_ds()}} or \code{\link[=set_temp_ds]{set_temp_ds()}}.
 }
 \seealso{
 \code{\link[=mread_ds]{mread_ds()}}, \code{\link[=modlib_ds]{modlib_ds()}}, \code{\link[=house_ds]{house_ds()}}.

@@ -27,6 +27,7 @@ refresh_ds <- function(x, ...) UseMethod("refresh_ds")
 refresh_ds.mrgsimsds <- function(x, ...) {
   files_exist(x, fatal = TRUE)
   x$ds <- open_dataset(x$files)
+  x$files <- x$ds$files
   x$dim <- dim(x$ds)
   x$pid <- Sys.getpid()
   x

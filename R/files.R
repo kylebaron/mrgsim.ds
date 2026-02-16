@@ -24,76 +24,24 @@ files_exist <- function(x, fatal = TRUE) {
   return(invisible(ans))
 }
 
-#' Set or get default temporary output directory
-#' 
-#' @param x a model object. 
-#' 
-#' @examples
-#' mod <- mrgsolve::house()
-#' 
-#' mod <- set_temp_ds(mod)
-#' 
-#' get_temp_ds(mod)
-#' 
-#' @export
-set_temp_ds <- function(x) {
-  set_output_ds(x, tempdir()) 
-}
-#' @name set_temp_ds
-#' @rdname set_temp_ds
-#' @export
-get_temp_ds <- function(x) {
-  get_output_ds(x)
-}
-
-#' Set or get default output directory
-#' 
-#' @param x a model object. 
-#' @param output_dir path to output directory. 
-#' 
-#' @examples
-#' mod <- mrgsolve::house()
-#' 
-#' path <- file.path(tempfile(), "foo")
-#' 
-#' mod <- set_output_ds(mod, path)
-#' 
-#' get_output_ds(mod)
-#' 
-#' @export
-set_output_ds <- function(x, output_dir) {
-  assign("mrgsim.ds_output_dir", output_dir, x@envir)
-  invisible(x)
-}
-
-#' @name get_output_ds
-#' @rdname set_output_ds
-#' @export
-get_output_ds <- function(x) {
-  ans <- x@envir$mrgsim.ds_output_dir 
-  if(is.null(ans)) {
-    return(tempdir())  
-  }
-  ans
-}
-
-file_name_ds <- function(base = NULL, ext = ".parquet") {
+file_name_ds <- function(base = NULL) {
+  ext <- ".parquet"
   if(is.character(base)) {
-    file <- paste0("mrgsims-ds-", base, ext)
+    file <- paste0(.global$file.prefix, base, ext)
   } else {
-    file <- basename(tempfile(pattern = "mrgsims-ds-", fileext = ext))    
+    file <- basename(tempfile(pattern = .global$file.prefix, fileext = ext))    
   }
   return(file)
 }
 
 #' @export
-temp_file <- function(x = NULL) {
+temp_file <- function(x = NULL, base = NULL) {
   if(is.mrgmod(x)) {
     path <- get_output_ds(x)  
   } else {
     path <- tempdir()
   }
-  file.path(path, file_name_ds())
+  file.path(path, file_name_ds(base))
 }
 
 
@@ -103,7 +51,7 @@ retain_temp <- function(...) {
   x <- lapply(x, reduce_ds)
   cl <- mrgsim.ds:::simlist_classes(x)
   x <- x[cl]
-  temp <- list.files(tempdir(), pattern = "^mrgsims-ds-.*\\.parquet$", full.names = TRUE)
+  temp <- list.files(tempdir(), pattern = .global$file.re, full.names = TRUE)
   files <- sapply(x, function(xx) xx$files)
   files <- unlist(files)
   temp <- temp[!(basename(temp) %in% basename(files))]
@@ -114,7 +62,7 @@ retain_temp <- function(...) {
 
 #' @export
 reset_temp <- function() {
-  temp <- list.files(tempdir(), pattern = "^mrgsims-ds-.*\\.parquet$", full.names = TRUE)
+  temp <- list.files(tempdir(), pattern = .global$file.re, full.names = TRUE)
   message("Discarding ", length(temp), " files.")
   unlink(x = temp, recursive = TRUE)
   return(invisible(NULL))
@@ -122,7 +70,11 @@ reset_temp <- function() {
 
 #' @export
 list_temp <- function() {
-  temp <- list.files(tempdir(), pattern = "^mrgsims-ds-.*\\.parquet$", full.names = TRUE)
+  temp <- list.files(tempdir(), pattern = .global$file.re, full.names = TRUE)
+  if(!length(temp)) {
+    message("No files in tempdir.")
+    return(invisible(temp))
+  }
   size <- mrgsim.ds:::total_size(temp)
   if(length(temp) < 6) {
     show <- paste0("- ", basename(temp))
@@ -134,6 +86,27 @@ list_temp <- function() {
     )
   }
   header <- paste0(length(temp), " files [", size, "]")
-  cat(c(header, show), sep = "\n")
+  sapply(c(header, show), message)
   return(invisible(temp))
+}
+
+#' @export
+move_ds <- function(x, path) {
+  files <- x$files
+  if(!dir_exists(path)) {
+    dir_create(path)  
+  }
+  x$files <- file_move(files, path)
+  x <- refresh_ds(x)
+  x$files <- x$ds$files
+  x
+}
+
+#' @export
+write_ds <- function(x, sink, ...) {
+  arrow::write_parquet(x$ds, sink, ...)
+  fs::file_delete(x$ds$files)
+  x$files <- sink
+  x <- refresh_ds(x)
+  x
 }

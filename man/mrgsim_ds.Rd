@@ -4,27 +4,17 @@
 \alias{mrgsim_ds}
 \title{Simulate from a model object, returning an arrow-backed output object}
 \usage{
-mrgsim_ds(
-  x,
-  ...,
-  label = NULL,
-  file = temp_file(x),
-  tag = list(),
-  verbose = FALSE
-)
+mrgsim_ds(x, ..., id = NULL, tags = list(), verbose = FALSE)
 }
 \arguments{
 \item{x}{a model object.}
 
 \item{...}{passed to \code{\link[mrgsolve:mrgsim]{mrgsolve::mrgsim()}}.}
 
-\item{file}{path to file where output will be written using
-\code{\link[arrow:write_parquet]{arrow::write_parquet()}}.}
+\item{verbose}{if \code{TRUE}, print progress information to the console.}
 
 \item{tag}{a named list of atomic data to tag (or mutate) the simulated
 output.}
-
-\item{verbose}{if \code{TRUE}, print progress information to the console.}
 }
 \value{
 An object with class \code{mrgsimsds}.
