@@ -8,6 +8,17 @@ is_mrgsimsds <- function(x) {
   inherits(x, "mrgsimsds")  
 }
 
+require_ds <- function(x) {
+  if(!inherits(x, "mrgsimsds")) {
+    actual <- class(x)
+    if(length(actual) > 1) {
+      actual <- paste0(actual, collapse = "/")  
+    }
+    msg <- "an {'mrgsimsds' object is required, not '{actual}'."
+    abort(glue(msg))
+  }
+}
+
 # Formatter from the scales package
 format_big <- function() {
   scales::label_number(

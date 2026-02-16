@@ -159,6 +159,7 @@ purge_temp <- function() {
 #' 
 #' @export
 move_ds <- function(x, path) {
+  require_ds(x)
   files <- x$files
   if(!dir_exists(path)) {
     dir_create(path)  
@@ -175,6 +176,7 @@ move_ds <- function(x, path) {
 #' @rdname move_ds
 #' @export
 rename_ds <- function(x, id) {
+  require_ds(x)
   files <- x$files
   if(length(files) > 1) {
     i <- seq_along(files)
@@ -192,6 +194,7 @@ rename_ds <- function(x, id) {
 #' @rdname move_ds
 #' @export
 write_ds <- function(x, sink, ...) {
+  require_ds(x)
   write_parquet(x$ds, sink, ...)
   unlink(x$ds$files, recursive = TRUE)
   x$files <- sink

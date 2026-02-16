@@ -127,8 +127,9 @@ copy_ds <- function(x) {
   ans$names <- x$names
   ans$pid <- Sys.getpid()
   ans$gc <- ans$gc
-  names_in <- names(ans)
-  stopifnot(identical(names_in, names_out))
+  class(ans) <- c("mrgsimsds", "environment")
+  names_out <- names(ans)
+  stopifnot("bad copy" = identical(names_in, names_out))
   ans
 }
 
