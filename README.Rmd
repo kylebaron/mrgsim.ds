@@ -56,6 +56,8 @@ out <- mrgsim_ds(mod, data)
 out
 ```
 
+## Very lightweight simulation output object
+
 The output object doesn't actually carry the simulated data, but
 rather a pointer to the data in parquet files on your disk.
 
@@ -85,6 +87,7 @@ dim(x)
 
 The object is very light weight despite carrying the same data. 
 
+## Handles like regular mrgsim output
 
 But, we can do a lot of the typical things we would with any mrgsim output 
 object. 
@@ -113,8 +116,9 @@ Or stay in the arrow ecosystem
 as_arrow_ds(out)
 ```
 
+## Tidyverse-friendly
 
-We've integrated into the dplyr verbs as well
+We've integrated into the dplyr ecosystem as well
 
 ```{r}
 dd <- 
@@ -131,8 +135,10 @@ collect(dd)
 ```
 
 
+## Good for large simulations
+
 This workflow is particularly useful when running replicate simulations in 
-parallel
+parallel, with loarge outputs
 
 ```{r}
 library(future.apply)
@@ -146,6 +152,8 @@ out2 <- reduce_ds(out2)
 out2
 ```
 
+
+## Files on disk are automagically managed
 
 All arrow files are stored in the tempdir in parquet format
 
