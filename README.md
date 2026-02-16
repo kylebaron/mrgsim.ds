@@ -25,7 +25,7 @@ devtools::install_github("kylebaron/mrgsim.ds")
 
 ## Example
 
-We will illustrate mrgsim.ds by doing a simulation.
+We will illustrate `mrgsim.ds` by doing a simulation.
 
 ``` r
 library(mrgsim.ds)
@@ -36,7 +36,10 @@ mod <- modlib_ds("popex", end = 240, outvars = c("IPRED,CL"))
 data <- expand.ev(amt = 100, ii = 24, total = 6, ID = 1:3000)
 ```
 
-`mrgsim.ds` provides a new `mrgsim()` variant - `mrgsim_ds()`:
+`mrgsim.ds` provides a new `mrgsim()` variant - `mrgsim_ds()`. The name
+implies we are tapping into Apache Arrow
+[Dataset](https://arrow.apache.org/docs/r/reference/Dataset.html)
+functionality.
 
 ``` r
 out <- mrgsim_ds(mod, data)
@@ -45,20 +48,16 @@ out
 . Model: popex
 . Dim  : 1.4M 4
 . Files: 1 [11.9 Mb]
-.     ID time        CL     IPRED
-. 1:   1  0.0 0.4885499 0.0000000
-. 2:   1  0.0 0.4885499 0.0000000
-. 3:   1  0.5 0.4885499 0.8803006
-. 4:   1  1.0 0.4885499 1.5694716
-. 5:   1  1.5 0.4885499 2.1071173
-. 6:   1  2.0 0.4885499 2.5246545
-. 7:   1  2.5 0.4885499 2.8470046
-. 8:   1  3.0 0.4885499 3.0939365
+.     ID time       CL     IPRED
+. 1:   1  0.0 1.129794 0.0000000
+. 2:   1  0.0 1.129794 0.0000000
+. 3:   1  0.5 1.129794 0.6439222
+. 4:   1  1.0 1.129794 1.1894373
+. 5:   1  1.5 1.129794 1.6492413
+. 6:   1  2.0 1.129794 2.0344480
+. 7:   1  2.5 1.129794 2.3547845
+. 8:   1  3.0 1.129794 2.6187631
 ```
-
-The name implies we are tapping into Apache Arrow
-[Dataset](https://arrow.apache.org/docs/r/reference/Dataset.html)
-functionality.
 
 ## Very lightweight simulation output object
 
@@ -67,7 +66,7 @@ a pointer to the data in parquet files on your disk.
 
 ``` r
 out$files
-. [1] "/private/var/folders/zv/v6tkdhrn1_bb1ndrc0c0j31w0000gp/T/Rtmp3hlA6y/mrgsims-ds-955f14d64c69.parquet"
+. [1] "/private/var/folders/zv/v6tkdhrn1_bb1ndrc0c0j31w0000gp/T/RtmpiEv4aD/mrgsims-ds-96c259c88542.parquet"
 ```
 
 This means there is almost nothing inside the object itself
@@ -110,23 +109,23 @@ head(out)
 . # A tibble: 6 × 4
 .      ID  time    CL IPRED
 .   <dbl> <dbl> <dbl> <dbl>
-. 1     1   0   0.489 0    
-. 2     1   0   0.489 0    
-. 3     1   0.5 0.489 0.880
-. 4     1   1   0.489 1.57 
-. 5     1   1.5 0.489 2.11 
-. 6     1   2   0.489 2.52
+. 1     1   0    1.13 0    
+. 2     1   0    1.13 0    
+. 3     1   0.5  1.13 0.644
+. 4     1   1    1.13 1.19 
+. 5     1   1.5  1.13 1.65 
+. 6     1   2    1.13 2.03
 
 tail(out)
 . # A tibble: 6 × 4
-.      ID  time    CL  IPRED
-.   <dbl> <dbl> <dbl>  <dbl>
-. 1  3000  238. 0.619 0.0367
-. 2  3000  238  0.619 0.0358
-. 3  3000  238. 0.619 0.0349
-. 4  3000  239  0.619 0.0341
-. 5  3000  240. 0.619 0.0333
-. 6  3000  240  0.619 0.0324
+.      ID  time    CL IPRED
+.   <dbl> <dbl> <dbl> <dbl>
+. 1  3000  238. 0.672 0.230
+. 2  3000  238  0.672 0.226
+. 3  3000  238. 0.672 0.223
+. 4  3000  239  0.672 0.220
+. 5  3000  240. 0.672 0.216
+. 6  3000  240  0.672 0.213
 
 dim(out)
 . [1] 1446000       4
@@ -140,16 +139,16 @@ as_tibble(out)
 . # A tibble: 1,446,000 × 4
 .       ID  time    CL IPRED
 .    <dbl> <dbl> <dbl> <dbl>
-.  1     1   0   0.489 0    
-.  2     1   0   0.489 0    
-.  3     1   0.5 0.489 0.880
-.  4     1   1   0.489 1.57 
-.  5     1   1.5 0.489 2.11 
-.  6     1   2   0.489 2.52 
-.  7     1   2.5 0.489 2.85 
-.  8     1   3   0.489 3.09 
-.  9     1   3.5 0.489 3.28 
-. 10     1   4   0.489 3.42 
+.  1     1   0    1.13 0    
+.  2     1   0    1.13 0    
+.  3     1   0.5  1.13 0.644
+.  4     1   1    1.13 1.19 
+.  5     1   1.5  1.13 1.65 
+.  6     1   2    1.13 2.03 
+.  7     1   2.5  1.13 2.35 
+.  8     1   3    1.13 2.62 
+.  9     1   3.5  1.13 2.83 
+. 10     1   4    1.13 3.01 
 . # ℹ 1,445,990 more rows
 ```
 
@@ -190,16 +189,16 @@ collect(dd)
 . # A tibble: 481 × 2
 .     time  Mean
 .    <dbl> <dbl>
-.  1  224. 0.439
-.  2  225  0.435
-.  3  226. 0.431
-.  4  226  0.427
-.  5  226. 0.422
-.  6  227  0.418
-.  7  228. 0.414
-.  8  228  0.410
-.  9  228. 0.407
-. 10  229  0.403
+.  1   0    0   
+.  2   0.5  1.12
+.  3   1    1.82
+.  4   1.5  2.28
+.  5   2    2.59
+.  6   2.5  2.80
+.  7   3    2.95
+.  8   3.5  3.04
+.  9  16.5  2.21
+. 10  17.5  2.12
 . # ℹ 471 more rows
 ```
 
@@ -222,15 +221,15 @@ out2
 . Model: popex
 . Dim  : 14.5M 4
 . Files: 10 [119.1 Mb]
-.     ID time       CL     IPRED
-. 1:   1  0.0 0.879413 0.0000000
-. 2:   1  0.0 0.879413 0.0000000
-. 3:   1  0.5 0.879413 0.6665591
-. 4:   1  1.0 0.879413 1.2207293
-. 5:   1  1.5 0.879413 1.6795063
-. 6:   1  2.0 0.879413 2.0573498
-. 7:   1  2.5 0.879413 2.3665611
-. 8:   1  3.0 0.879413 2.6176045
+.     ID time        CL     IPRED
+. 1:   1  0.0 0.4495773 0.0000000
+. 2:   1  0.0 0.4495773 0.0000000
+. 3:   1  0.5 0.4495773 0.1298014
+. 4:   1  1.0 0.4495773 0.2512894
+. 5:   1  1.5 0.4495773 0.3649585
+. 6:   1  2.0 0.4495773 0.4712740
+. 7:   1  2.5 0.4495773 0.5706739
+. 8:   1  3.0 0.4495773 0.6635699
 ```
 
 ## Files on disk are automagically managed
@@ -240,11 +239,11 @@ All `arrow` files are stored in the `tempdir()` in parquet format
 ``` r
 list_temp()
 . 11 files [131.1 Mb]
-. - mrgsims-ds-955f14d64c69.parquet
-. - mrgsims-ds-959e556c4238.parquet
+. - mrgsims-ds-96c259c88542.parquet
+. - mrgsims-ds-96ff4f6d3c31.parquet
 .    ...
-. - mrgsims-ds-95a2340a82df.parquet
-. - mrgsims-ds-95a257920703.parquet
+. - mrgsims-ds-9703728d7e67.parquet
+. - mrgsims-ds-9703791d4c8f.parquet
 ```
 
 This directory is eventually removed when the R session ends. Tools are
@@ -256,11 +255,11 @@ retain_temp(out2)
 
 list_temp()
 . 10 files [119.1 Mb]
-. - mrgsims-ds-959e556c4238.parquet
-. - mrgsims-ds-959e5c763854.parquet
+. - mrgsims-ds-96ff4f6d3c31.parquet
+. - mrgsims-ds-96ffc8addb4.parquet
 .    ...
-. - mrgsims-ds-95a2340a82df.parquet
-. - mrgsims-ds-95a257920703.parquet
+. - mrgsims-ds-9703728d7e67.parquet
+. - mrgsims-ds-9703791d4c8f.parquet
 ```
 
 We also put a finalizer on each object so that, when it goes out of
@@ -299,8 +298,8 @@ cleaned up.
 ``` r
 gc()
 .            used  (Mb) gc trigger  (Mb) limit (Mb) max used  (Mb)
-. Ncells  1695962  90.6    3059984 163.5         NA  2673412 142.8
-. Vcells 14761998 112.7   30250197 230.8      16384 26544106 202.6
+. Ncells  1695676  90.6    3059988 163.5         NA  2670002 142.6
+. Vcells 14759752 112.7   30247478 230.8      16384 26541840 202.5
 
 list_temp()
 . 2 files [23.8 Mb]

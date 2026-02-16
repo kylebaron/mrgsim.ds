@@ -37,7 +37,7 @@ devtools::install_github("kylebaron/mrgsim.ds")
 
 ## Example 
 
-We will illustrate mrgsim.ds by doing a simulation. 
+We will illustrate `mrgsim.ds` by doing a simulation. 
 
 ```{r, message = FALSE}
 library(mrgsim.ds)
@@ -48,7 +48,9 @@ mod <- modlib_ds("popex", end = 240, outvars = c("IPRED,CL"))
 data <- expand.ev(amt = 100, ii = 24, total = 6, ID = 1:3000)
 ```
 
-`mrgsim.ds` provides a new `mrgsim()` variant - `mrgsim_ds()`:
+`mrgsim.ds` provides a new `mrgsim()` variant - `mrgsim_ds()`. The name implies 
+we are tapping into Apache Arrow 
+[Dataset](https://arrow.apache.org/docs/r/reference/Dataset.html) functionality.
 
 ```{r}
 out <- mrgsim_ds(mod, data)
@@ -56,9 +58,6 @@ out <- mrgsim_ds(mod, data)
 out
 ```
 
-The name implies we are tapping into Apache Arrow
-[Dataset](https://arrow.apache.org/docs/r/reference/Dataset.html) 
-functionality.
 
 ## Very lightweight simulation output object
 
