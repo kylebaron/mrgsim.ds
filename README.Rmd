@@ -143,8 +143,8 @@ collect(dd)
 This workflow is particularly useful when running replicate simulations in 
 parallel, with large outputs
 
-```{r, message = FALSE}
-library(future.apply)
+```{r}
+library(future.apply, quietly = TRUE)
 
 plan(multisession, workers = 5L)
 
