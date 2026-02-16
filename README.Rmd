@@ -39,7 +39,7 @@ We will illustrate mrgsim.ds by doing a simulation.
 library(mrgsim.ds)
 library(dplyr)
 
-mod <- modlib_ds("popex", end = 240, outvars = c("CL,CENT,IPRED"))
+mod <- modlib_ds("popex", end = 240, outvars = c("IPRED,CL"))
 
 data <- expand.ev(amt = 100, ii = 24, total = 6, ID = 1:1000)
 ```
@@ -66,7 +66,7 @@ object.
 
 
 ```{r plot_head_tail_dim}
-plot(out)
+plot(out, nid = 12)
 head(out)
 tail(out)
 dim(out)
