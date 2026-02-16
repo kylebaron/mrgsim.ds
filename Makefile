@@ -16,6 +16,7 @@ rhub:
 	Rscript -e 'rhub::check_for_cran()'
 
 cran:
+	rm -rf mrgsim.ds.Rcheck
 	make doc
 	make build-vignettes
 	R CMD check ${TARBALL} --as-cran
@@ -53,6 +54,7 @@ install-build:
 	R CMD install --build --install-tests ${TARBALL}
 
 check:
+	rm -rf mrgsim.ds.Rcheck
 	make doc
 	make build
 	R CMD check  --ignore-vignettes --no-manual ${TARBALL} -o ${CHKDIR}
