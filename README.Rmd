@@ -41,7 +41,7 @@ library(dplyr)
 
 mod <- modlib_ds("popex", end = 240, outvars = c("IPRED,CL"))
 
-data <- expand.ev(amt = 100, ii = 24, total = 6, ID = 1:1000)
+data <- expand.ev(amt = 100, ii = 24, total = 6, ID = 1:3000)
 ```
 
 mrgsim.ds provides a new `mrgsim()` variant - `mrgsim_ds()`:
@@ -75,6 +75,7 @@ x <- mrgsim(mod, data)
 lobstr::obj_size(x)
 dim(x)
 ```
+
 
 The object is very light weight despite carrying the same data. 
 
