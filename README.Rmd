@@ -133,6 +133,7 @@ to manage the space.
 
 ```{r}
 retain_temp(out2)
+
 list_temp()
 ```
 
@@ -154,18 +155,19 @@ out2 <- future_lapply(1:10, \(x) {
 out2 <- reduce_ds(out2) %>% rename_ds("out2")
 
 out3 <- mrgsim_ds(mod, data) %>% rename_ds("out3")
-
 ```
 
 
 ```{r}
 list_temp()
+
 rm(out2)
 ```
 
 As soon as the garbage collecter is called, the leftover files are cleaned up.
 ```{r}
 gc()
+
 list_temp()
 ```
 
