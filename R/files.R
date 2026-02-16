@@ -24,26 +24,29 @@ files_exist <- function(x, fatal = TRUE) {
   return(invisible(ans))
 }
 
-file_name_ds <- function(base = NULL) {
+#' Create an output file name
+#' 
+#' @param id a tag used to form the file name; if not provided, a random name 
+#' will be generated.
+#' 
+#' @return 
+#' A character file name.
+#' 
+#' @examples
+#' file_ds()
+#' file_ds("example")
+#' 
+#' @export
+file_ds <- function(id = NULL) {
   ext <- ".parquet"
-  if(is.character(base)) {
-    file <- paste0(.global$file.prefix, base, ext)
+  if(is.atomic(id) && !is.null(id)) {
+    id <- as.character(id)
+    file <- paste0(.global$file.prefix, id, ext)
   } else {
     file <- basename(tempfile(pattern = .global$file.prefix, fileext = ext))    
   }
   return(file)
 }
-
-#' @export
-temp_file <- function(x = NULL, base = NULL) {
-  if(is.mrgmod(x)) {
-    path <- get_output_ds(x)  
-  } else {
-    path <- tempdir()
-  }
-  file.path(path, file_name_ds(base))
-}
-
 
 #' @export
 retain_temp <- function(...) {
@@ -90,6 +93,37 @@ list_temp <- function() {
   return(invisible(temp))
 }
 
+#' Move data set files to a new directory. 
+#' 
+#' Use `move_ds()` to just change the enclosing directory. `write_ds()` can also
+#' move the files, but also condenses all simulation output in to a single 
+#' parquet file if multiple files are backing the mrgsimsds object.
+#' 
+#' @param an mrgsimsds object. 
+#' @param path the new directory location for backing files.
+#' @param sink the complete path (including file name) for a single parquet
+#' file containing all simulated data.
+#' @param ... passed to [arrow::write_parquet()].
+#' 
+#' @return
+#' Both functions return the mrgsimsds object; it is critical to capture the 
+#' return value in order to continue working with the object in the current
+#' R session.
+#' 
+#' @examples
+#' 
+#' mod <- house_ds()
+#' 
+#' out <- mrgsim_ds(mod, events = ev(amt = 100))
+#' 
+#' out <- write_ds(out, sink = file.path(tempdir(), "example.parquet"))
+#' 
+#' out$files
+#' 
+#' \dontrun{
+#'   out <- move_ds(out, path = "data/simulated") 
+#' }
+#' 
 #' @export
 move_ds <- function(x, path) {
   files <- x$files
@@ -102,10 +136,11 @@ move_ds <- function(x, path) {
   x
 }
 
+#' @rdname move_ds
 #' @export
 write_ds <- function(x, sink, ...) {
-  arrow::write_parquet(x$ds, sink, ...)
-  fs::file_delete(x$ds$files)
+  write_parquet(x$ds, sink, ...)
+  file_delete(x$ds$files)
   x$files <- sink
   x <- refresh_ds(x)
   x

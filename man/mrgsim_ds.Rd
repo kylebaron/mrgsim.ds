@@ -7,27 +7,34 @@
 mrgsim_ds(x, ..., id = NULL, tags = list(), verbose = FALSE)
 }
 \arguments{
-\item{x}{a model object.}
+\item{x}{a model object loaded through \code{\link[=mread_ds]{mread_ds()}}, \code{\link[=mcode_ds]{mcode_ds()}},
+\code{\link[=modlib_ds]{modlib_ds()}} or \code{\link[=house_ds]{house_ds()}}.}
 
 \item{...}{passed to \code{\link[mrgsolve:mrgsim]{mrgsolve::mrgsim()}}.}
 
-\item{verbose}{if \code{TRUE}, print progress information to the console.}
+\item{id}{used to label output files; see details.}
 
-\item{tag}{a named list of atomic data to tag (or mutate) the simulated
+\item{tags}{a named list of atomic data to tag (or mutate) the simulated
 output.}
+
+\item{verbose}{if \code{TRUE}, print progress information to the console.}
 }
 \value{
 An object with class \code{mrgsimsds}.
 }
 \description{
-Simulate from a model object, returning an arrow-backed output object
+Note that full names must be used for all arguments.
 }
 \examples{
-mod <- mrgsolve::house()
-data <- mrgsolve::ev_expand(amt = 100, ID = 1:10)
+mod <- house_ds()
+data <- ev_expand(amt = 100, ID = 1:10)
 out <- mrgsim_ds(mod, data, end = 72, delta = 0.1)
 
-out <- mrgsim_ds(mod, data, tag = list(rep = 1))
+out <- mrgsim_ds(mod, data, tags = list(rep = 1))
+
 head(out)
 
+}
+\seealso{
+\code{\link[=as_mrgsim_ds]{as_mrgsim_ds()}}.
 }

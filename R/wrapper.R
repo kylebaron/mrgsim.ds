@@ -1,11 +1,17 @@
 #' Read a model specification file for 'Apache' 'Arrow'-backed simulation
 #' outputs
 #' 
-#' This is a very-light wrapper around [mrgsolve::mread()].
+#' These are very-light wrappers around mrgsolve functions used to load 
+#' models for simulation.
 #' 
-#' @param ... passed to [mrgsolve::mread()].
+#' @param ... passed to the corresponding mrgsolve function.
 #' 
-#' @seealso [mcode_ds()], [modlib_ds()], [house_ds()].
+#' @seealso [save_process_info()].
+#' 
+#' @examples
+#' mod <- house_ds()
+#' 
+#' mod
 #' 
 #' @export
 mread_ds <- function(...) {
@@ -13,46 +19,30 @@ mread_ds <- function(...) {
   save_process_info(x)
 }
 
-#' Write, compile, and load model code for 'Apache' 'Arrow'-backed simulation
-#' outputs
-#' 
-#' This is a very-light wrapper around [mrgsolve::mcode()]. 
-#' 
-#' @param ... passed to [mrgsolve::mcode()].
-#' 
-#' @seealso [mread_ds()], [modlib_ds()], [house_ds()].
-#' 
+#' @rdname mread_ds
 #' @export
 mcode_ds <- function(...) {
   x <- mcode(...)
   saved_process_info(x)
 }
 
-#' Internal model library for 'Apache' 'Arrow'-backed simulation outputs
-#' 
-#' This is a very-light wrapper around [mrgsolve::modlib()].
-#' 
-#' @param ... passed to [mrgsolve::modlib()].
-#' 
-#' @seealso [mread_ds()], [mcode_ds()], [house_ds()].
-#' 
+#' @rdname mread_ds
 #' @export
 modlib_ds <- function(...) {
   x <- modlib(...)
   save_process_info(x)
 }
 
-#' Return a pre-compiled, PK/PD model for 'Apache' 'Arrow'-backed simulation
-#' outputs
-#' 
-#' This is a very-light wrapper around [mrgsolve::house()].
-#' 
-#' @param ... passed to [mrgsolve::house()].
-#' 
-#' @seealso [mcode_ds()], [mread_ds()], [mcode_ds()].
-#' 
+#' @rdname mread_ds
 #' @export
 house_ds <- function(...) {
   x <- house(...)
+  save_process_info(x)
+}
+
+#' @rdname mread_ds
+#' @export
+mread_cache_ds <- function(...) {
+  x <- mread_cache(...)
   save_process_info(x)
 }

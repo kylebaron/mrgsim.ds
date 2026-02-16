@@ -24,6 +24,20 @@ format_big <- scales::label_number(
   scale_cut = scales::cut_short_scale()
 )
 
+#' Save information about the R process that loded a model
+#' 
+#' @param x a model object. 
+#' 
+#' @return 
+#' An updated model object suitable for using with [mrgsim_ds()].
+#' 
+#' @examples
+#' mod <- mrgsolve::house()
+#' 
+#' mod <- save_process_info(mod)
+#' 
+#' 
+#' @export
 save_process_info <- function(x) {
   x@envir$mrgsim.ds_mread_valid <- TRUE
   x@envir$mrgsim.ds.mread_pid <- Sys.getpid()
@@ -49,4 +63,11 @@ get_mread_tempdir <- function(x) {
 
 mread_with_ds <- function(x) {
   is.character(x@envir$mrgsim.ds.mread_tempdir)  
+}
+
+get_head <- function(x, n = 6) {
+  x <- safe_ds(x)
+  scanner <- Scanner$create(x$ds, batch_size = n)
+  reader <- scanner$ToRecordBatchReader()  
+  as.data.frame(reader$read_next_batch())
 }

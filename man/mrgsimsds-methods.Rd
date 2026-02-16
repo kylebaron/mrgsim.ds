@@ -20,7 +20,15 @@ ncol.mrgsimsds(x)
 
 \method{tail}{mrgsimsds}(x, ...)
 
-\method{plot}{mrgsimsds}(x, y, ...)
+\method{plot}{mrgsimsds}(
+  x,
+  y = NULL,
+  ...,
+  nid = 5,
+  batch_size = 20000,
+  logy = FALSE,
+  .dots = list()
+)
 }
 \arguments{
 \item{x}{an mrgsimsds object, output from

@@ -1,13 +1,11 @@
 
 #' Coerce an mrgsims object to 'Arrow'-backed mrgsimsds object
 #' 
+#' @inheritParams mrgsim_ds
 #' @param x an mrgsims object. 
-#' @param file path to file where output will be written using 
-#' [arrow::write_parquet()].
-#' @param verbose if `TRUE`, print progress information to the console.
 #' 
 #' @examples
-#' mod <- mrgsolve::house()
+#' mod <- house_ds()
 #' data <- mrgsolve::ev_expand(amt = 100, ID = 1:10)
 #' out <- mrgsolve::mrgsim(mod, data)
 #' obj <- as_mrgsim_ds(out)
@@ -27,7 +25,7 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE) {
   
   dir <- get_mread_tempdir(x@mod)
   
-  file <- file.path(dir, file_name_ds(id))
+  file <- file.path(dir, file_ds(id))
   if(grepl(" ", file)) {
     abort("output file name cannot contain spaces.")  
   }
@@ -54,22 +52,29 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE) {
 
 #' Simulate from a model object, returning an arrow-backed output object
 #' 
-#' @inheritParams as_mrgsim_ds
-#' @param x a model object. 
+#' Note that full names must be used for all arguments. 
+#' 
+#' @param x a model object loaded through [mread_ds()], [mcode_ds()], 
+#' [modlib_ds()] or [house_ds()].
+#' @param id used to label output files; see details.
 #' @param ... passed to [mrgsolve::mrgsim()]. 
-#' @param tag a named list of atomic data to tag (or mutate) the simulated 
+#' @param tags a named list of atomic data to tag (or mutate) the simulated 
 #' output.
+#' @param verbose if `TRUE`, print progress information to the console.
 #' 
 #' @examples
-#' mod <- mrgsolve::house()
-#' data <- mrgsolve::ev_expand(amt = 100, ID = 1:10)
+#' mod <- house_ds()
+#' data <- ev_expand(amt = 100, ID = 1:10)
 #' out <- mrgsim_ds(mod, data, end = 72, delta = 0.1)
 #' 
-#' out <- mrgsim_ds(mod, data, tag = list(rep = 1))
+#' out <- mrgsim_ds(mod, data, tags = list(rep = 1))
+#' 
 #' head(out)
 #' 
 #' @return 
 #' An object with class `mrgsimsds`.
+#' 
+#' @seealso [as_mrgsim_ds()].
 #' 
 #' @export
 mrgsim_ds <- function(x,  ..., id = NULL, tags = list(), verbose = FALSE) {
@@ -144,7 +149,9 @@ tail.mrgsimsds <- function(x, ...) {
 
 #' @name mrgsimsds-methods
 #' @export
-plot.mrgsimsds <- function(x, y = NULL, nid = 5, batch_size = 10000, ...) {
+plot.mrgsimsds <- function(x, y = NULL, ...,  nid = 5, batch_size = 20000, 
+                           logy = FALSE, 
+                           .dots = list()) {
   x <- safe_ds(x)
   ds <- x$ds
   scanner <- Scanner$create(ds, batch_size = batch_size)
@@ -171,6 +178,8 @@ plot.mrgsimsds <- function(x, y = NULL, nid = 5, batch_size = 10000, ...) {
     y <- paste0("~", y)
     y <- as.formula(y, env = emptyenv())
   }
-  print(plot_sims(sims, .f = y))
+  .dots$logy <- logy
+  p <- plot_sims(sims, .f = y, .dots = .dots)
+  print(p)
   return(invisible(sims))
 }

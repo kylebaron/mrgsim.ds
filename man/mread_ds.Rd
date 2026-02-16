@@ -2,17 +2,36 @@
 % Please edit documentation in R/wrapper.R
 \name{mread_ds}
 \alias{mread_ds}
+\alias{mcode_ds}
+\alias{modlib_ds}
+\alias{house_ds}
+\alias{mread_cache_ds}
 \title{Read a model specification file for 'Apache' 'Arrow'-backed simulation
 outputs}
 \usage{
 mread_ds(...)
+
+mcode_ds(...)
+
+modlib_ds(...)
+
+house_ds(...)
+
+mread_cache_ds(...)
 }
 \arguments{
-\item{...}{passed to \code{\link[mrgsolve:mread]{mrgsolve::mread()}}.}
+\item{...}{passed to the corresponding mrgsolve function.}
 }
 \description{
-This is a very-light wrapper around \code{\link[mrgsolve:mread]{mrgsolve::mread()}}.
+These are very-light wrappers around mrgsolve functions used to load
+models for simulation.
+}
+\examples{
+mod <- house_ds()
+
+mod
+
 }
 \seealso{
-\code{\link[=mcode_ds]{mcode_ds()}}, \code{\link[=modlib_ds]{modlib_ds()}}, \code{\link[=house_ds]{house_ds()}}.
+\code{\link[=save_process_info]{save_process_info()}}.
 }

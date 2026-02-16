@@ -9,10 +9,9 @@ as_mrgsim_ds(x, id = NULL, verbose = FALSE)
 \arguments{
 \item{x}{an mrgsims object.}
 
-\item{verbose}{if \code{TRUE}, print progress information to the console.}
+\item{id}{used to label output files; see details.}
 
-\item{file}{path to file where output will be written using
-\code{\link[arrow:write_parquet]{arrow::write_parquet()}}.}
+\item{verbose}{if \code{TRUE}, print progress information to the console.}
 }
 \value{
 An object with class \code{mrgsimsds}.
@@ -21,7 +20,7 @@ An object with class \code{mrgsimsds}.
 Coerce an mrgsims object to 'Arrow'-backed mrgsimsds object
 }
 \examples{
-mod <- mrgsolve::house()
+mod <- house_ds()
 data <- mrgsolve::ev_expand(amt = 100, ID = 1:10)
 out <- mrgsolve::mrgsim(mod, data)
 obj <- as_mrgsim_ds(out)
