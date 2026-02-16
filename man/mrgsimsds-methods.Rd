@@ -32,7 +32,8 @@
 
 \item{...}{arguments to be passed to or from other methods.}
 
-\item{y}{not used.}
+\item{y}{a formula for plotting simulated data; if not provided, all
+columns will be plotted.}
 }
 \description{
 Interact with mrgsimsds objects
@@ -42,17 +43,21 @@ Interact with mrgsimsds objects
 set, respectively.
 }
 \examples{
-mod <- house_ds()
+mod <- house_ds(end = 24)
 
-out <- mrgsim_ds(mod, events = ev(amt = 100))
+mod <- omat(mod, diag(0.04, 4))
 
-\dontrun{
+data <- ev_expand(amt = c(100, 300), ID = 1:20)
+
+set.seed(10203)
+
+out <- mrgsim_ds(mod, data = data)
+
 dim(out)
 head(out)
 tail(out)
 nrow(out)
 ncol(out)
-plot(out)
-}
+plot(out, ~ CP + RESP, nid = 10)
 
 }

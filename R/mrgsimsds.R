@@ -6,8 +6,11 @@
 #' 
 #' @examples
 #' mod <- house_ds()
+#' 
 #' data <- ev_expand(amt = 100, ID = 1:10)
+#' 
 #' out <- mrgsolve::mrgsim(mod, data)
+#' 
 #' obj <- as_mrgsim_ds(out)
 #' 
 #' obj
@@ -66,7 +69,9 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE) {
 #' 
 #' @examples
 #' mod <- house_ds()
+#' 
 #' data <- ev_expand(amt = 100, ID = 1:10)
+#' 
 #' out <- mrgsim_ds(mod, data, end = 72, delta = 0.1)
 #' 
 #' out <- mrgsim_ds(mod, data, tags = list(rep = 1))
@@ -100,7 +105,8 @@ mrgsim_ds <- function(x,  ..., id = NULL, tags = list(), verbose = FALSE) {
 #' 
 #' @param x an mrgsimsds object, output from 
 #' [mrgsim_ds()] or [as_mrgsim_ds()].
-#' @param y not used. 
+#' @param y a formula for plotting simulated data; if not provided, all 
+#' columns will be plotted. 
 #' @param n number of rows to return.
 #' @param ... arguments to be passed to or from other methods.
 #' 
@@ -109,18 +115,22 @@ mrgsim_ds <- function(x,  ..., id = NULL, tags = list(), verbose = FALSE) {
 #' set, respectively. 
 #' 
 #' @examples
-#' mod <- house_ds()
+#' mod <- house_ds(end = 24)
 #' 
-#' out <- mrgsim_ds(mod, events = ev(amt = 100))
+#' mod <- omat(mod, diag(0.04, 4))
 #' 
-#' \dontrun{
+#' data <- ev_expand(amt = c(100, 300), ID = 1:20)
+#' 
+#' set.seed(10203)
+#' 
+#' out <- mrgsim_ds(mod, data = data)
+#' 
 #' dim(out)
 #' head(out)
 #' tail(out)
 #' nrow(out)
 #' ncol(out)
-#' plot(out)
-#' }
+#' plot(out, ~ CP + RESP, nid = 10)
 #' 
 #' @name mrgsimsds-methods
 #' @export
@@ -131,7 +141,7 @@ dim.mrgsimsds <- function(x) {
 #' @name mrgsimsds-methods
 #' @export
 head.mrgsimsds <-  function(x, n = 6L, ...) {
-  get_head(x, n = n)
+  as_tibble(get_head(x, n = n))
 }
 
 #' @name mrgsimsds-methods
@@ -161,8 +171,12 @@ plot.mrgsimsds <- function(x, y = NULL, ...,  nid = 5, batch_size = 20000,
   iter <- 0
   simsl <- vector(mode = "list", length = nid)
   while(count_id < (nid+2)) {
-    iter <- iter + 1
     batch <- as.data.frame(reader$read_next_batch())
+    if(nrow(batch)==0) {
+      count_id <- nid + 2
+      break;  
+    }
+    iter <- iter + 1
     ids <- unique(batch$ID)
     count_id <- count_id + length(ids)
     simsl[[iter]] <- batch

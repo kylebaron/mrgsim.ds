@@ -4,7 +4,7 @@
 \alias{as_arrow_table.mrgsimsds}
 \title{Coerce an mrgsimsds object to an arrow table}
 \usage{
-\method{as_arrow_table}{mrgsimsds}(x, ...)
+\method{as_arrow_table}{mrgsimsds}(x, ..., schema = NULL)
 }
 \arguments{
 \item{x}{an mrgsimsds object.}
@@ -19,8 +19,8 @@ Coerce an mrgsimsds object to an arrow table
 }
 \examples{
 mod <- house_ds(end = 5)
-out <- mrgsim_ds(out, events = ev(amt = 100))
+out <- mrgsim_ds(mod, events = ev(amt = 100))
 
-as_arrow_table()
+arrow::as_arrow_table(out)
 
 }

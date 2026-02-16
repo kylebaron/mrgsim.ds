@@ -21,8 +21,11 @@ Coerce an mrgsims object to 'Arrow'-backed mrgsimsds object
 }
 \examples{
 mod <- house_ds()
+
 data <- ev_expand(amt = 100, ID = 1:10)
+
 out <- mrgsolve::mrgsim(mod, data)
+
 obj <- as_mrgsim_ds(out)
 
 obj

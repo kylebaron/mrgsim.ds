@@ -27,7 +27,9 @@ Note that full names must be used for all arguments.
 }
 \examples{
 mod <- house_ds()
+
 data <- ev_expand(amt = 100, ID = 1:10)
+
 out <- mrgsim_ds(mod, data, end = 72, delta = 0.1)
 
 out <- mrgsim_ds(mod, data, tags = list(rep = 1))

@@ -3,7 +3,7 @@
 \name{as_tibble.mrgsimsds}
 \alias{as_tibble.mrgsimsds}
 \alias{collect.mrgsimsds}
-\title{Coerce an mrgsimsds object to a tibble}
+\title{Coerce an mrgsimsds object to a tbl}
 \usage{
 \method{as_tibble}{mrgsimsds}(x, ...)
 
@@ -15,17 +15,16 @@
 \item{...}{passed to \code{\link[dplyr:reexports]{dplyr::as_tibble()}} or \code{\link[dplyr:compute]{dplyr::collect()}}.}
 }
 \value{
-A tibble containing simulated data.
+A \code{tbl} containing simulated data.
 }
 \description{
-Coerce an mrgsimsds object to a tibble
+Coerce an mrgsimsds object to a tbl
 }
 \examples{
 mod <- house_ds(end = 5)
 out <- mrgsim_ds(mod, events = ev(amt = 100))
 
-as_tibble(out)
-collect(out)
-
+tibble::as_tibble(out)
+dplyr::collect(out)
 
 }

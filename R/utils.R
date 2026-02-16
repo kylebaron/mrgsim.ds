@@ -2,6 +2,7 @@
 #'
 #' @param x object to check. 
 #' 
+#' 
 #' @export
 is_mrgsimsds <- function(x) {
   inherits(x, "mrgsimsds")  
@@ -24,7 +25,6 @@ format_big <- scales::label_number(
 #' mod <- mrgsolve::house()
 #' 
 #' mod <- save_process_info(mod)
-#' 
 #' 
 #' @export
 save_process_info <- function(x) {

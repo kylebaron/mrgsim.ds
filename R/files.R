@@ -48,29 +48,29 @@ file_ds <- function(id = NULL) {
   return(file)
 }
 
-#' @export
-retain_temp <- function(...) {
-  x <- list(...)
-  x <- lapply(x, reduce_ds)
-  cl <- mrgsim.ds:::simlist_classes(x)
-  x <- x[cl]
-  temp <- list.files(tempdir(), pattern = .global$file.re, full.names = TRUE)
-  files <- sapply(x, function(xx) xx$files)
-  files <- unlist(files)
-  temp <- temp[!(basename(temp) %in% basename(files))]
-  message("Discarding ", length(temp), " files.")
-  unlink(x = temp, recursive = TRUE)
-  return(invisible(NULL))
-}
-
-#' @export
-reset_temp <- function() {
-  temp <- list.files(tempdir(), pattern = .global$file.re, full.names = TRUE)
-  message("Discarding ", length(temp), " files.")
-  unlink(x = temp, recursive = TRUE)
-  return(invisible(NULL))
-}
-
+#' Manage simulated outputs in tempdir()
+#' 
+#' @param ... objects whose files will not be purged.
+#' 
+#' @examples
+#' mod <- house_ds()
+#' 
+#' out <- lapply(1:10, \(x) mrgsim_ds(mod))
+#' 
+#' list_temp()
+#' 
+#' sims <- reduce_ds(out)
+#' 
+#' list_temp()
+#' 
+#' retain_temp(sims)
+#' 
+#' list_temp() 
+#' 
+#' purge_temp() 
+#' 
+#' list_temp()
+#' 
 #' @export
 list_temp <- function() {
   temp <- list.files(tempdir(), pattern = .global$file.re, full.names = TRUE)
@@ -92,6 +92,32 @@ list_temp <- function() {
   sapply(c(header, show), message)
   return(invisible(temp))
 }
+
+#' @rdname list_temp
+#' @export
+retain_temp <- function(...) {
+  x <- list(...)
+  x <- lapply(x, reduce_ds)
+  cl <- mrgsim.ds:::simlist_classes(x)
+  x <- x[cl]
+  temp <- list.files(tempdir(), pattern = .global$file.re, full.names = TRUE)
+  files <- sapply(x, function(xx) xx$files)
+  files <- unlist(files)
+  temp <- temp[!(basename(temp) %in% basename(files))]
+  message("Discarding ", length(temp), " files.")
+  unlink(x = temp, recursive = TRUE)
+  return(invisible(NULL))
+}
+
+#' @rdname list_temp
+#' @export
+purge_temp <- function() {
+  temp <- list.files(tempdir(), pattern = .global$file.re, full.names = TRUE)
+  message("Discarding ", length(temp), " files.")
+  unlink(x = temp, recursive = TRUE)
+  return(invisible(NULL))
+}
+
 
 #' Move data set files to a new directory. 
 #' 

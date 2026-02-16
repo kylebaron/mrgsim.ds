@@ -5,20 +5,20 @@
 #' 
 #' @examples
 #' mod <- house_ds(end = 5)
-#' out <- mrgsim_ds(out, events = ev(amt = 100))
+#' out <- mrgsim_ds(mod, events = ev(amt = 100))
 #' 
-#' as_arrow_table()
+#' arrow::as_arrow_table(out)
 #' 
 #' @return
 #' An 'Apache' 'Arrow' [arrow::Table] of simulated data.
 #'
 #' @export
-as_arrow_table.mrgsimsds <- function(x, ...) {
+as_arrow_table.mrgsimsds <- function(x, ..., schema = NULL) {
   x <- safe_ds(x)
   as_arrow_table(x$ds, ...)
 }
 
-#' Coerce an mrgsimsds object to a tibble
+#' Coerce an mrgsimsds object to a tbl
 #' 
 #' @param x an mrgsimsds object. 
 #' @param ... passed to [dplyr::as_tibble()] or [dplyr::collect()]. 
@@ -27,23 +27,22 @@ as_arrow_table.mrgsimsds <- function(x, ...) {
 #' mod <- house_ds(end = 5)
 #' out <- mrgsim_ds(mod, events = ev(amt = 100))
 #' 
-#' as_tibble(out)
-#' collect(out)
-#' 
+#' tibble::as_tibble(out)
+#' dplyr::collect(out)
 #' 
 #' @return
-#' A tibble containing simulated data. 
+#' A `tbl` containing simulated data. 
 #'
 #' @export
 as_tibble.mrgsimsds <- function(x, ...) {
   x <- safe_ds(x)
-  as_tibble(x$ds, ...)  
+  dplyr::as_tibble(x$ds, ...)  
 }
 #' @rdname as_tibble.mrgsimsds
 #' @export
 collect.mrgsimsds <- function(x, ...) {
   x <- safe_ds(x)
-  collect(x$ds, ... )  
+  dplyr::collect(x$ds, ... )  
 }
 
 #' Coerce an mrgsimsds object to an arrow data set
