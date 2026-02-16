@@ -38,7 +38,7 @@ We will illustrate mrgsim.ds by doing a simulation.
 ```{r, message = FALSE}
 library(mrgsim.ds)
 
-mod <- modlib_ds("1005", Req = "IPRED")
+mod <- modlib_ds("popex", Req = "IPRED")
 
 data <- expand.ev(amt = 100, ID = 1:1000)
 ```
