@@ -12,9 +12,20 @@
 \arguments{
 \item{x}{an mrgsimsds object.}
 
-\item{...}{passed to \code{\link[dplyr:reexports]{dplyr::as_tibble()}} or
-\code{\link[dplyr:compute]{dplyr::collect()}}.}
+\item{...}{passed to \code{\link[dplyr:reexports]{dplyr::as_tibble()}} or \code{\link[dplyr:compute]{dplyr::collect()}}.}
+}
+\value{
+A tibble containing simulated data.
 }
 \description{
 Coerce an mrgsimsds object to a tibble
+}
+\examples{
+mod <- house_ds(end = 5)
+out <- mrgsim_ds(mod, events = ev(amt = 100))
+
+as_tibble(out)
+collect(out)
+
+
 }

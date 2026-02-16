@@ -2,6 +2,15 @@
 #' 
 #' @param x an mrgsimsds object. 
 #' @param ... passed to [arrow::as_arrow_table()]. 
+#' 
+#' @examples
+#' mod <- house_ds(end = 5)
+#' out <- mrgsim_ds(out, events = ev(amt = 100))
+#' 
+#' as_arrow_table()
+#' 
+#' @return
+#' An 'Apache' 'Arrow' [arrow::Table] of simulated data.
 #'
 #' @export
 as_arrow_table.mrgsimsds <- function(x, ...) {
@@ -12,8 +21,18 @@ as_arrow_table.mrgsimsds <- function(x, ...) {
 #' Coerce an mrgsimsds object to a tibble
 #' 
 #' @param x an mrgsimsds object. 
-#' @param ... passed to [dplyr::as_tibble()] or 
-#' [dplyr::collect()]. 
+#' @param ... passed to [dplyr::as_tibble()] or [dplyr::collect()]. 
+#' 
+#' @examples
+#' mod <- house_ds(end = 5)
+#' out <- mrgsim_ds(mod, events = ev(amt = 100))
+#' 
+#' as_tibble(out)
+#' collect(out)
+#' 
+#' 
+#' @return
+#' A tibble containing simulated data. 
 #'
 #' @export
 as_tibble.mrgsimsds <- function(x, ...) {
@@ -35,6 +54,15 @@ collect.mrgsimsds <- function(x, ...) {
 #' @details
 #' The method for list will retain only list positions containing an `mrgsimsds`
 #' object. A single data set object is returned.
+#' 
+#' @examples
+#' mod <- house_ds(end = 5)
+#' out <- mrgsim_ds(mod, events = ev(amt = 100))
+#' 
+#' as_arrow_ds(out)
+#' 
+#' @return
+#' An 'Apache' 'Arrow' [arrow::Dataset] object.
 #' 
 #' @export
 as_arrow_ds <- function(x, ... ) UseMethod("as_arrow_ds")
@@ -61,6 +89,15 @@ as_arrow_ds.list <- function(x, unique_files = TRUE, ...) {
 #' 
 #' @details
 #' The conversaion is handled by [as_arrow_ds()].
+#' 
+#' @examples
+#' mod <- house_ds(end = 5)
+#' out <- mrgsim_ds(mod, events = ev(amt = 100))
+#' 
+#' as_duckdb_ds(out)
+#' 
+#' @return
+#' A `tbl` of the simulated data in DuckDB; see [arrow::to_duckdb()].
 #' 
 #' @seealso [as_arrow_ds()]
 #' 

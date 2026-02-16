@@ -4,7 +4,7 @@
 \alias{refresh_ds}
 \alias{refresh_ds.mrgsimsds}
 \alias{refresh_ds.list}
-\title{Refresh the arrow dataset pointers.}
+\title{Refresh 'Arrow' dataset pointers.}
 \usage{
 refresh_ds(x, ...)
 
@@ -17,21 +17,24 @@ refresh_ds(x, ...)
 
 \item{...}{for future use.}
 }
+\value{
+The mrgsimsds object is returned with pointers refreshed.
+}
 \description{
-Pointers to arrow data sets will be invalid when
-the simulation is run in a different process, for
-example when simulating in parallel. The pointers
-should be refreshed on the head node once the
-simulation is finished.
+Pointers to arrow data sets will be invalid when the simulation is run in a
+different process, for example when simulating in parallel. The pointers
+should be refreshed on the head node once the simulation is finished.
 }
 \examples{
-mod <- mrgsolve::house()
+mod <- house_ds()
+
 data <- ev_expand(amt = 100, ID = 1:100)
 
 out <- lapply(1:3, function(rep) {
   out <- mrgsim_ds(mod, data) 
   out
 })
+
 out <- refresh_ds(out)
 
 }

@@ -11,6 +11,16 @@
 
 \item{...}{passed to \code{\link[arrow:as_arrow_table]{arrow::as_arrow_table()}}.}
 }
+\value{
+An 'Apache' 'Arrow' \link[arrow:Table-class]{arrow::Table} of simulated data.
+}
 \description{
 Coerce an mrgsimsds object to an arrow table
+}
+\examples{
+mod <- house_ds(end = 5)
+out <- mrgsim_ds(out, events = ev(amt = 100))
+
+as_arrow_table()
+
 }

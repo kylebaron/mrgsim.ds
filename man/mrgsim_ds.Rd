@@ -36,5 +36,5 @@ head(out)
 
 }
 \seealso{
-\code{\link[=as_mrgsim_ds]{as_mrgsim_ds()}}.
+\code{\link[=as_mrgsim_ds]{as_mrgsim_ds()}}, \link{mrgsimsds-methods}.
 }

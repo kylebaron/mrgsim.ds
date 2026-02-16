@@ -15,7 +15,8 @@ reduce_ds(x, ...)
 Reduce a list of mrgsimsds objects into a single object
 }
 \examples{
-mod <- modlib("1005")
+mod <- modlib_ds("1005")
+
 data <- ev_expand(amt = 100, ID = 1:100)
 
 out <- lapply(1:3, function(rep) {

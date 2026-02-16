@@ -11,11 +11,21 @@ as_duckdb_ds(x, ...)
 
 \item{...}{passed to \code{\link[=as_arrow_ds]{as_arrow_ds()}}.}
 }
+\value{
+A \code{tbl} of the simulated data in DuckDB; see \code{\link[arrow:to_duckdb]{arrow::to_duckdb()}}.
+}
 \description{
 Coerce an mrgsimsds object to a DuckDB table
 }
 \details{
 The conversaion is handled by \code{\link[=as_arrow_ds]{as_arrow_ds()}}.
+}
+\examples{
+mod <- house_ds(end = 5)
+out <- mrgsim_ds(mod, events = ev(amt = 100))
+
+as_duckdb_ds(out)
+
 }
 \seealso{
 \code{\link[=as_arrow_ds]{as_arrow_ds()}}

@@ -11,10 +11,20 @@ as_arrow_ds(x, ...)
 
 \item{...}{not used.}
 }
+\value{
+An 'Apache' 'Arrow' \link[arrow:Dataset]{arrow::Dataset} object.
+}
 \description{
 Coerce an mrgsimsds object to an arrow data set
 }
 \details{
 The method for list will retain only list positions containing an \code{mrgsimsds}
 object. A single data set object is returned.
+}
+\examples{
+mod <- house_ds(end = 5)
+out <- mrgsim_ds(mod, events = ev(amt = 100))
+
+as_arrow_ds(out)
+
 }

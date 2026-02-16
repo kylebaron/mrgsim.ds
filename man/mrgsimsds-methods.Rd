@@ -3,8 +3,6 @@
 \name{mrgsimsds-methods}
 \alias{mrgsimsds-methods}
 \alias{dim.mrgsimsds}
-\alias{nrow.mrgsimsds}
-\alias{ncol.mrgsimsds}
 \alias{head.mrgsimsds}
 \alias{tail.mrgsimsds}
 \alias{plot.mrgsimsds}
@@ -12,13 +10,9 @@
 \usage{
 \method{dim}{mrgsimsds}(x)
 
-nrow.mrgsimsds(x)
-
-ncol.mrgsimsds(x)
-
 \method{head}{mrgsimsds}(x, n = 6L, ...)
 
-\method{tail}{mrgsimsds}(x, ...)
+\method{tail}{mrgsimsds}(x, n = 6L, ...)
 
 \method{plot}{mrgsimsds}(
   x,
@@ -43,15 +37,22 @@ ncol.mrgsimsds(x)
 \description{
 Interact with mrgsimsds objects
 }
+\details{
+\code{head()} and \code{tail()} only look at the first and last file in the data
+set, respectively.
+}
 \examples{
-mod <- mrgsolve::house()
-out <- mrgsim_ds(mod, events = mrgsolve::ev(amt = 100))
+mod <- house_ds()
+
+out <- mrgsim_ds(mod, events = ev(amt = 100))
 
 dim(out)
 head(out)
 nrow(out)
 ncol(out)
 head(out)
-try(tail(out))
+tail(out)
+plot(out)
+
 
 }

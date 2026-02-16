@@ -33,7 +33,8 @@ simlist_reduce_ok <- function(x) {
 #' @param ... not used.
 #' 
 #' @examples
-#' mod <- modlib("1005")
+#' mod <- modlib_ds("1005")
+#' 
 #' data <- ev_expand(amt = 100, ID = 1:100)
 #' 
 #' out <- lapply(1:3, function(rep) {
@@ -72,18 +73,21 @@ reduce_ds.list <- function(x, ...) {
 
 #' Prune a list of mrgsimsds objects
 #' 
-#' @param x a list of mrgsimsds objects or a single mrgsimsds object.
+#' @param x a list of R objects or a single mrgsimsds object.
 #' @param inform issue a message when objects in some list slots are dropped. 
 #' @param ... not used. 
 #' 
 #' @examples
-#' mod <- house(end = 24)
+#' mod <- house_ds(end = 24)
 #' 
 #' out <- mrgsim_ds(mod, events = ev(amt = 100))
 #' 
 #' sims <- list(out, letters)
 #' 
 #' prune_ds(sims)
+#' 
+#' @return
+#' The input list of objects, with only the mrgsimsds objects retained.
 #' 
 #' @export
 prune_ds <- function(x, ...) UseMethod("prune_ds")

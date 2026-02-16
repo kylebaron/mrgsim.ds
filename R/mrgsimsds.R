@@ -6,9 +6,11 @@
 #' 
 #' @examples
 #' mod <- house_ds()
-#' data <- mrgsolve::ev_expand(amt = 100, ID = 1:10)
+#' data <- ev_expand(amt = 100, ID = 1:10)
 #' out <- mrgsolve::mrgsim(mod, data)
 #' obj <- as_mrgsim_ds(out)
+#' 
+#' obj
 #' 
 #' @return
 #' An object with class `mrgsimsds`.
@@ -39,7 +41,7 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE) {
   ans$files <- ans$ds$files
   ans$mod <- x@mod
   ans$dim <- dim(ans$ds)
-  ans$head <- x@data[seq(20),]
+  ans$head <- x@data[seq(10),]
   ans$names <- names(ans$head)
   ans$pid <- Sys.getpid()
   
@@ -74,7 +76,7 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE) {
 #' @return 
 #' An object with class `mrgsimsds`.
 #' 
-#' @seealso [as_mrgsim_ds()].
+#' @seealso [as_mrgsim_ds()], [mrgsimsds-methods].
 #' 
 #' @export
 mrgsim_ds <- function(x,  ..., id = NULL, tags = list(), verbose = FALSE) {
@@ -102,16 +104,23 @@ mrgsim_ds <- function(x,  ..., id = NULL, tags = list(), verbose = FALSE) {
 #' @param n number of rows to return.
 #' @param ... arguments to be passed to or from other methods.
 #' 
+#' @details
+#' `head()` and `tail()` only look at the first and last file in the data
+#' set, respectively. 
+#' 
 #' @examples
-#' mod <- mrgsolve::house()
-#' out <- mrgsim_ds(mod, events = mrgsolve::ev(amt = 100))
+#' mod <- house_ds()
+#' 
+#' out <- mrgsim_ds(mod, events = ev(amt = 100))
 #' 
 #' dim(out)
 #' head(out)
 #' nrow(out)
 #' ncol(out)
 #' head(out)
-#' try(tail(out))
+#' tail(out)
+#' plot(out)
+#' 
 #' 
 #' @name mrgsimsds-methods
 #' @export
@@ -121,30 +130,22 @@ dim.mrgsimsds <- function(x) {
 
 #' @name mrgsimsds-methods
 #' @export
-nrow.mrgsimsds <- function(x) {
-  x$dim[1L]
-}
-
-#' @name mrgsimsds-methods
-#' @export
-ncol.mrgsimsds <- function(x) {
-  x$dim[2L]
-}
-
-#' @name mrgsimsds-methods
-#' @export
 head.mrgsimsds <-  function(x, n = 6L, ...) {
-  if(n > nrow(x$head)) {
-    msg <- "there are only {nrow(x$head)} rows available for head()."
-    warn(glue(msg))  
-  }
-  as_tibble(head(x$head, n = n, ...))
+  get_head(x, n = n)
 }
 
 #' @name mrgsimsds-methods
 #' @export
-tail.mrgsimsds <- function(x, ...) {
-  abort("there is no `tail()` method for this object (mrgsimsds).") 
+tail.mrgsimsds <- function(x, n = 6L, ...) {
+  x <- safe_ds(x)
+  nf <- length(x$files)
+  if(nf > 1) {
+    ds <- open_dataset(x$files[nf])  
+  } else {
+    ds <- x$ds  
+  }
+  out <- tail(ds, n = n)
+  collect(out)
 }
 
 #' @name mrgsimsds-methods

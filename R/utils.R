@@ -1,14 +1,3 @@
-
-
-valid_ds <- function(x) {
-  !identical(x$ds$pointer(), new("externalptr"))  
-}
-
-safe_ds <- function(x) {
-  if(!valid_ds(x)) x <- refresh_ds(x)
-  x
-}
-
 #' Check if object inherits mrgsimsds
 #'
 #' @param x object to check. 
@@ -45,6 +34,15 @@ save_process_info <- function(x) {
   x
 }
 
+valid_ds <- function(x) {
+  !identical(x$ds$pointer(), new("externalptr"))  
+}
+
+safe_ds <- function(x) {
+  if(!valid_ds(x)) x <- refresh_ds(x)
+  x
+}
+
 pid_changed <- function(x) {
   Sys.getpid() != get_mread_pid(x)  
 }
@@ -56,6 +54,7 @@ get_mread_pid <- function(x) {
   }
   pid
 }
+
 get_mread_tempdir <- function(x) {
   tempd <- x@envir$mrgsim.ds.mread_tempdir
   tempd
@@ -67,7 +66,7 @@ mread_with_ds <- function(x) {
 
 get_head <- function(x, n = 6) {
   x <- safe_ds(x)
-  scanner <- Scanner$create(x$ds, batch_size = n)
+  scanner <- Scanner$create(x$ds, batch_size = 10000)
   reader <- scanner$ToRecordBatchReader()  
-  as.data.frame(reader$read_next_batch())
+  head(as.data.frame(reader$read_next_batch()), n = n)
 }

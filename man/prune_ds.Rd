@@ -7,17 +7,20 @@
 prune_ds(x, ...)
 }
 \arguments{
-\item{x}{a list of mrgsimsds objects or a single mrgsimsds object.}
+\item{x}{a list of R objects or a single mrgsimsds object.}
 
 \item{...}{not used.}
 
 \item{inform}{issue a message when objects in some list slots are dropped.}
 }
+\value{
+The input list of objects, with only the mrgsimsds objects retained.
+}
 \description{
 Prune a list of mrgsimsds objects
 }
 \examples{
-mod <- house(end = 24)
+mod <- house_ds(end = 24)
 
 out <- mrgsim_ds(mod, events = ev(amt = 100))
 
