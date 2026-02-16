@@ -18,7 +18,10 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-About mrgsim.ds - 
+
+`mrgsim.ds` provides an Apache Arrow-backed simulation output object for 
+mrgsolve, greatly reducing the memory footprint of large simulations and 
+providing a high-performance pipeline for summarizing huge simulation outputs.
 
 
 ## Installation
