@@ -17,12 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Kyle T Baron \email{kyleb@metrumrg.com} (\href{https://orcid.org/0000-0001-7252-5656}{ORCID})
-
-Other contributors:
-\itemize{
-  \item Kyle Meyer \email{kylem@metrumrg.com} [contributor]
-}
+\strong{Maintainer}: Kyle T Baron \email{kylebtwin@imap.cc} (\href{https://orcid.org/0000-0001-7252-5656}{ORCID}) [copyright holder]
 
 }
 \keyword{internal}

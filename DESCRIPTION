@@ -4,13 +4,10 @@ Title: 'Apache' 'Arrow' Dataset-Backed Simulation Outputs for 'mrgsolve'
 Version: 0.0.1
 Authors@R:
     c(person(given = "Kyle T", family = "Baron",
-             role = c("aut", "cre"),
-             email = "kyleb@metrumrg.com",
-             comment = c(ORCID = "0000-0001-7252-5656")),
-      person(given = "Kyle", family = "Meyer", 
-             role = "ctb", 
-             email = "kylem@metrumrg.com"))
-Maintainer: Kyle Baron <kyleb@metrumrg.com>
+             role = c("aut", "cre", "cph"),
+             email = "kylebtwin@imap.cc",
+             comment = c(ORCID = "0000-0001-7252-5656")))
+Maintainer: Kyle Baron <kylebtwin@imap.cc>
 Description: Provides tools for creating and managing file streams in support
   of large simulation or other outputs.
 License: GPL (>=2)
