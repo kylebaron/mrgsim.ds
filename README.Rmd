@@ -39,9 +39,9 @@ We will illustrate mrgsim.ds by doing a simulation.
 library(mrgsim.ds)
 library(dplyr)
 
-mod <- modlib_ds("popex", Req = "IPRED", end = 24)
+mod <- modlib_ds("popex", end = 240, outvars = c("CL,CENT,IPRED"))
 
-data <- expand.ev(amt = 100, ID = 1:1000)
+data <- expand.ev(amt = 100, ii = 24, total = 6, ID = 1:1000)
 ```
 
 mrgsim.ds provides a new `mrgsim()` variant - `mrgsim_ds()`:
@@ -110,7 +110,7 @@ parallel
 ```{r}
 library(future.apply)
 
-plan(multisession, workers = 2L)
+plan(multisession, workers = 5L)
 
 out2 <- future_lapply(1:10, \(x) {
   mrgsim_ds(mod, data)  
@@ -144,7 +144,7 @@ the files are automatically cleaned up.
 ```{r}
 purge_temp()
 
-plan(multisession, workers = 2L)
+plan(multisession, workers = 5L)
 
 out1 <- mrgsim_ds(mod, data) %>% rename_ds("out1")
 

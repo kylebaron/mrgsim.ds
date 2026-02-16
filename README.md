@@ -27,9 +27,9 @@ We will illustrate mrgsim.ds by doing a simulation.
 library(mrgsim.ds)
 library(dplyr)
 
-mod <- modlib_ds("popex", Req = "IPRED", end = 24)
+mod <- modlib_ds("popex", end = 240, outvars = c("CL,CENT,IPRED"))
 
-data <- expand.ev(amt = 100, ID = 1:1000)
+data <- expand.ev(amt = 100, ii = 24, total = 6, ID = 1:1000)
 ```
 
 mrgsim.ds provides a new `mrgsim()` variant - `mrgsim_ds()`:
@@ -39,17 +39,17 @@ out <- mrgsim_ds(mod, data)
 
 out
 . Model: popex
-. Dim  : 50,000 9
-. Files: 1 [1.9 Mb]
-.     ID time       GUT     CENT       CL        V       ECL     IPRED        DV
-. 1:   1  0.0   0.00000  0.00000 1.072391 24.06577 0.0698906 0.0000000 0.0000000
-. 2:   1  0.0 100.00000  0.00000 1.072391 24.06577 0.0698906 0.0000000 0.0000000
-. 3:   1  0.5  84.78394 15.04319 1.072391 24.06577 0.0698906 0.6250866 0.6250866
-. 4:   1  1.0  71.88317 27.46594 1.072391 24.06577 0.0698906 1.1412864 1.1412864
-. 5:   1  1.5  60.94538 37.67428 1.072391 24.06577 0.0698906 1.5654713 1.5654713
-. 6:   1  2.0  51.67190 46.01229 1.072391 24.06577 0.0698906 1.9119390 1.9119390
-. 7:   1  2.5  43.80947 52.77156 1.072391 24.06577 0.0698906 2.1928054 2.1928054
-. 8:   1  3.0  37.14339 58.19913 1.072391 24.06577 0.0698906 2.4183361 2.4183361
+. Dim  : 482.0K 5
+. Files: 1 [8 Mb]
+.     ID time     CENT       CL     IPRED
+. 1:   1  0.0  0.00000 1.151629 0.0000000
+. 2:   1  0.0  0.00000 1.151629 0.0000000
+. 3:   1  0.5 16.74061 1.151629 0.5493976
+. 4:   1  1.0 30.33797 1.151629 0.9956393
+. 5:   1  1.5 41.32930 1.151629 1.3563553
+. 6:   1  2.0 50.16086 1.151629 1.6461919
+. 7:   1  2.5 57.20341 1.151629 1.8773161
+. 8:   1  3.0 62.76491 1.151629 2.0598348
 ```
 
 The output object doesn’t actually carry the simulated data, but rather
@@ -57,7 +57,7 @@ a pointer to the data in parquet files on your disk.
 
 ``` r
 out$files
-. [1] "/private/var/folders/zv/v6tkdhrn1_bb1ndrc0c0j31w0000gp/T/RtmpwbZdoE/mrgsims-ds-764077a82b63.parquet"
+. [1] "/private/var/folders/zv/v6tkdhrn1_bb1ndrc0c0j31w0000gp/T/RtmpGELVzL/mrgsims-ds-7eca78ffa049.parquet"
 ```
 
 But, we can do a lot of the typical things we would with any mrgsim
@@ -71,27 +71,27 @@ plot(out)
 
 ``` r
 head(out)
-. # A tibble: 6 × 9
-.      ID  time   GUT  CENT    CL     V    ECL IPRED    DV
-.   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl>
-. 1     1   0     0     0    1.07  24.1 0.0699 0     0    
-. 2     1   0   100     0    1.07  24.1 0.0699 0     0    
-. 3     1   0.5  84.8  15.0  1.07  24.1 0.0699 0.625 0.625
-. 4     1   1    71.9  27.5  1.07  24.1 0.0699 1.14  1.14 
-. 5     1   1.5  60.9  37.7  1.07  24.1 0.0699 1.57  1.57 
-. 6     1   2    51.7  46.0  1.07  24.1 0.0699 1.91  1.91
+. # A tibble: 6 × 5
+.      ID  time  CENT    CL IPRED
+.   <dbl> <dbl> <dbl> <dbl> <dbl>
+. 1     1   0     0    1.15 0    
+. 2     1   0     0    1.15 0    
+. 3     1   0.5  16.7  1.15 0.549
+. 4     1   1    30.3  1.15 0.996
+. 5     1   1.5  41.3  1.15 1.36 
+. 6     1   2    50.2  1.15 1.65
 tail(out)
-. # A tibble: 6 × 9
-.      ID  time      GUT  CENT    CL     V   ECL IPRED    DV
-.   <dbl> <dbl>    <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-. 1  1000  21.5 2.93e- 9  75.5 0.227  16.6 -1.48  4.53  4.53
-. 2  1000  22   1.67e- 9  75.0 0.227  16.6 -1.48  4.50  4.50
-. 3  1000  22.5 9.48e-10  74.4 0.227  16.6 -1.48  4.47  4.47
-. 4  1000  23   5.39e-10  73.9 0.227  16.6 -1.48  4.44  4.44
-. 5  1000  23.5 3.07e-10  73.4 0.227  16.6 -1.48  4.41  4.41
-. 6  1000  24   1.75e-10  72.9 0.227  16.6 -1.48  4.38  4.38
+. # A tibble: 6 × 5
+.      ID  time  CENT    CL IPRED
+.   <dbl> <dbl> <dbl> <dbl> <dbl>
+. 1  1000  238.  5.10 0.817 0.216
+. 2  1000  238   5.01 0.817 0.212
+. 3  1000  238.  4.93 0.817 0.208
+. 4  1000  239   4.84 0.817 0.205
+. 5  1000  240.  4.76 0.817 0.201
+. 6  1000  240   4.68 0.817 0.198
 dim(out)
-. [1] 50000     9
+. [1] 482000      5
 ```
 
 This includes coercing to different types of objects. We can get the
@@ -99,20 +99,20 @@ usual R data frames
 
 ``` r
 as_tibble(out)
-. # A tibble: 50,000 × 9
-.       ID  time   GUT  CENT    CL     V    ECL IPRED    DV
-.    <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl>
-.  1     1   0     0     0    1.07  24.1 0.0699 0     0    
-.  2     1   0   100     0    1.07  24.1 0.0699 0     0    
-.  3     1   0.5  84.8  15.0  1.07  24.1 0.0699 0.625 0.625
-.  4     1   1    71.9  27.5  1.07  24.1 0.0699 1.14  1.14 
-.  5     1   1.5  60.9  37.7  1.07  24.1 0.0699 1.57  1.57 
-.  6     1   2    51.7  46.0  1.07  24.1 0.0699 1.91  1.91 
-.  7     1   2.5  43.8  52.8  1.07  24.1 0.0699 2.19  2.19 
-.  8     1   3    37.1  58.2  1.07  24.1 0.0699 2.42  2.42 
-.  9     1   3.5  31.5  62.5  1.07  24.1 0.0699 2.60  2.60 
-. 10     1   4    26.7  65.9  1.07  24.1 0.0699 2.74  2.74 
-. # ℹ 49,990 more rows
+. # A tibble: 482,000 × 5
+.       ID  time  CENT    CL IPRED
+.    <dbl> <dbl> <dbl> <dbl> <dbl>
+.  1     1   0     0    1.15 0    
+.  2     1   0     0    1.15 0    
+.  3     1   0.5  16.7  1.15 0.549
+.  4     1   1    30.3  1.15 0.996
+.  5     1   1.5  41.3  1.15 1.36 
+.  6     1   2    50.2  1.15 1.65 
+.  7     1   2.5  57.2  1.15 1.88 
+.  8     1   3    62.8  1.15 2.06 
+.  9     1   3.5  67.1  1.15 2.20 
+. 10     1   4    70.4  1.15 2.31 
+. # ℹ 481,990 more rows
 ```
 
 Or stay in the arrow ecosystem
@@ -120,16 +120,12 @@ Or stay in the arrow ecosystem
 ``` r
 as_arrow_ds(out)
 . FileSystemDataset with 1 Parquet file
-. 9 columns
+. 5 columns
 . ID: double
 . time: double
-. GUT: double
 . CENT: double
 . CL: double
-. V: double
-. ECL: double
 . IPRED: double
-. DV: double
 . 
 . See $metadata for additional Schema metadata
 ```
@@ -154,20 +150,20 @@ dd
 
 ``` r
 collect(dd)
-. # A tibble: 49 × 2
+. # A tibble: 481 × 2
 .     time Median
 .    <dbl>  <dbl>
 .  1   0    0    
-.  2   0.5  0.885
-.  3   1    1.55 
-.  4   1.5  2.04 
-.  5   2    2.38 
-.  6   2.5  2.61 
-.  7   3    2.76 
-.  8   3.5  2.87 
-.  9  16.5  2.10 
-. 10  17.5  2.01 
-. # ℹ 39 more rows
+.  2   0.5  0.901
+.  3   1    1.58 
+.  4   1.5  2.07 
+.  5   2    2.42 
+.  6   2.5  2.65 
+.  7   3    2.81 
+.  8   3.5  2.92 
+.  9  16.5  2.15 
+. 10  17.5  2.07 
+. # ℹ 471 more rows
 ```
 
 This workflow is particularly useful when running replicate simulations
@@ -177,7 +173,7 @@ in parallel
 library(future.apply)
 . Loading required package: future
 
-plan(multisession, workers = 2L)
+plan(multisession, workers = 5L)
 
 out2 <- future_lapply(1:10, \(x) {
   mrgsim_ds(mod, data)  
@@ -187,29 +183,29 @@ out2 <- reduce_ds(out2)
 
 out2
 . Model: popex
-. Dim  : 500.0K 9
-. Files: 10 [18.9 Mb]
-.     ID time       GUT     CENT       CL        V       ECL    IPRED       DV
-. 1:   1  0.0   0.00000  0.00000 1.323299 15.42988 0.2801279 0.000000 0.000000
-. 2:   1  0.0 100.00000  0.00000 1.323299 15.42988 0.2801279 0.000000 0.000000
-. 3:   1  0.5  70.76088 28.58579 1.323299 15.42988 0.2801279 1.852625 1.852625
-. 4:   1  1.0  50.07102 47.61347 1.323299 15.42988 0.2801279 3.085796 3.085796
-. 5:   1  1.5  35.43069 59.92811 1.323299 15.42988 0.2801279 3.883899 3.883899
-. 6:   1  2.0  25.07107 67.54079 1.323299 15.42988 0.2801279 4.377272 4.377272
-. 7:   1  2.5  17.74051 71.87256 1.323299 15.42988 0.2801279 4.658010 4.658010
-. 8:   1  3.0  12.55334 73.92700 1.323299 15.42988 0.2801279 4.791157 4.791157
+. Dim  : 4.8M 5
+. Files: 10 [80.2 Mb]
+.     ID time     CENT        CL     IPRED
+. 1:   1  0.0  0.00000 0.9594254 0.0000000
+. 2:   1  0.0  0.00000 0.9594254 0.0000000
+. 3:   1  0.5 22.04630 0.9594254 0.9796388
+. 4:   1  1.0 38.71305 0.9594254 1.7202345
+. 5:   1  1.5 51.20927 0.9594254 2.2755104
+. 6:   1  2.0 60.47425 0.9594254 2.6872049
+. 7:   1  2.5 67.23771 0.9594254 2.9877427
+. 8:   1  3.0 72.06648 0.9594254 3.2023117
 ```
 
 All arrow files are stored in the tempdir in parquet format
 
 ``` r
 list_temp()
-. 11 files [20.8 Mb]
-. - mrgsims-ds-764077a82b63.parquet
-. - mrgsims-ds-767d41ce9a67.parquet
+. 11 files [88.3 Mb]
+. - mrgsims-ds-7eca78ffa049.parquet
+. - mrgsims-ds-7f071002c2aa.parquet
 .    ...
-. - mrgsims-ds-767e4ce3313d.parquet
-. - mrgsims-ds-767e5e4ca85f.parquet
+. - mrgsims-ds-7f0b1457847b.parquet
+. - mrgsims-ds-7f0b2aee909a.parquet
 ```
 
 This directory is eventually removed when the R session ends. Tools are
@@ -220,12 +216,12 @@ retain_temp(out2)
 . Discarding 1 files.
 
 list_temp()
-. 10 files [18.9 Mb]
-. - mrgsims-ds-767d41ce9a67.parquet
-. - mrgsims-ds-767d4938775a.parquet
+. 10 files [80.2 Mb]
+. - mrgsims-ds-7f071002c2aa.parquet
+. - mrgsims-ds-7f07253a2f1c.parquet
 .    ...
-. - mrgsims-ds-767e4ce3313d.parquet
-. - mrgsims-ds-767e5e4ca85f.parquet
+. - mrgsims-ds-7f0b1457847b.parquet
+. - mrgsims-ds-7f0b2aee909a.parquet
 ```
 
 We also put a finalizer on each object so that, when it goes out of
@@ -235,7 +231,7 @@ scope, the files are automatically cleaned up.
 purge_temp()
 . Discarding 10 files.
 
-plan(multisession, workers = 2L)
+plan(multisession, workers = 5L)
 
 out1 <- mrgsim_ds(mod, data) %>% rename_ds("out1")
 
@@ -250,7 +246,7 @@ out3 <- mrgsim_ds(mod, data) %>% rename_ds("out3")
 
 ``` r
 list_temp()
-. 12 files [22.7 Mb]
+. 12 files [96.3 Mb]
 . - mrgsims-ds-out1-0001.parquet
 . - mrgsims-ds-out2-0001.parquet
 .    ...
@@ -266,11 +262,11 @@ cleaned up.
 ``` r
 gc()
 .           used (Mb) gc trigger  (Mb) limit (Mb) max used  (Mb)
-. Ncells 1695819 90.6    2912040 155.6         NA  2912040 155.6
-. Vcells 3106010 23.7    8388608  64.0      16384  6728500  51.4
+. Ncells 1695832 90.6    2914462 155.7         NA  2914462 155.7
+. Vcells 5555322 42.4   12241802  93.4      16384 10573259  80.7
 
 list_temp()
-. 2 files [3.8 Mb]
+. 2 files [16 Mb]
 . - mrgsims-ds-out1-0001.parquet
 . - mrgsims-ds-out3-0001.parquet
 ```
