@@ -15,7 +15,7 @@ for summarizing huge simulation outputs.
 
 ## Installation
 
-You can install the development version of mrgsim.ds from
+You can install the development version of `mrgsim.ds` from
 [GitHub](https://github.com/kylebaron/mrgsim.ds) with:
 
 ``` r
@@ -45,15 +45,15 @@ out
 . Model: popex
 . Dim  : 1.4M 4
 . Files: 1 [11.9 Mb]
-.     ID time       CL     IPRED
-. 1:   1  0.0 1.352973 0.0000000
-. 2:   1  0.0 1.352973 0.0000000
-. 3:   1  0.5 1.352973 0.8022431
-. 4:   1  1.0 1.352973 1.4268671
-. 5:   1  1.5 1.352973 1.9088414
-. 6:   1  2.0 1.352973 2.2763574
-. 7:   1  2.5 1.352973 2.5521396
-. 8:   1  3.0 1.352973 2.7545025
+.     ID time       CL    IPRED
+. 1:   1  0.0 2.322135 0.000000
+. 2:   1  0.0 2.322135 0.000000
+. 3:   1  0.5 2.322135 1.716901
+. 4:   1  1.0 2.322135 2.796687
+. 5:   1  1.5 2.322135 3.441485
+. 6:   1  2.0 2.322135 3.791145
+. 7:   1  2.5 2.322135 3.942306
+. 8:   1  3.0 2.322135 3.961645
 ```
 
 ## Very lightweight simulation output object
@@ -63,7 +63,7 @@ a pointer to the data in parquet files on your disk.
 
 ``` r
 out$files
-. [1] "/private/var/folders/zv/v6tkdhrn1_bb1ndrc0c0j31w0000gp/T/RtmpgidFmN/mrgsims-ds-924b4d2283ee.parquet"
+. [1] "/private/var/folders/zv/v6tkdhrn1_bb1ndrc0c0j31w0000gp/T/RtmpV6tKLm/mrgsims-ds-93963660f104.parquet"
 ```
 
 This means there is almost nothing inside the object itself
@@ -92,7 +92,7 @@ The object is very light weight despite carrying the same data.
 
 ## Handles like regular mrgsim output
 
-But, we can do a lot of the typical things we would with any mrgsim
+But, we can do a lot of the typical things we would with any `mrgsim()`
 output object.
 
 ``` r
@@ -106,23 +106,23 @@ head(out)
 . # A tibble: 6 × 4
 .      ID  time    CL IPRED
 .   <dbl> <dbl> <dbl> <dbl>
-. 1     1   0    1.35 0    
-. 2     1   0    1.35 0    
-. 3     1   0.5  1.35 0.802
-. 4     1   1    1.35 1.43 
-. 5     1   1.5  1.35 1.91 
-. 6     1   2    1.35 2.28
+. 1     1   0    2.32  0   
+. 2     1   0    2.32  0   
+. 3     1   0.5  2.32  1.72
+. 4     1   1    2.32  2.80
+. 5     1   1.5  2.32  3.44
+. 6     1   2    2.32  3.79
 
 tail(out)
 . # A tibble: 6 × 4
-.      ID  time    CL    IPRED
-.   <dbl> <dbl> <dbl>    <dbl>
-. 1  3000  238.  1.19 0.000297
-. 2  3000  238   1.19 0.000284
-. 3  3000  238.  1.19 0.000272
-. 4  3000  239   1.19 0.000260
-. 5  3000  240.  1.19 0.000248
-. 6  3000  240   1.19 0.000237
+.      ID  time    CL  IPRED
+.   <dbl> <dbl> <dbl>  <dbl>
+. 1  3000  238. 0.962 0.0176
+. 2  3000  238  0.962 0.0171
+. 3  3000  238. 0.962 0.0167
+. 4  3000  239  0.962 0.0162
+. 5  3000  240. 0.962 0.0158
+. 6  3000  240  0.962 0.0154
 
 dim(out)
 . [1] 1446000       4
@@ -136,16 +136,16 @@ as_tibble(out)
 . # A tibble: 1,446,000 × 4
 .       ID  time    CL IPRED
 .    <dbl> <dbl> <dbl> <dbl>
-.  1     1   0    1.35 0    
-.  2     1   0    1.35 0    
-.  3     1   0.5  1.35 0.802
-.  4     1   1    1.35 1.43 
-.  5     1   1.5  1.35 1.91 
-.  6     1   2    1.35 2.28 
-.  7     1   2.5  1.35 2.55 
-.  8     1   3    1.35 2.75 
-.  9     1   3.5  1.35 2.90 
-. 10     1   4    1.35 3.00 
+.  1     1   0    2.32  0   
+.  2     1   0    2.32  0   
+.  3     1   0.5  2.32  1.72
+.  4     1   1    2.32  2.80
+.  5     1   1.5  2.32  3.44
+.  6     1   2    2.32  3.79
+.  7     1   2.5  2.32  3.94
+.  8     1   3    2.32  3.96
+.  9     1   3.5  2.32  3.90
+. 10     1   4    2.32  3.77
 . # ℹ 1,445,990 more rows
 ```
 
@@ -165,7 +165,7 @@ as_arrow_ds(out)
 
 ## Tidyverse-friendly
 
-We’ve integrated into the dplyr ecosystem as well
+We’ve integrated into the `dplyr` ecosystem as well
 
 ``` r
 dd <- 
@@ -186,23 +186,23 @@ collect(dd)
 . # A tibble: 481 × 2
 .     time  Mean
 .    <dbl> <dbl>
-.  1  224. 0.461
-.  2  225  0.457
-.  3  226. 0.452
-.  4  226  0.448
-.  5  226. 0.444
-.  6  227  0.440
-.  7  228. 0.436
-.  8  228  0.431
-.  9  228. 0.427
-. 10  229  0.423
+.  1  224. 0.443
+.  2  225  0.439
+.  3  226. 0.435
+.  4  226  0.431
+.  5  226. 0.427
+.  6  227  0.422
+.  7  228. 0.418
+.  8  228  0.414
+.  9  228. 0.410
+. 10  229  0.406
 . # ℹ 471 more rows
 ```
 
 ## Good for large simulations
 
 This workflow is particularly useful when running replicate simulations
-in parallel, with loarge outputs
+in parallel, with large outputs
 
 ``` r
 library(future.apply)
@@ -218,29 +218,29 @@ out2
 . Model: popex
 . Dim  : 14.5M 4
 . Files: 10 [119.2 Mb]
-.     ID time        CL     IPRED
-. 1:   1  0.0 0.9213038 0.0000000
-. 2:   1  0.0 0.9213038 0.0000000
-. 3:   1  0.5 0.9213038 0.8646317
-. 4:   1  1.0 0.9213038 1.4701627
-. 5:   1  1.5 0.9213038 1.8907916
-. 6:   1  2.0 0.9213038 2.1795145
-. 7:   1  2.5 0.9213038 2.3741831
-. 8:   1  3.0 0.9213038 2.5018319
+.     ID time      CL    IPRED
+. 1:   1  0.0 1.16804 0.000000
+. 2:   1  0.0 1.16804 0.000000
+. 3:   1  0.5 1.16804 3.859233
+. 4:   1  1.0 1.16804 3.933915
+. 5:   1  1.5 1.16804 3.847903
+. 6:   1  2.0 1.16804 3.757089
+. 7:   1  2.5 1.16804 3.668131
+. 8:   1  3.0 1.16804 3.581266
 ```
 
 ## Files on disk are automagically managed
 
-All arrow files are stored in the tempdir in parquet format
+All `arrow` files are stored in the `tempdir()` in parquet format
 
 ``` r
 list_temp()
 . 11 files [131.1 Mb]
-. - mrgsims-ds-924b4d2283ee.parquet
-. - mrgsims-ds-92893b0cb67d.parquet
+. - mrgsims-ds-93963660f104.parquet
+. - mrgsims-ds-93d36ff9ae9a.parquet
 .    ...
-. - mrgsims-ds-928d6a7a0ac8.parquet
-. - mrgsims-ds-928d725a0714.parquet
+. - mrgsims-ds-93d73eff512f.parquet
+. - mrgsims-ds-93d76c2b04f8.parquet
 ```
 
 This directory is eventually removed when the R session ends. Tools are
@@ -252,11 +252,11 @@ retain_temp(out2)
 
 list_temp()
 . 10 files [119.2 Mb]
-. - mrgsims-ds-92893b0cb67d.parquet
-. - mrgsims-ds-9289416828ed.parquet
+. - mrgsims-ds-93d36ff9ae9a.parquet
+. - mrgsims-ds-93d372560f1a.parquet
 .    ...
-. - mrgsims-ds-928d6a7a0ac8.parquet
-. - mrgsims-ds-928d725a0714.parquet
+. - mrgsims-ds-93d73eff512f.parquet
+. - mrgsims-ds-93d76c2b04f8.parquet
 ```
 
 We also put a finalizer on each object so that, when it goes out of
@@ -295,8 +295,8 @@ cleaned up.
 ``` r
 gc()
 .            used  (Mb) gc trigger  (Mb) limit (Mb) max used  (Mb)
-. Ncells  1695958  90.6    3059980 163.5         NA  2667092 142.5
-. Vcells 14761933 112.7   30250107 230.8      16384 26544031 202.6
+. Ncells  1695957  90.6    3059977 163.5         NA  2669645 142.6
+. Vcells 14761930 112.7   30250091 230.8      16384 26544018 202.6
 
 list_temp()
 . 2 files [23.8 Mb]

@@ -27,7 +27,7 @@ pipeline for summarizing huge simulation outputs.
 
 ## Installation
 
-You can install the development version of mrgsim.ds from 
+You can install the development version of `mrgsim.ds` from 
 [GitHub](https://github.com/kylebaron/mrgsim.ds) with:
 
 ``` r
@@ -89,7 +89,7 @@ The object is very light weight despite carrying the same data.
 
 ## Handles like regular mrgsim output
 
-But, we can do a lot of the typical things we would with any mrgsim output 
+But, we can do a lot of the typical things we would with any `mrgsim()` output 
 object. 
 
 
@@ -118,7 +118,7 @@ as_arrow_ds(out)
 
 ## Tidyverse-friendly
 
-We've integrated into the dplyr ecosystem as well
+We've integrated into the `dplyr` ecosystem as well
 
 ```{r}
 dd <- 
@@ -138,7 +138,7 @@ collect(dd)
 ## Good for large simulations
 
 This workflow is particularly useful when running replicate simulations in 
-parallel, with loarge outputs
+parallel, with large outputs
 
 ```{r}
 library(future.apply)
@@ -155,7 +155,7 @@ out2
 
 ## Files on disk are automagically managed
 
-All arrow files are stored in the tempdir in parquet format
+All `arrow` files are stored in the `tempdir()` in parquet format
 
 ```{r}
 list_temp()
