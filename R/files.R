@@ -178,12 +178,11 @@ move_ds <- function(x, path) {
 rename_ds <- function(x, id) {
   require_ds(x)
   files <- x$files
-  if(length(files) > 1) {
-    i <- seq_along(files)
-    width <- floor(log10(length(i)))+1
-    i <- formatC(i, width = width, flag = "0")
-    id <- paste0(id, "-", i)
-  }
+  i <- seq_along(files)
+  width <- floor(log10(length(i)))+1
+  width <- max(width, 4)
+  i <- formatC(i, width = width, flag = "0")
+  id <- paste0(id, "-", i)
   new_names <- file_ds(id = id)
   x$files <- file_move(files, file.path(dirname(files), new_names))
   x <- refresh_ds(x)

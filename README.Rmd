@@ -37,8 +37,9 @@ We will illustrate mrgsim.ds by doing a simulation.
 
 ```{r, message = FALSE}
 library(mrgsim.ds)
+library(dplyr)
 
-mod <- modlib_ds("popex", Req = "IPRED")
+mod <- modlib_ds("popex", Req = "IPRED", end = 24)
 
 data <- expand.ev(amt = 100, ID = 1:1000)
 ```
@@ -56,12 +57,115 @@ rather a pointer to the data in parquet files on your disk.
 
 
 ```{r}
+out$files
+```
+
+
+But, we can do a lot of the typical things we would with any mrgsim output 
+object. 
+
+
+```{r plot_head_tail_dim}
+plot(out)
+head(out)
+tail(out)
+dim(out)
+```
+
+This includes coercing to different types of objects. We can get the usual 
+R data frames
+
+```{r}
+as_tibble(out)
+```
+
+
+Or stay in the arrow ecosystem
+
+```{r}
 as_arrow_ds(out)
 ```
 
 
+We've integrated into the dplyr ecosystem as well
 
 ```{r}
-plot(out)
+dd <- 
+  out %>% 
+  group_by(time) %>% 
+  summarise(Median = median(IPRED, na.rm = TRUE))
+
+dd
+```
+
+
+```{r}
+collect(dd)
+```
+
+
+This workflow is particularly useful when running replicate simulations in 
+parallel
+
+```{r}
+library(future.apply)
+
+plan(multisession, workers = 2L)
+
+out2 <- future_lapply(1:10, \(x) {
+  mrgsim_ds(mod, data)  
+}, future.seed = TRUE)
+
+out2 <- reduce_ds(out2)
+
+out2
+```
+
+
+All arrow files are stored in the tempdir in parquet format
+
+```{r}
+list_temp()
+```
+
+This directory is eventually removed when the R session ends. Tools are provided
+to manage the space.
+
+```{r}
+retain_temp(out2)
+list_temp()
+```
+
+
+We also put a finalizer on each object so that, when it goes out of scope, 
+the files are automatically cleaned up. 
+
+```{r}
+purge_temp()
+
+plan(multisession, workers = 2L)
+
+out1 <- mrgsim_ds(mod, data) %>% rename_ds("out1")
+
+out2 <- future_lapply(1:10, \(x) {
+  mrgsim_ds(mod, data)  
+}, future.seed = TRUE)
+
+out2 <- reduce_ds(out2) %>% rename_ds("out2")
+
+out3 <- mrgsim_ds(mod, data) %>% rename_ds("out3")
+
+```
+
+
+```{r}
+list_temp()
+rm(out2)
+```
+
+As soon as the garbage collecter is called, the leftover files are cleaned up.
+```{r}
+gc()
+list_temp()
 ```
 
