@@ -1,9 +1,3 @@
 url: https://kylebaron.github.io/mrgsim.ds
 template:
   bootstrap: 5
-
-reference:
-- title: Section title
-  contents:
-  - topic_1
-  - topic_2

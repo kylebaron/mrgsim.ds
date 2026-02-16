@@ -113,14 +113,14 @@ mrgsim_ds <- function(x,  ..., id = NULL, tags = list(), verbose = FALSE) {
 #' 
 #' out <- mrgsim_ds(mod, events = ev(amt = 100))
 #' 
+#' \dontrun{
 #' dim(out)
 #' head(out)
+#' tail(out)
 #' nrow(out)
 #' ncol(out)
-#' head(out)
-#' tail(out)
 #' plot(out)
-#' 
+#' }
 #' 
 #' @name mrgsimsds-methods
 #' @export

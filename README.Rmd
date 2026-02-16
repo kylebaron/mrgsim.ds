@@ -35,10 +35,10 @@ devtools::install_github("kylebaron/mrgsim.ds")
 
 We will illustrate mrgsim.ds by doing a simulation. 
 
-```{r}
+```{r, message = FALSE}
 library(mrgsim.ds)
 
-mod <- modlib("1005", Req = "IPRED")
+mod <- modlib_ds("1005", Req = "IPRED")
 
 data <- expand.ev(amt = 100, ID = 1:1000)
 ```
@@ -56,6 +56,12 @@ rather a pointer to the data in parquet files on your disk.
 
 
 ```{r}
-as_ds_sims(out)
+as_arrow_ds(out)
+```
+
+
+
+```{r}
+plot(out)
 ```
 
