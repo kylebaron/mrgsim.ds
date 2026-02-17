@@ -136,7 +136,7 @@ summarize your simulations using the power of Apache Arrow.
 dd <- 
   out %>% 
   group_by(time) %>% 
-  summarise(Mean = mean(IPRED, na.rm = TRUE))
+  summarise(Mean = mean(IPRED, na.rm = TRUE), n = n())
 
 dd
 ```
