@@ -1,6 +1,6 @@
 #' @export
 #' @md
-print.mrgsimsds <- function(x, n = 8, ...) {
+print.mrgsimsds <- function(x, n = 8, ...) { # nocov start
   dm <- x$dim
   size <- total_size(x$files)
   dm1 <- dm[1L]
@@ -21,4 +21,4 @@ print.mrgsimsds <- function(x, n = 8, ...) {
     message("! pointer is invalid; run refresh_ds().")  
   }
   return(invisible(NULL))
-}
+} # nocov end
