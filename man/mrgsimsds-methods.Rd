@@ -5,6 +5,7 @@
 \alias{dim.mrgsimsds}
 \alias{head.mrgsimsds}
 \alias{tail.mrgsimsds}
+\alias{names.mrgsimsds}
 \alias{plot.mrgsimsds}
 \title{Interact with mrgsimsds objects}
 \usage{
@@ -13,6 +14,8 @@
 \method{head}{mrgsimsds}(x, n = 6L, ...)
 
 \method{tail}{mrgsimsds}(x, n = 6L, ...)
+
+\method{names}{mrgsimsds}(x)
 
 \method{plot}{mrgsimsds}(
   x,

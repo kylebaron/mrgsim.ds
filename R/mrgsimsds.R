@@ -196,6 +196,12 @@ tail.mrgsimsds <- function(x, n = 6L, ...) {
 
 #' @name mrgsimsds-methods
 #' @export
+names.mrgsimsds <- function(x) {
+  names(x$ds)  
+}
+
+#' @name mrgsimsds-methods
+#' @export
 plot.mrgsimsds <- function(x, y = NULL, ...,  nid = 5, batch_size = 20000, 
                            logy = FALSE, 
                            .dots = list()) {
