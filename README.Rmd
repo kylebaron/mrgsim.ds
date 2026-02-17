@@ -66,7 +66,7 @@ rather a pointer to the data in parquet files on your disk.
 
 
 ```{r}
-out$files
+basename(out$files)
 ```
 
 This means there is almost nothing inside the object itself
