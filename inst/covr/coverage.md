@@ -1,9 +1,8 @@
-# coverage: 84.59%
+# coverage: 87.11%
 
 |file          | coverage|
 |:-------------|--------:|
 |R/prune.R     |     0.00|
-|R/wrapper.R   |    20.00|
 |R/utils.R     |    50.00|
 |R/reduce.R    |    89.74|
 |R/files.R     |    90.59|
@@ -12,3 +11,4 @@
 |R/refresh.R   |   100.00|
 |R/simlist.R   |   100.00|
 |R/verbs.R     |   100.00|
+|R/wrapper.R   |   100.00|

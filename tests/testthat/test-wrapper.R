@@ -5,6 +5,10 @@ test_that("mrgsolve wrappers", {
   x <- modlib_ds("pk1", param = list(CL = 2), compile = FALSE)
   expect_is(x, "mrgmod")
   expect_equal(x$CL, 2)
+  l <- as.list(x@envir)
+  expect_true(l$mrgsim.ds.mread_valid)
+  expect_equal(l$mrgsim.ds.mread_pid, Sys.getpid())
+  expect_equal(l$mrgsim.ds.mread_tempdir, tempdir())
   
   code <- "$param a = 1"
   x <- mcode_ds("example-mcode", code, end = 12, compile = FALSE)

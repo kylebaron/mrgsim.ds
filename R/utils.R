@@ -40,7 +40,7 @@ format_big <- function() {
 #' 
 #' @export
 save_process_info <- function(x) {
-  x@envir$mrgsim.ds_mread_valid <- TRUE
+  x@envir$mrgsim.ds.mread_valid <- TRUE
   x@envir$mrgsim.ds.mread_pid <- Sys.getpid()
   x@envir$mrgsim.ds.mread_tempdir <- tempdir()
   x

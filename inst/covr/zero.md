@@ -40,11 +40,3 @@
 "166","R/utils.R","get_mread_pid",64,0
 "168","R/utils.R","get_mread_pid",65,0
 "171","R/utils.R","get_mread_pid",67,0
-"52","R/wrapper.R","mread_ds",18,0
-"58","R/wrapper.R","mread_ds",19,0
-"74","R/wrapper.R","mcode_ds",25,0
-"79","R/wrapper.R","mcode_ds",26,0
-"97","R/wrapper.R","modlib_ds",32,0
-"102","R/wrapper.R","modlib_ds",33,0
-"136","R/wrapper.R","mread_cache_ds",46,0
-"140","R/wrapper.R","mread_cache_ds",47,0
