@@ -2,8 +2,8 @@ library(testthat)
 library(mrgsim.ds)
 
 test_that("mrgsim_ds", {
-  mod <- house_ds()
-  out <- mrgsim_ds(mod)
+  mod <- house_ds(end = 2)
+  out <- mrgsim_ds(mod, idata = expand.idata(1:10))
   expect_is(out, "mrgsimsds")
   expect_all_true(file.exists(out$files))
   expect_true(mrgsim.ds:::valid_ds(out))
@@ -15,6 +15,10 @@ test_that("mrgsim_ds", {
   expect_identical(names(sims), names(out))
   expect_identical(head(out), sims[1:6,])
   expect_identical(tail(out), tail(sims))
+  x <- plot(out, nid = 3)
+  expect_equal(length(unique(x$ID)), 3)
+  x <- plot(out, nid = 20)
+  expect_equal(length(unique(x$ID)), 10)
 })
 
 test_that("as_mrgsim_ds", {
@@ -46,6 +50,14 @@ test_that("tag output data", {
   expect_error(mrgsim_ds(mod, tags = list(1)), "must be a named list")
 })
 
-
-
-
+test_that("copy an object", {
+  mod <- house_ds(end = 24)
+  out1 <- mrgsim_ds(mod, events = ev(amt = 100))
+  out2 <- copy_ds(out1)
+  o1 <- as.list(out1)
+  o2 <- as.list(out2)
+  expect_identical(names(o1), names(o2))
+  o1$ds <- collect(out1)
+  o2$ds <- collect(out2)
+  expect_identical(o1, o2)
+})

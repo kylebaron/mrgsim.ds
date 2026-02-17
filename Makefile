@@ -80,3 +80,6 @@ bump-dev:
 tag-version:
 	git tag $(VERSION)
 	git push origin $(VERSION)
+
+covr:
+	Rscript inst/script/covr.R

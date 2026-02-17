@@ -1,4 +1,4 @@
-# coverage: 18.26%
+# coverage: 32.95%
 
 |file          | coverage|
 |:-------------|--------:|
@@ -9,7 +9,7 @@
 |R/simlist.R   |     0.00|
 |R/verbs.R     |     0.00|
 |R/files.R     |     8.24|
-|R/collect.R   |    11.11|
 |R/wrapper.R   |    20.00|
-|R/mrgsimsds.R |    43.33|
-|R/utils.R     |    43.33|
+|R/collect.R   |    22.22|
+|R/utils.R     |    46.67|
+|R/mrgsimsds.R |    95.60|

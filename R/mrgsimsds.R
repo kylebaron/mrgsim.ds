@@ -117,6 +117,7 @@ mrgsim_ds <- function(x,  ..., id = NULL, tags = list(), verbose = FALSE,
 #' 
 #' @export
 copy_ds <- function(x) {
+  require_ds(x)
   names_in <- names(x)
   ans <- new.env(parent = emptyenv())
   ans$ds <- open_dataset(x$files)
@@ -126,7 +127,7 @@ copy_ds <- function(x) {
   ans$head <- x$head
   ans$names <- x$names
   ans$pid <- Sys.getpid()
-  ans$gc <- ans$gc
+  ans$gc <- x$gc
   class(ans) <- c("mrgsimsds", "environment")
   names_out <- names(ans)
   stopifnot("bad copy" = identical(names_in, names_out))
