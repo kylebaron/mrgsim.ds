@@ -1,14 +1,8 @@
 "","filename","functions","line","value"
-"3","R/files.R","total_size",2,0
-"7","R/files.R","total_size",3,0
 "10","R/files.R","total_size",4,0
 "12","R/files.R","total_size",5,0
 "15","R/files.R","total_size",6,0
 "18","R/files.R","total_size",7,0
-"25","R/files.R","total_size",9,0
-"27","R/files.R","total_size",10,0
-"29","R/files.R","total_size",11,0
-"31","R/files.R","total_size",12,0
 "45","R/files.R","files_exist",17,0
 "85","R/files.R","clean_up_ds",28,0
 "188","R/files.R","list_temp",81,0

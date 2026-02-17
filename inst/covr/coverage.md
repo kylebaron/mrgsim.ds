@@ -1,11 +1,11 @@
-# coverage: 63.52%
+# coverage: 65.41%
 
 |file          | coverage|
 |:-------------|--------:|
 |R/prune.R     |     0.00|
 |R/verbs.R     |     0.00|
-|R/files.R     |    16.47|
 |R/wrapper.R   |    20.00|
+|R/files.R     |    23.53|
 |R/utils.R     |    50.00|
 |R/reduce.R    |    89.74|
 |R/mrgsimsds.R |    95.60|
