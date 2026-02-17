@@ -2,7 +2,7 @@ library(testthat)
 library(mrgsim.ds)
 
 test_that("refresh invalid pointers", {
-  mod <- house_ds()
+  mod <- house_ds(end = 3)
   out <- mrgsim_ds(mod)
   out$ds$set_pointer(new("externalptr"))
   expect_false(mrgsim.ds:::valid_ds(out))

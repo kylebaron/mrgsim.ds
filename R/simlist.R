@@ -35,12 +35,6 @@ simlist_cols <- function(x) {
 
 # Return the files from a simlist
 simlist_files <- function(x) {
-  files <- vapply(
-    x,
-    FUN = function(xx) xx$files,
-    FUN.VALUE = "filename",
-    USE.NAMES = FALSE
-  )
-  files
+  files <- lapply(x, FUN = function(xx) xx$files)
+  unlist(files, use.names=FALSE)
 }
-
