@@ -119,6 +119,13 @@ Or stay in the arrow ecosystem
 as_arrow_ds(out)
 ```
 
+Or try your hand at duckdb
+
+```{r}
+as_duckdb_ds(out)
+```
+
+
 ## Tidyverse-friendly
 
 We've integrated into the `dplyr` ecosystem as well
