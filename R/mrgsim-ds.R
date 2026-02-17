@@ -53,7 +53,7 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE, gc = TRUE) {
   rm(x)
   
   if(isTRUE(ans$gc)) {
-    reg.finalizer(ans, clean_up_ds, onexit = TRUE)
+    set_finalizer_ds(ans)
   }
   
   class(ans) <- c("mrgsimsds", "environment")

@@ -173,9 +173,7 @@ move_ds <- function(x, path) {
   if(!dir_exists(path)) {
     dir_create(path)  
   }
-  if(basename(path) != basename(tempdir())) {
-    x$finalize <- FALSE  
-  }
+  x$gc <- grepl(basename(tempdir()), path, fixed = TRUE)
   x$files <- file_move(files, path)
   x <- refresh_ds(x)
   x

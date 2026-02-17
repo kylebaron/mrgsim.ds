@@ -72,6 +72,11 @@ test_that("move_ds", {
   tst <- basename(dirname(x$files))
   expect_equal(tst, "newdir")
   expect_true(x$gc)
+
+  tmp_path <- withr::local_tempdir(tmpdir = getwd())
+  test_dir <- file.path(tmp_path, "simulated-output")
+  x <- move_ds(out, test_dir)
+  expect_false(x$gc)  
 })
 
 test_that("temp file helpers", {
