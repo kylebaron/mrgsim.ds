@@ -13,16 +13,6 @@
 "118","R/mrgsim-ds.R","as_mrgsim_ds",40,0
 "224","R/mrgsim-ds.R","mrgsim_ds",98,0
 "296","R/mrgsim-ds.R","tail.mrgsimsds",191,0
-"61","R/prune.R","prune_ds",20,0
-"71","R/prune.R","prune_ds.mrgsimsds",24,0
-"89","R/prune.R","prune_ds.list",29,0
-"91","R/prune.R","prune_ds.list",30,0
-"94","R/prune.R","prune_ds.list",31,0
-"98","R/prune.R","prune_ds.list",32,0
-"103","R/prune.R","prune_ds.list",33,0
-"109","R/prune.R","prune_ds.list",35,0
-"111","R/prune.R","prune_ds.list",36,0
-"114","R/prune.R","prune_ds.list",38,0
 "22","R/reduce.R","simlist_reduce_ok",8,0
 "24","R/reduce.R","simlist_reduce_ok",9,0
 "26","R/reduce.R","simlist_reduce_ok",10,0
