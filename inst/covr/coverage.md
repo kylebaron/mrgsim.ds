@@ -1,12 +1,12 @@
-# coverage: 87.31%
+# coverage: 89.26%
 
 |file          | coverage|
 |:-------------|--------:|
 |R/prune.R     |     0.00|
-|R/utils.R     |    50.00|
+|R/utils.R     |    87.04|
+|R/files.R     |    88.37|
 |R/reduce.R    |    89.74|
-|R/files.R     |    90.59|
-|R/mrgsimsds.R |    95.60|
+|R/mrgsim-ds.R |    94.20|
 |R/collect.R   |   100.00|
 |R/refresh.R   |   100.00|
 |R/simlist.R   |   100.00|

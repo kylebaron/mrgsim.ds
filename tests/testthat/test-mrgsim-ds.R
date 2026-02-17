@@ -15,10 +15,11 @@ test_that("mrgsim_ds", {
   expect_identical(names(sims), names(out))
   expect_identical(head(out), sims[1:6,])
   expect_identical(tail(out), tail(sims))
+  
   x <- plot(out, nid = 3)
   expect_is(x, "trellis")
-  d <- mrgsim.ds:::get_nid_from_ds(out, nid = 3)
-  expect_equal(length(unique(d$ID)), 3)
+  d <- mrgsim.ds:::get_nid_from_ds(out, nid = 4)
+  expect_equal(length(unique(d$ID)), 4)
   d <- mrgsim.ds:::get_nid_from_ds(out, nid = 11)
   expect_equal(length(unique(d$ID)), 10)
 })
