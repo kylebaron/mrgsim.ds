@@ -69,7 +69,7 @@ reduce_ds.list <- function(x, ...) {
   ans$fiels <- ans$ds$files
   ans$dim <- dim(ans$ds)
   ans$pid <- Sys.getpid()
-  if(run_gc) reg.finalizer(ans, clean_up_ds)
+  if(run_gc) reg.finalizer(ans, clean_up_ds, onexit = TRUE)
   class(ans) <- c("mrgsimsds", "environment")
   ans
 }

@@ -10,12 +10,16 @@
 
 \method{collect}{mrgsimsds}(x, ...)
 
-\method{as.data.frame}{mrgsimsds}(x, row.names = NULL, optional = NULL, ...)
+\method{as.data.frame}{mrgsimsds}(x, row.names = NULL, optional = FALSE, ...)
 }
 \arguments{
 \item{x}{an mrgsimsds object.}
 
 \item{...}{passed to \code{\link[dplyr:reexports]{dplyr::as_tibble()}} or \code{\link[dplyr:compute]{dplyr::collect()}}.}
+
+\item{row.names}{passed to \code{\link[base:as.data.frame]{base::as.data.frame()}}.}
+
+\item{optional}{passed to \code{\link[base:as.data.frame]{base::as.data.frame()}}.}
 }
 \value{
 A \code{tbl} containing simulated data.
