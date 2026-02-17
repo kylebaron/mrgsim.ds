@@ -21,9 +21,6 @@ cran:
 	make build-vignettes
 	R CMD check ${TARBALL} --as-cran
 
-covr:
-	Rscript inst/covr/covr.R
-
 ec:
 	echo ${VERSION}
 

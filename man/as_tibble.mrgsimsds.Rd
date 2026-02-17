@@ -3,11 +3,14 @@
 \name{as_tibble.mrgsimsds}
 \alias{as_tibble.mrgsimsds}
 \alias{collect.mrgsimsds}
+\alias{as.data.frame.mrgsimsds}
 \title{Coerce an mrgsimsds object to a tbl}
 \usage{
 \method{as_tibble}{mrgsimsds}(x, ...)
 
 \method{collect}{mrgsimsds}(x, ...)
+
+\method{as.data.frame}{mrgsimsds}(x, row.names = NULL, optional = NULL, ...)
 }
 \arguments{
 \item{x}{an mrgsimsds object.}

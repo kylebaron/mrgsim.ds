@@ -45,6 +45,11 @@ collect.mrgsimsds <- function(x, ...) {
   x <- safe_ds(x)
   dplyr::collect(x$ds, ... )  
 }
+#' @rdname as_tibble.mrgsimsds
+#' @export
+as.data.frame.mrgsimsds <- function(x, row.names = NULL, optional = NULL, ...) {
+  as.data.frame(dplyr::collect(x$ds))
+}
 
 #' Coerce an mrgsimsds object to an arrow data set
 #' 
@@ -71,16 +76,6 @@ as_arrow_ds.mrgsimsds <- function(x, ...) {
   x <- safe_ds(x)
   x$ds
 }
-#' @export
-as_arrow_ds.list <- function(x, unique_files = TRUE, ...) {
-  x <- prune_ds(x, inform = TRUE)
-  if(isTRUE(unique_files)) {
-    files <- simlist_files(x)
-    x <- x[!duplicated(files)]
-  }
-  files <- simlist_files(x)
-  open_dataset(sources = files)
-}
 
 #' Coerce an mrgsimsds object to a DuckDB table
 #' 
@@ -105,9 +100,5 @@ as_arrow_ds.list <- function(x, unique_files = TRUE, ...) {
 as_duckdb_ds <- function(x, ...) UseMethod("as_duckdb_ds")
 #' @export
 as_duckdb_ds.mrgsimsds <- function(x, ...) {
-  to_duckdb(as_arrow_ds(x, ...))  
-}
-#' @export
-as_duckdb_ds.list <- function(x, ...) {
   to_duckdb(as_arrow_ds(x, ...))  
 }
