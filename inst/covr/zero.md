@@ -1,8 +1,4 @@
 "","filename","functions","line","value"
-"10","R/files.R","total_size",4,0
-"12","R/files.R","total_size",5,0
-"15","R/files.R","total_size",6,0
-"18","R/files.R","total_size",7,0
 "45","R/files.R","files_exist",17,0
 "85","R/files.R","clean_up_ds",28,0
 "197","R/files.R","list_temp",83,0
@@ -13,10 +9,6 @@
 "118","R/mrgsim-ds.R","as_mrgsim_ds",40,0
 "224","R/mrgsim-ds.R","mrgsim_ds",98,0
 "296","R/mrgsim-ds.R","tail.mrgsimsds",191,0
-"22","R/reduce.R","simlist_reduce_ok",8,0
-"24","R/reduce.R","simlist_reduce_ok",9,0
-"26","R/reduce.R","simlist_reduce_ok",10,0
-"28","R/reduce.R","simlist_reduce_ok",11,0
 "19","R/utils.R","is_mrgsimsds",8,0
 "39","R/utils.R","require_ds",15,0
 "166","R/utils.R","pid_changed",59,0

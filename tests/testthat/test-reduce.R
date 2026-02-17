@@ -37,6 +37,11 @@ test_that("ok to reduce", {
   bb$files <- a$files
   x <- list(a,bb,c)
   expect_error(reduce_ds(x), "duplicate files")
+  
+  bb <- copy_ds(b)
+  bb$mod@model <- "wrong-model"
+  x <- list(a, bb, c)
+  expect_error(reduce_ds(x))
 })
 
 rm(mod)

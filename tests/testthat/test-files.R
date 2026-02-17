@@ -4,10 +4,22 @@ library(mrgsim.ds)
 mod <- house_ds(end = 3, delta = 1)
 
 test_that("total size", {
-  out <- mrgsim_ds(mod, gc = FALSE)
-  tot <- mrgsim.ds:::total_size(out$files)
+  out1 <- mrgsim_ds(mod, gc = FALSE)
+  tot <- mrgsim.ds:::total_size(out1$files)
   expect_is(tot, "character")
   expect_match(tot, "Kb")
+  
+  out2 <- mrgsim_ds(mod, gc = FALSE)
+  out3 <- mrgsim_ds(mod, gc = FALSE)
+  
+  out <- reduce_ds(list(out1, out2, out3))
+  
+  status <- file.remove(out$files[2])
+  
+  expect_error(
+    mrgsim.ds:::total_size(out$files), 
+    "backing this object do not exist"
+  )
 })
 
 test_that("files exist", {
