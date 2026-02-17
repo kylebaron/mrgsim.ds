@@ -25,7 +25,6 @@ test_that("test verbs", {
   d <- dplyr::filter(out, time < 3)
   sims <- dplyr::collect(d)
   expect_equal(sims$time, c(0,1,2))
-  
 })
 
 rm(out, mod)

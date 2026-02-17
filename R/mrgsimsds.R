@@ -44,7 +44,8 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE, gc = TRUE) {
   ans$files <- ans$ds$files
   ans$mod <- x@mod
   ans$dim <- dim(ans$ds)
-  ans$head <- x@data[seq(10),]
+  n <- min(10, ans$dim[1L])
+  ans$head <- x@data[seq(n),]
   ans$names <- names(ans$head)
   ans$pid <- Sys.getpid()
   ans$gc <- isTRUE(gc)

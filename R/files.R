@@ -123,12 +123,12 @@ purge_temp <- function() {
   return(invisible(NULL))
 }
 
-
 #' Move data set files to a new directory. 
 #' 
 #' Use `move_ds()` to just change the enclosing directory. `write_ds()` can also
 #' move the files, but also condenses all simulation output in to a single 
-#' parquet file if multiple files are backing the mrgsimsds object.
+#' parquet file if multiple files are backing the mrgsimsds object. See
+#' *Details*. 
 #' 
 #' @param x an mrgsimsds object. 
 #' @param path the new directory location for backing files.
@@ -137,6 +137,15 @@ purge_temp <- function() {
 #' @param sink the complete path (including file name) for a single parquet
 #' file containing all simulated data.
 #' @param ... passed to [arrow::write_parquet()].
+#' 
+#' @details
+#' When dataset files are rewritten to a single file with `write_ds()`, those 
+#' files will no longer be cleaned up when the containing R object is finalized 
+#' upon garbage collection. When dataset files are moved outside of `tempdir()`, 
+#' those files, too, will no longer be cleaned up on garbage collection; but
+#' file cleanup will continue to occur as long as the files remain under 
+#' `tempdir()`. No change in finalization behavior due to garbage collection 
+#' of the containing object will happen when files are renamed. 
 #' 
 #' @return
 #' Both functions return the mrgsimsds object; it is critical to capture the 
@@ -169,7 +178,6 @@ move_ds <- function(x, path) {
   }
   x$files <- file_move(files, path)
   x <- refresh_ds(x)
-  x$files <- x$ds$files
   x
 }
 
@@ -194,8 +202,12 @@ rename_ds <- function(x, id) {
 #' @export
 write_ds <- function(x, sink, ...) {
   require_ds(x)
-  write_parquet(x$ds, sink, ...)
-  unlink(x$ds$files, recursive = TRUE)
+  if(length(x$files)==1) {
+    file_move(x$files, sink)
+  } else {
+    write_parquet(x$ds, sink, ...)
+    unlink(x$ds$files, recursive = TRUE)
+  }
   x$files <- sink
   x <- refresh_ds(x)
   x$gc <- FALSE

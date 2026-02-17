@@ -33,7 +33,17 @@ R session.
 \description{
 Use \code{move_ds()} to just change the enclosing directory. \code{write_ds()} can also
 move the files, but also condenses all simulation output in to a single
-parquet file if multiple files are backing the mrgsimsds object.
+parquet file if multiple files are backing the mrgsimsds object. See
+\emph{Details}.
+}
+\details{
+When dataset files are rewritten to a single file with \code{write_ds()}, those
+files will no longer be cleaned up when the containing R object is finalized
+upon garbage collection. When dataset files are moved outside of \code{tempdir()},
+those files, too, will no longer be cleaned up on garbage collection; but
+file cleanup will continue to occur as long as the files remain under
+\code{tempdir()}. No change in finalization behavior due to garbage collection
+of the containing object will happen when files are renamed.
 }
 \examples{
 
