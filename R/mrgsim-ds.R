@@ -179,7 +179,7 @@ dim.mrgsimsds <- function(x) {
 #' @name mrgsimsds-methods
 #' @export
 head.mrgsimsds <-  function(x, n = 6L, ...) {
-  as_tibble(get_head(x, n = n))
+  as_tibble(get_nrow_from_ds(x, n = n))
 }
 
 #' @name mrgsimsds-methods
@@ -207,29 +207,7 @@ names.mrgsimsds <- function(x) {
 plot.mrgsimsds <- function(x, y = NULL, ...,  nid = 5, batch_size = 20000, 
                            logy = FALSE, 
                            .dots = list()) {
-  x <- safe_ds(x)
-  ds <- x$ds
-  scanner <- Scanner$create(ds, batch_size = batch_size)
-  reader <- scanner$ToRecordBatchReader()
-  count_id <- 1
-  iter <- 0
-  simsl <- vector(mode = "list", length = nid)
-  while(count_id < (nid+2)) {
-    batch <- as.data.frame(reader$read_next_batch())
-    if(nrow(batch)==0) {
-      count_id <- nid + 2
-      break;  
-    }
-    iter <- iter + 1
-    ids <- unique(batch$ID)
-    count_id <- count_id + length(ids)
-    simsl[[iter]] <- batch
-  }
-  simsl <- simsl[seq(iter)]
-  sims <- bind_rows(simsl)
-  uid <- unique(sims$ID)
-  uid <- uid[seq(nid)]
-  sims <- sims[sims$ID %in% uid,]
+  sims <- get_nid_from_ds(x, nid = nid, batch_size = batch_size)
   if(!rlang::is_formula(y)) {
     cols <- names(sims)
     cols <- cols[!(cols %in% c("ID", "id", "TIME", "time"))]
@@ -239,6 +217,5 @@ plot.mrgsimsds <- function(x, y = NULL, ...,  nid = 5, batch_size = 20000,
   }
   .dots$logy <- logy
   p <- plot_sims(sims, .f = y, .dots = .dots)
-  print(p)
-  return(invisible(sims))
+  p
 }

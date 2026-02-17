@@ -76,9 +76,36 @@ mread_with_ds <- function(x) {
   is.character(x@envir$mrgsim.ds.mread_tempdir)  
 }
 
-get_head <- function(x, n = 6) {
+get_nrow_from_ds <- function(x, n = 6, batch_size = 10000) {
   x <- safe_ds(x)
-  scanner <- Scanner$create(x$ds, batch_size = 10000)
+  scanner <- Scanner$create(x$ds, batch_size = batch_size)
   reader <- scanner$ToRecordBatchReader()  
   head(as.data.frame(reader$read_next_batch()), n = n)
+}
+
+get_nid_from_ds <- function(x, nid = 10, batch_size = 10000) {
+  x <- safe_ds(x)
+  ds <- x$ds
+  scanner <- Scanner$create(ds, batch_size = batch_size)
+  reader <- scanner$ToRecordBatchReader()
+  count_id <- 1
+  iter <- 0
+  simsl <- vector(mode = "list", length = nid)
+  while(count_id < (nid+2)) {
+    batch <- as.data.frame(reader$read_next_batch())
+    if(nrow(batch)==0) {
+      count_id <- nid + 2
+      break;  
+    }
+    iter <- iter + 1
+    ids <- unique(batch$ID)
+    count_id <- count_id + length(ids)
+    simsl[[iter]] <- batch
+  }
+  simsl <- simsl[seq(iter)]
+  sims <- bind_rows(simsl)
+  uid <- unique(sims$ID)
+  uid <- uid[seq(nid)]
+  sims <- sims[sims$ID %in% uid,]  
+  sims
 }
