@@ -29,7 +29,7 @@ simlist_reduce_ok <- function(x) {
 
 #' Reduce a list of mrgsimsds objects into a single object
 #' 
-#' @param x a list of mrgsimsds objects or a single mrgsimds object.
+#' @param x a list of mrgsimsds objects or a single mrgsimsds object.
 #' @param ... not used.
 #' 
 #' @examples

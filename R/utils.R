@@ -26,7 +26,7 @@ format_big <- function() {
     scale_cut = scales::cut_short_scale()
   )
 }
-#' Save information about the R process that loded a model
+#' Save information about the R process that loaded a model
 #' 
 #' @param x a model object. 
 #' 

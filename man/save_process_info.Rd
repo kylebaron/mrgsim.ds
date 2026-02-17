@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{save_process_info}
 \alias{save_process_info}
-\title{Save information about the R process that loded a model}
+\title{Save information about the R process that loaded a model}
 \usage{
 save_process_info(x)
 }
@@ -13,7 +13,7 @@ save_process_info(x)
 An updated model object suitable for using with \code{\link[=mrgsim_ds]{mrgsim_ds()}}.
 }
 \description{
-Save information about the R process that loded a model
+Save information about the R process that loaded a model
 }
 \examples{
 mod <- mrgsolve::house()

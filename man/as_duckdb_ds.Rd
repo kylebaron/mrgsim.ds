@@ -18,7 +18,7 @@ A \code{tbl} of the simulated data in DuckDB; see \code{\link[arrow:to_duckdb]{a
 Coerce an mrgsimsds object to a DuckDB table
 }
 \details{
-The conversaion is handled by \code{\link[=as_arrow_ds]{as_arrow_ds()}}.
+The conversion is handled by \code{\link[=as_arrow_ds]{as_arrow_ds()}}.
 }
 \examples{
 mod <- house_ds(end = 5)

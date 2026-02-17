@@ -90,7 +90,7 @@ as_arrow_ds.mrgsimsds <- function(x, ...) {
 #' @param ... passed to [as_arrow_ds()]. 
 #' 
 #' @details
-#' The conversaion is handled by [as_arrow_ds()].
+#' The conversion is handled by [as_arrow_ds()].
 #' 
 #' @examples
 #' mod <- house_ds(end = 5)

@@ -43,7 +43,7 @@ We will illustrate `mrgsim.ds` by doing a simulation.
 library(mrgsim.ds)
 library(dplyr)
 
-mod <- modlib_ds("popex", end = 240, outvars = c("IPRED,CL"))
+mod <- modlib_ds("popex", end = 240, outvars = "IPRED,CL")
 
 data <- expand.ev(amt = 100, ii = 24, total = 6, ID = 1:3000)
 ```
@@ -208,7 +208,7 @@ list_temp()
 rm(out2)
 ```
 
-As soon as the garbage collecter is called, the leftover files are cleaned up.
+As soon as the garbage collector is called, the leftover files are cleaned up.
 ```{r}
 gc()
 

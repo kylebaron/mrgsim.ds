@@ -7,7 +7,7 @@
 reduce_ds(x, ...)
 }
 \arguments{
-\item{x}{a list of mrgsimsds objects or a single mrgsimds object.}
+\item{x}{a list of mrgsimsds objects or a single mrgsimsds object.}
 
 \item{...}{not used.}
 }
