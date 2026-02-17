@@ -128,7 +128,9 @@ as_duckdb_ds(out)
 
 ## Tidyverse-friendly
 
-We've integrated into the `dplyr` ecosystem as well
+We've integrated into the `dplyr` ecosystem as well, allowing you to `filter()`, 
+`group_by()`, `mutate()`, or `select()` your way directly into a pipeline to 
+summarize your simulations using the power of Apache Arrow.
 
 ```{r}
 dd <- 
