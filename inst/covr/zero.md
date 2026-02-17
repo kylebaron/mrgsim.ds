@@ -40,10 +40,6 @@
 "166","R/utils.R","get_mread_pid",64,0
 "168","R/utils.R","get_mread_pid",65,0
 "171","R/utils.R","get_mread_pid",67,0
-"4","R/verbs.R","group_by.mrgsimsds",3,0
-"20","R/verbs.R","select.mrgsimsds",8,0
-"32","R/verbs.R","mutate.mrgsimsds",13,0
-"51","R/verbs.R","filter.mrgsimsds",18,0
 "52","R/wrapper.R","mread_ds",18,0
 "58","R/wrapper.R","mread_ds",19,0
 "74","R/wrapper.R","mcode_ds",25,0

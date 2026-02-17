@@ -1,7 +1,7 @@
 library(testthat)
 library(mrgsim.ds)
 
-mod <- house_ds(end = 3)
+mod <- house_ds(end = 3, delta = 1)
 
 test_that("total size", {
   out <- mrgsim_ds(mod, gc = FALSE)

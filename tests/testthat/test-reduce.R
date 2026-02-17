@@ -1,9 +1,9 @@
 library(testthat)
 library(mrgsim.ds)
 
+mod <- house_ds(end = 3, delta = 1)
+
 test_that("reduce lists of simulations", {
-  mod <- house_ds(end = 3)
-  
   x <- list(mrgsim_ds(mod), mrgsim_ds(mod), mrgsim_ds(mod))
   out <- reduce_ds(x)
   expect_is(out, "mrgsimsds")
@@ -19,7 +19,6 @@ test_that("reduce lists of simulations", {
 
 
 test_that("ok to reduce", {
-  mod <- house_ds(end = 3)
   a <- mrgsim_ds(mod, gc = FALSE)
   b <- mrgsim_ds(mod, gc = FALSE)
   c <- mrgsim_ds(mod, gc = FALSE)
@@ -39,3 +38,6 @@ test_that("ok to reduce", {
   x <- list(a,bb,c)
   expect_error(reduce_ds(x), "duplicate files")
 })
+
+rm(mod)
+

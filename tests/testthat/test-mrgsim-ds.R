@@ -2,7 +2,7 @@ library(testthat)
 library(mrgsim.ds)
 
 test_that("mrgsim_ds", {
-  mod <- house_ds(end = 2)
+  mod <- house_ds(end = 2, delta = 1)
   out <- mrgsim_ds(mod, idata = expand.idata(1:10))
   expect_is(out, "mrgsimsds")
   expect_all_true(file.exists(out$files))
@@ -22,7 +22,7 @@ test_that("mrgsim_ds", {
 })
 
 test_that("as_mrgsim_ds", {
-  mod <- house_ds()
+  mod <- house_ds(end = 3, delta = 1)
   x <- mrgsim(mod)
   out <- as_mrgsim_ds(x)
   expect_is(out, "mrgsimsds")
@@ -31,14 +31,14 @@ test_that("as_mrgsim_ds", {
 })
 
 test_that("named output files", {
-  mod <- house_ds()
+  mod <- house_ds(end = 3, delta = 1)
   out <- mrgsim_ds(mod, id = "testthat")
   expect_match(out$files, "testthat.parquet", fixed = TRUE)
   expect_error(mrgsim_ds(mod, id = "a bc"), "cannot contain spaces")
 })
 
 test_that("tag output data", {
-  mod <- house_ds()
+  mod <- house_ds(end = 3, delta = 1)
   tg <- list(a = 1, b = 2)
   out <- mrgsim_ds(mod, tags = tg)
   out <- as_tibble(out)
@@ -51,7 +51,7 @@ test_that("tag output data", {
 })
 
 test_that("copy an object", {
-  mod <- house_ds(end = 24)
+  mod <- house_ds(end = 24, delta = 1)
   out1 <- mrgsim_ds(mod, events = ev(amt = 100))
   out2 <- copy_ds(out1)
   o1 <- as.list(out1)
