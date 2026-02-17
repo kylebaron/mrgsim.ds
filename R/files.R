@@ -198,6 +198,6 @@ write_ds <- function(x, sink, ...) {
   unlink(x$ds$files, recursive = TRUE)
   x$files <- sink
   x <- refresh_ds(x)
-  x$finalizer <- FALSE
+  x$gc <- FALSE
   x
 }
