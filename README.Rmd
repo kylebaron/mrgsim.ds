@@ -24,8 +24,10 @@ simulation output object for [mrgsolve](https://mrgsolve.org), greatly reducing
 the memory footprint of large simulations and providing a high-performance 
 pipeline for summarizing huge simulation outputs. Simulation output objects 
 in R claim ownership of files on disk and those files are automatically removed
-when owing object goes out of scope and becomes subject to the R garbage 
-collector.
+when the owning object goes out of scope and becomes subject to the R garbage 
+collector. While "anonymous" files hold the data in `tempdir()` while you are 
+working in R, functions are provided to move your data to more permanent 
+locations for later use. 
 
 
 ## Installation

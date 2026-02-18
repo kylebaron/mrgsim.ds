@@ -13,8 +13,10 @@ for [mrgsolve](https://mrgsolve.org), greatly reducing the memory
 footprint of large simulations and providing a high-performance pipeline
 for summarizing huge simulation outputs. Simulation output objects in R
 claim ownership of files on disk and those files are automatically
-removed when owing object goes out of scope and becomes subject to the R
-garbage collector.
+removed when the owning object goes out of scope and becomes subject to
+the R garbage collector. While “anonymous” files hold the data in
+`tempdir()` while you are working in R, functions are provided to move
+your data to more permanent locations for later use.
 
 ## Installation
 
@@ -52,15 +54,15 @@ out
 . Dim  : 1.4M 4
 . Files: 1 [11.9 Mb]
 . Owner: yes
-.     ID time       CL    IPRED
-. 1:   1  0.0 1.099928 0.000000
-. 2:   1  0.0 1.099928 0.000000
-. 3:   1  0.5 1.099928 2.381230
-. 4:   1  1.0 1.099928 3.510354
-. 5:   1  1.5 1.099928 4.014526
-. 6:   1  2.0 1.099928 4.207551
-. 7:   1  2.5 1.099928 4.246425
-. 8:   1  3.0 1.099928 4.209673
+.     ID time        CL    IPRED
+. 1:   1  0.0 0.7776387 0.000000
+. 2:   1  0.0 0.7776387 0.000000
+. 3:   1  0.5 0.7776387 2.144707
+. 4:   1  1.0 0.7776387 3.340159
+. 5:   1  1.5 0.7776387 3.988599
+. 6:   1  2.0 0.7776387 4.322158
+. 7:   1  2.5 0.7776387 4.474792
+. 8:   1  3.0 0.7776387 4.523794
 ```
 
 ## Very lightweight simulation output object
@@ -70,7 +72,7 @@ a pointer to the data in parquet files on your disk.
 
 ``` r
 basename(out$files)
-. [1] "mrgsims-ds-144fa493c2475.parquet"
+. [1] "mrgsims-ds-1465d36d36880.parquet"
 ```
 
 This means there is almost nothing inside the object itself
@@ -114,23 +116,23 @@ head(out)
 . # A tibble: 6 × 4
 .      ID  time    CL IPRED
 .   <dbl> <dbl> <dbl> <dbl>
-. 1     1   0    1.10  0   
-. 2     1   0    1.10  0   
-. 3     1   0.5  1.10  2.38
-. 4     1   1    1.10  3.51
-. 5     1   1.5  1.10  4.01
-. 6     1   2    1.10  4.21
+. 1     1   0   0.778  0   
+. 2     1   0   0.778  0   
+. 3     1   0.5 0.778  2.14
+. 4     1   1   0.778  3.34
+. 5     1   1.5 0.778  3.99
+. 6     1   2   0.778  4.32
 
 tail(out)
 . # A tibble: 6 × 4
-.      ID  time    CL   IPRED
-.   <dbl> <dbl> <dbl>   <dbl>
-. 1  3000  238. 0.871 0.00891
-. 2  3000  238  0.871 0.00865
-. 3  3000  238. 0.871 0.00840
-. 4  3000  239  0.871 0.00816
-. 5  3000  240. 0.871 0.00792
-. 6  3000  240  0.871 0.00769
+.      ID  time    CL  IPRED
+.   <dbl> <dbl> <dbl>  <dbl>
+. 1  3000  238. 0.692 0.0961
+. 2  3000  238  0.692 0.0942
+. 3  3000  238. 0.692 0.0923
+. 4  3000  239  0.692 0.0905
+. 5  3000  240. 0.692 0.0887
+. 6  3000  240  0.692 0.0869
 
 dim(out)
 . [1] 1446000       4
@@ -144,16 +146,16 @@ as_tibble(out)
 . # A tibble: 1,446,000 × 4
 .       ID  time    CL IPRED
 .    <dbl> <dbl> <dbl> <dbl>
-.  1     1   0    1.10  0   
-.  2     1   0    1.10  0   
-.  3     1   0.5  1.10  2.38
-.  4     1   1    1.10  3.51
-.  5     1   1.5  1.10  4.01
-.  6     1   2    1.10  4.21
-.  7     1   2.5  1.10  4.25
-.  8     1   3    1.10  4.21
-.  9     1   3.5  1.10  4.14
-. 10     1   4    1.10  4.05
+.  1     1   0   0.778  0   
+.  2     1   0   0.778  0   
+.  3     1   0.5 0.778  2.14
+.  4     1   1   0.778  3.34
+.  5     1   1.5 0.778  3.99
+.  6     1   2   0.778  4.32
+.  7     1   2.5 0.778  4.47
+.  8     1   3   0.778  4.52
+.  9     1   3.5 0.778  4.51
+. 10     1   4   0.778  4.47
 . # ℹ 1,445,990 more rows
 ```
 
@@ -179,16 +181,16 @@ as_duckdb_ds(out)
 . # Database: DuckDB 1.4.3 [kyleb@Darwin 24.6.0:R 4.5.2/:memory:]
 .       ID  time    CL IPRED
 .    <dbl> <dbl> <dbl> <dbl>
-.  1     1   0    1.10  0   
-.  2     1   0    1.10  0   
-.  3     1   0.5  1.10  2.38
-.  4     1   1    1.10  3.51
-.  5     1   1.5  1.10  4.01
-.  6     1   2    1.10  4.21
-.  7     1   2.5  1.10  4.25
-.  8     1   3    1.10  4.21
-.  9     1   3.5  1.10  4.14
-. 10     1   4    1.10  4.05
+.  1     1   0   0.778  0   
+.  2     1   0   0.778  0   
+.  3     1   0.5 0.778  2.14
+.  4     1   1   0.778  3.34
+.  5     1   1.5 0.778  3.99
+.  6     1   2   0.778  4.32
+.  7     1   2.5 0.778  4.47
+.  8     1   3   0.778  4.52
+.  9     1   3.5 0.778  4.51
+. 10     1   4   0.778  4.47
 . # ℹ more rows
 ```
 
@@ -222,10 +224,10 @@ collect(dd)
 .     time  Mean     n
 .    <dbl> <dbl> <int>
 .  1   0    0     6000
-.  2   0.5  1.10  3000
+.  2   0.5  1.11  3000
 .  3   1    1.80  3000
 .  4   1.5  2.26  3000
-.  5   2    2.57  3000
+.  5   2    2.58  3000
 .  6   2.5  2.79  3000
 .  7   3    2.93  3000
 .  8   3.5  3.03  3000
@@ -251,17 +253,17 @@ out2 <- reduce_ds(out2)
 out2
 . Model: popex
 . Dim  : 14.5M 4
-. Files: 10 [119.1 Mb]
+. Files: 10 [119.2 Mb]
 . Owner: yes
-.     ID time       CL     IPRED
-. 1:   1  0.0 2.878249 0.0000000
-. 2:   1  0.0 2.878249 0.0000000
-. 3:   1  0.5 2.878249 0.1284124
-. 4:   1  1.0 2.878249 0.2452064
-. 5:   1  1.5 2.878249 0.3511959
-. 6:   1  2.0 2.878249 0.4471426
-. 7:   1  2.5 2.878249 0.5337592
-. 8:   1  3.0 2.878249 0.6117125
+.     ID time        CL    IPRED
+. 1:   1  0.0 0.5287063 0.000000
+. 2:   1  0.0 0.5287063 0.000000
+. 3:   1  0.5 0.5287063 1.148835
+. 4:   1  1.0 0.5287063 2.076923
+. 5:   1  1.5 0.5287063 2.823190
+. 6:   1  2.0 0.5287063 3.419754
+. 7:   1  2.5 0.5287063 3.893113
+. 8:   1  3.0 0.5287063 4.265128
 ```
 
 ## Files on disk are automagically managed
@@ -271,11 +273,11 @@ All `arrow` files are stored in the `tempdir()` in parquet format
 ``` r
 list_temp()
 . 11 files [131.1 Mb]
-. - mrgsims-ds-144fa493c2475.parquet
-. - mrgsims-ds-145373e773b20.parquet
+. - mrgsims-ds-1465d36d36880.parquet
+. - mrgsims-ds-1469a17695708.parquet
 .    ...
-. - mrgsims-ds-1453b145ddef1.parquet
-. - mrgsims-ds-1453b1ed7aaa9.parquet
+. - mrgsims-ds-1469e4ac151d3.parquet
+. - mrgsims-ds-1469e59e319fc.parquet
 ```
 
 This directory is eventually removed when the R session ends. Tools are
@@ -286,12 +288,12 @@ retain_temp(out2)
 . Discarding 1 files.
 
 list_temp()
-. 10 files [119.1 Mb]
-. - mrgsims-ds-145373e773b20.parquet
-. - mrgsims-ds-14537caf2449.parquet
+. 10 files [119.2 Mb]
+. - mrgsims-ds-1469a17695708.parquet
+. - mrgsims-ds-1469a396f1d64.parquet
 .    ...
-. - mrgsims-ds-1453b145ddef1.parquet
-. - mrgsims-ds-1453b1ed7aaa9.parquet
+. - mrgsims-ds-1469e4ac151d3.parquet
+. - mrgsims-ds-1469e59e319fc.parquet
 ```
 
 We also put a finalizer on each object so that, when it goes out of
@@ -333,8 +335,8 @@ cleaned up.
 ``` r
 gc()
 .            used  (Mb) gc trigger  (Mb) limit (Mb) max used  (Mb)
-. Ncells  1951475 104.3    3641994 194.6         NA  3219976 172.0
-. Vcells 15245573 116.4   29095809 222.0      16384 27048742 206.4
+. Ncells  1951479 104.3    3642471 194.6         NA  3219957 172.0
+. Vcells 15245646 116.4   29095896 222.0      16384 27048815 206.4
 
 list_temp()
 . 2 files [23.8 Mb]
