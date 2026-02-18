@@ -179,6 +179,10 @@ copy_ds <- function(x, own = TRUE) {
   class(ans) <- c("mrgsimsds", "environment")
   names_out <- names(ans)
   stopifnot("bad copy" = identical(names_in, names_out))
-  if(own) take_ownership(ans)
+  if(own) {
+    take_ownership(ans)
+  } else {
+    hash_files(ans)  
+  }
   ans
 }
