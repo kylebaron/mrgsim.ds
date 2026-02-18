@@ -233,13 +233,16 @@ files.
 out4 <- copy_ds(out1, own = TRUE)
 
 check_ownership(out1)
+
 check_ownership(out4)
 ```
 
 I can always take ownership back. 
 ```{r}
-out1 <- take_ownership(out1)
+take_ownership(out1)
+
 check_ownership(out1)
+
 check_ownership(out4)
 ```
 
