@@ -16,6 +16,7 @@
 #' @export
 as_arrow_table.mrgsimsds <- function(x, ..., schema = NULL) {
   x <- safe_ds(x)
+  check_files_fatal(x)
   as_arrow_table(x$ds, ...)
 }
 
@@ -39,17 +40,21 @@ as_arrow_table.mrgsimsds <- function(x, ..., schema = NULL) {
 #' @export
 as_tibble.mrgsimsds <- function(x, ...) {
   x <- safe_ds(x)
+  check_files_fatal(x)
   dplyr::as_tibble(x$ds, ...)  
 }
 #' @rdname as_tibble.mrgsimsds
 #' @export
 collect.mrgsimsds <- function(x, ...) {
   x <- safe_ds(x)
+  check_files_fatal(x)
   dplyr::collect(x$ds, ... )  
 }
 #' @rdname as_tibble.mrgsimsds
 #' @export
 as.data.frame.mrgsimsds <- function(x, row.names = NULL, optional = FALSE, ...) {
+  x <- safe_ds(x)
+  check_files_fatal(x)
   as.data.frame(
     dplyr::collect(x$ds), 
     row.names = row.names, 

@@ -1,13 +1,13 @@
 file_owner <- new.env(parent = emptyenv())
 
 clean_up_ds <- function(x) {
-  if(getOption("mrgsim.ds.show.gc", FALSE)) {
-    n <- length(x$files)
-    msg <- glue("[mrgsim.ds] cleaning up {n} file(s) ...")
-    message(msg)
-  }
   if(x$gc && check_ownership(x)) {
-    disown(x)
+    if(getOption("mrgsim.ds.show.gc", FALSE)) {
+      n <- length(x$files)
+      msg <- glue("[mrgsim.ds.show.gc] cleaning up {n} file(s) ...")
+      message(msg)
+    }
+    on.exit(disown(x), add = TRUE)
     unlink(x$files, recursive = TRUE)
   }
 }
@@ -70,7 +70,9 @@ ownership <- function() {
   files <- names(mrgsim.ds:::file_owner)
   files <- files[grepl("parquet", files)]
   objects <- mget(files, envir = mrgsim.ds:::file_owner)
+  size <- total_size(files)
   message(glue::glue("Files:   ", length(unique(files))))
+  message(glue::glue("Size:    ", size))
   message(glue::glue("Objects: ", length(unique(objects))))
 }
 

@@ -7,21 +7,18 @@ simlist_reduce_ok <- function(x) {
   if(!all(models)) {
     abort(
       message = "all objects in list must be derived from the same model.",
-      body = "consider using `mrgsim.ds::extract_ds()` instead."
     )
   }
   cols <- simlist_cols(x)
   if(!all(cols)) {
     abort(
       message = "all objects in list must have the same column names.",
-      body = "consider using `mrgsim.ds::extract_ds()` instead."
     )
   }
   files <- simlist_files(x)
   if(length(files) != length(unique(files))) {
     abort(
       message = "duplicate files found in list.",
-      body = "consider using `mrgsim.ds::extract_ds()` instead."
     )
   }
 }

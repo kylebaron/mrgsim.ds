@@ -1,12 +1,6 @@
 total_size <- function(files) {
   size <- vapply(files, FUN = file.size, FUN.VALUE = 1.0)
-  if(any(is.na(size))) {
-    abort(
-      "file(s) backing this object do not exist.", 
-      call = caller_env()
-    )  
-  }
-  size <- sum(size)
+  size <- sum(size, na.rm = TRUE)
   class(size) <- "object_size"
   size <- format(size, units = "auto")
   size
@@ -24,19 +18,22 @@ check_files_fatal <- function(x) {
   ans <- all(file.exists(x$files))
   if(!ans) {
     nfile <- length(x$files)
-    owner <- check_ownership(x)
+    owner <- ifelse(check_ownership(x), "yes", "no")
     model <- x$mod@model
     body <- c(
-      "Files: {length(x$files)}", 
-      "Owner: {check_ownership(x)}", 
-      "Model: {x$mod@model}"
+      "Model: {model}",
+      "Files: {nfile}", 
+      "Owner: {owner}" 
     )
     for(i in seq_along(body)) {
       body[i] <- glue(body[i])  
     }
     names(body) <- rep("*", length(body))
-    abort(body = body, message = "[fatal] data set files do not exist.", 
-          call = caller_env())
+    abort(
+      body = body,
+      message = "[fatal] data set files do not exist.", 
+      call = caller_env()
+    )
   }
   return(invisible(TRUE))
 }
@@ -120,7 +117,7 @@ move_ds <- function(x, path) {
   x$files <- file_move(files, path)
   x <- refresh_ds(x)
   take_ownership(x)
-  invisible(x)
+  invisible(x$files)
 }
 
 #' @rdname move_ds
@@ -143,7 +140,7 @@ rename_ds <- function(x, id) {
   x$files <- x$ds$files
   x$gc <- FALSE
   take_ownership(x)
-  invisible(x)
+  invisible(x$files)
 }
 
 #' @rdname move_ds
@@ -164,7 +161,7 @@ write_ds <- function(x, sink, ...) {
   x <- refresh_ds(x)
   x$gc <- FALSE
   take_ownership(x)
-  invisible(x)
+  invisible(x$files)
 }
 
 #' Manage simulated outputs in tempdir()
