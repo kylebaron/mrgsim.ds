@@ -74,6 +74,9 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE, gc = TRUE) {
 
 #' Simulate from a model object, returning an arrow-backed output object
 #' 
+#' All simulation data is saved to `tempdir()` according to the parent or head
+#' node that the computation is run from. See [move_ds()] to [write_ds()]
+#' change the location of the files, protecting them from the garbage collector.
 #' Note that full names must be used for all arguments. 
 #' 
 #' @param x a model object loaded through [mread_ds()], [mcode_ds()], 

@@ -27,6 +27,9 @@ cleanup. Otherwise, move the files from \code{tempdir()}}
 An object with class \code{mrgsimsds}.
 }
 \description{
+All simulation data is saved to \code{tempdir()} according to the parent or head
+node that the computation is run from. See \code{\link[=move_ds]{move_ds()}} to \code{\link[=write_ds]{write_ds()}}
+change the location of the files, protecting them from the garbage collector.
 Note that full names must be used for all arguments.
 }
 \examples{

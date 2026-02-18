@@ -91,7 +91,7 @@ dim(x)
 ```
 
 
-The object is very light weight despite carrying the same data. 
+The `mrgsim.ds` object is very light weight despite tracking the same data. 
 
 ## Handles like regular mrgsim output
 
