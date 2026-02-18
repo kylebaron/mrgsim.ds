@@ -13,6 +13,8 @@
 #' @importFrom methods new
 #' @importFrom fs file_move dir_exists dir_create file_delete
 #' @importFrom stats as.formula
+#' @importFrom lobstr obj_addr
+#' @importFrom digest digest
 NULL
 
 #' @keywords internal

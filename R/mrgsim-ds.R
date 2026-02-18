@@ -42,6 +42,7 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE, gc = TRUE) {
   ans <- new.env(parent = emptyenv())
   ans$ds <- open_dataset(file)
   ans$files <- ans$ds$files
+  ans$hash <- character(0)
   ans$mod <- x@mod
   ans$dim <- dim(ans$ds)
   n <- min(10, ans$dim[1L])
@@ -49,15 +50,18 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE, gc = TRUE) {
   ans$names <- names(ans$head)
   ans$pid <- Sys.getpid()
   ans$gc <- isTRUE(gc)
+  ans$address <- obj_addr(ans)
   
   rm(x)
   
   if(isTRUE(ans$gc)) {
     set_finalizer_ds(ans)
   }
-  
+
   class(ans) <- c("mrgsimsds", "environment")
   
+  take_ownership(ans)
+    
   ans
 }
 
@@ -109,32 +113,6 @@ mrgsim_ds <- function(x,  ..., id = NULL, tags = list(), verbose = FALSE,
   ans
 }
 
-#' Copy an mrgsims object
-#' 
-#' @param x the object to copy.
-#' 
-#' @return
-#' An mrgsims object with identical fields, but updated pid. 
-#' 
-#' @export
-copy_ds <- function(x) {
-  require_ds(x)
-  names_in <- names(x)
-  ans <- new.env(parent = emptyenv())
-  ans$ds <- open_dataset(x$files)
-  ans$files <- ans$ds$files
-  ans$mod <- x$mod
-  ans$dim <- x$dim
-  ans$head <- x$head
-  ans$names <- x$names
-  ans$pid <- Sys.getpid()
-  ans$gc <- x$gc
-  class(ans) <- c("mrgsimsds", "environment")
-  names_out <- names(ans)
-  stopifnot("bad copy" = identical(names_in, names_out))
-  ans
-}
-
 #' Interact with mrgsimsds objects
 #' 
 #' @param x an mrgsimsds object, output from 
@@ -179,12 +157,14 @@ dim.mrgsimsds <- function(x) {
 #' @name mrgsimsds-methods
 #' @export
 head.mrgsimsds <-  function(x, n = 6L, ...) {
+  check_files_fatal(x)
   as_tibble(get_nrow_from_ds(x, n = n))
 }
 
 #' @name mrgsimsds-methods
 #' @export
 tail.mrgsimsds <- function(x, n = 6L, ...) {
+  check_files_fatal(x)
   x <- safe_ds(x)
   nf <- length(x$files)
   if(nf > 1) {
@@ -205,8 +185,8 @@ names.mrgsimsds <- function(x) {
 #' @name mrgsimsds-methods
 #' @export
 plot.mrgsimsds <- function(x, y = NULL, ...,  nid = 5, batch_size = 20000, 
-                           logy = FALSE, 
-                           .dots = list()) {
+                           logy = FALSE, .dots = list()) {
+  check_files_fatal(x)
   sims <- get_nid_from_ds(x, nid = nid, batch_size = batch_size)
   if(!rlang::is_formula(y)) {
     cols <- names(sims)

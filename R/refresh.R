@@ -33,7 +33,7 @@ refresh_ds.mrgsimsds <- function(x, ...) {
   x$files <- x$ds$files
   x$dim <- dim(x$ds)
   x$pid <- Sys.getpid()
-  x
+  invisible(x)
 }
 
 #' @rdname refresh_ds

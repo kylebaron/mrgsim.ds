@@ -4,7 +4,7 @@
 \alias{move_ds}
 \alias{rename_ds}
 \alias{write_ds}
-\title{Move data set files to a new directory.}
+\title{Move, rename, or write out data set files.}
 \usage{
 move_ds(x, path)
 
@@ -26,15 +26,13 @@ file containing all simulated data.}
 \item{...}{passed to \code{\link[arrow:write_parquet]{arrow::write_parquet()}}.}
 }
 \value{
-Both functions return the mrgsimsds object; it is critical to capture the
-return value in order to continue working with the object in the current
-R session.
+All three functions return the new file list, invisibly.
 }
 \description{
 Use \code{move_ds()} to just change the enclosing directory. \code{write_ds()} can also
 move the files, but also condenses all simulation output in to a single
-parquet file if multiple files are backing the mrgsimsds object. See
-\emph{Details}.
+parquet file if multiple files are backing the mrgsimsds object. All
+operations are made on the object in place; see \strong{Details}.
 }
 \details{
 When dataset files are rewritten to a single file with \code{write_ds()}, those
@@ -51,12 +49,12 @@ mod <- house_ds()
 
 out <- mrgsim_ds(mod, events = ev(amt = 100))
 
-out <- write_ds(out, sink = file.path(tempdir(), "example.parquet"))
+write_ds(out, sink = file.path(tempdir(), "example.parquet"))
 
 out$files
 
 \dontrun{
-  out <- move_ds(out, path = "data/simulated") 
+  move_ds(out, path = "data/simulated") 
 }
 
 }

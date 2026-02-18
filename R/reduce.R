@@ -7,21 +7,18 @@ simlist_reduce_ok <- function(x) {
   if(!all(models)) {
     abort(
       message = "all objects in list must be derived from the same model.",
-      body = "consider using `mrgsim.ds::extract_ds()` instead."
     )
   }
   cols <- simlist_cols(x)
   if(!all(cols)) {
     abort(
       message = "all objects in list must have the same column names.",
-      body = "consider using `mrgsim.ds::extract_ds()` instead."
     )
   }
   files <- simlist_files(x)
   if(length(files) != length(unique(files))) {
     abort(
       message = "duplicate files found in list.",
-      body = "consider using `mrgsim.ds::extract_ds()` instead."
     )
   }
 }
@@ -54,22 +51,26 @@ reduce_ds <- function(x, ...) UseMethod("reduce_ds")
 reduce_ds.mrgsimsds <- function(x, ...) {
   files_exist(x, fatal = TRUE)
   x <- safe_ds(x)
-  x
+  invisible(x)
 }
 #' @export
 reduce_ds.list <- function(x, ...) {
   simlist_reduce_ok(x)
+  x <- refresh_ds(x)
   files <- simlist_files(x)
-  ans <- x[[1]]
+  ans <- copy_ds(x[[1]], own = TRUE)
   run_gc <- isTRUE(ans$gc)
+  disown(ans)
+  sapply(x, disown)
   rm(x)
   ans$files <- files
   files_exist(ans, fatal = TRUE)
   ans$ds <- open_dataset(sources = ans$files)
-  ans$fiels <- ans$ds$files
+  ans$files <- ans$ds$files
   ans$dim <- dim(ans$ds)
   ans$pid <- Sys.getpid()
   if(run_gc) set_finalizer_ds(ans)
   class(ans) <- c("mrgsimsds", "environment")
+  take_ownership(ans)
   ans
 }

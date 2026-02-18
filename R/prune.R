@@ -21,7 +21,9 @@ prune_ds <- function(x, ...) UseMethod("prune_ds")
 #' @rdname prune_ds
 #' @export
 prune_ds.mrgsimsds <- function(x, ...) {
-  x  
+  files_exist(x, fatal = TRUE)
+  x <- safe_ds(x)
+  invisible(x)
 }
 #' @rdname prune_ds
 #' @export
