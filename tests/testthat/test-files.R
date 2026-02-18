@@ -16,17 +16,14 @@ test_that("total size", {
   
   status <- file.remove(out$files[2])
   
-  expect_error(
-    mrgsim.ds:::total_size(out$files), 
-    "backing this object do not exist"
-  )
+  expect_equal(mrgsim.ds:::total_size(out$files), "5.5 Kb")
 })
 
 test_that("files exist", {
   out <- mrgsim_ds(mod, gc = FALSE)
-  expect_true(mrgsim.ds:::files_exist(out))
+  expect_silent(mrgsim.ds:::check_files_fatal(out))
   out$files <- "b"
-  expect_error(mrgsim.ds:::files_exist(out), "do not exist")
+  expect_error(mrgsim.ds:::check_files_fatal(out), "do not exist")
 })
 
 test_that("clean up", {
@@ -52,31 +49,31 @@ test_that("file_ds", {
 test_that("rename_ds", {
   out <- mrgsim_ds(mod)
   a <- basename(out$files)
-  out <- rename_ds(out, "zip")
+  rename_ds(out, "zip")
   b <- basename(out$files)
   expect_equal(b, "mrgsims-ds-zip-0001.parquet")
 })
 
 test_that("write_ds", {
   out <- mrgsim_ds(mod)
-  x <- write_ds(out, file.path(tempdir(), "test-write"))
-  expect_false(x$gc)
-  expect_equal(basename(x$files), "test-write")
-  expect_equal(dirname(normalizePath(x$files)), normalizePath(tempdir()))
+  write_ds(out, file.path(tempdir(), "test-write"))
+  expect_false(out$gc)
+  expect_equal(basename(out$files), "test-write")
+  expect_equal(dirname(normalizePath(out$files)), normalizePath(tempdir()))
 })
 
 test_that("move_ds", {
   out <- mrgsim_ds(mod)
   nw <- file.path(tempdir(), "newdir")
-  x <- move_ds(out, path = nw)
-  tst <- basename(dirname(x$files))
+  move_ds(out, path = nw)
+  tst <- basename(dirname(out$files))
   expect_equal(tst, "newdir")
-  expect_true(x$gc)
+  expect_true(out$gc)
 
   tmp_path <- withr::local_tempdir(tmpdir = getwd())
   test_dir <- file.path(tmp_path, "simulated-output")
-  x <- move_ds(out, test_dir)
-  expect_false(x$gc)  
+  move_ds(out, test_dir)
+  expect_false(out$gc)  
 })
 
 test_that("temp file helpers", {

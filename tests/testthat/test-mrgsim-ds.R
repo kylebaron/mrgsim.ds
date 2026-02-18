@@ -59,6 +59,8 @@ test_that("copy an object", {
   out2 <- copy_ds(out1)
   o1 <- as.list(out1)
   o2 <- as.list(out2)
+  # guaranteed to be different; just set to be equal
+  o1$address <- o2$address
   expect_identical(names(o1), names(o2))
   o1$ds <- collect(out1)
   o2$ds <- collect(out2)

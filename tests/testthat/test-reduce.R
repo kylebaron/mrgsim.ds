@@ -17,7 +17,6 @@ test_that("reduce lists of simulations", {
   expect_length(out$files,1)
 })
 
-
 test_that("ok to reduce", {
   a <- mrgsim_ds(mod, gc = FALSE)
   b <- mrgsim_ds(mod, gc = FALSE)
@@ -31,7 +30,7 @@ test_that("ok to reduce", {
   bb <- copy_ds(b)
   bb$files <- 'a'
   x <- list(a,bb,c)
-  expect_error(reduce_ds(x), "backing this object do not exist")
+  expect_error(reduce_ds(x), "data set files do not exist")
 
   bb <- copy_ds(b)
   bb$files <- a$files
