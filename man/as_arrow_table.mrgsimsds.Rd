@@ -21,6 +21,7 @@ Coerce an mrgsimsds object to an arrow table
 }
 \examples{
 mod <- house_ds(end = 5)
+
 out <- mrgsim_ds(mod, events = ev(amt = 100))
 
 arrow::as_arrow_table(out)

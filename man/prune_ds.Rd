@@ -20,7 +20,10 @@ prune_ds(x, ...)
 \item{inform}{issue a message when objects in some list slots are dropped.}
 }
 \value{
-The input list of objects, with only the mrgsimsds objects retained.
+When \code{x} is a list, it will be returned with only the mrgsimsds objects
+retained.
+
+When \code{x} is an mrgsimsds object, it will be invisibly returned.
 }
 \description{
 Prune a list of mrgsimsds objects

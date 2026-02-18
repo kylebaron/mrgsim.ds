@@ -14,14 +14,17 @@
 #' prune_ds(sims)
 #' 
 #' @return
-#' The input list of objects, with only the mrgsimsds objects retained.
+#' When `x` is a list, it will be returned with only the mrgsimsds objects 
+#' retained.
+#' 
+#' When `x` is an mrgsimsds object, it will be invisibly returned. 
 #' 
 #' @export
 prune_ds <- function(x, ...) UseMethod("prune_ds")
 #' @rdname prune_ds
 #' @export
 prune_ds.mrgsimsds <- function(x, ...) {
-  files_exist(x, fatal = TRUE)
+  check_files_fatal(x)
   x <- safe_ds(x)
   invisible(x)
 }

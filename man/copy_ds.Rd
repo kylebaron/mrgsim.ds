@@ -2,18 +2,18 @@
 % Please edit documentation in R/own.R
 \name{copy_ds}
 \alias{copy_ds}
-\title{Copy an mrgsims object}
+\title{Copy an mrgsimsds object}
 \usage{
 copy_ds(x, own = TRUE)
 }
 \arguments{
-\item{x}{the object to copy.}
+\item{x}{an mrgsimsds object to copy.}
 
 \item{own}{logical; if \code{TRUE} the new object will own the files; otherwise
 there will be no change in ownership.}
 }
 \value{
-An mrgsims object with identical fields, but updated pid.
+An mrgsimsds object with identical fields, but updated pid.
 }
 \description{
 By default, the new object will own the data files.

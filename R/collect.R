@@ -6,6 +6,7 @@
 #' 
 #' @examples
 #' mod <- house_ds(end = 5)
+#' 
 #' out <- mrgsim_ds(mod, events = ev(amt = 100))
 #' 
 #' arrow::as_arrow_table(out)
@@ -29,9 +30,11 @@ as_arrow_table.mrgsimsds <- function(x, ..., schema = NULL) {
 #' 
 #' @examples
 #' mod <- house_ds(end = 5)
+#' 
 #' out <- mrgsim_ds(mod, events = ev(amt = 100))
 #' 
 #' tibble::as_tibble(out)
+#' 
 #' dplyr::collect(out)
 #' 
 #' @return
@@ -43,6 +46,7 @@ as_tibble.mrgsimsds <- function(x, ...) {
   check_files_fatal(x)
   dplyr::as_tibble(x$ds, ...)  
 }
+
 #' @rdname as_tibble.mrgsimsds
 #' @export
 collect.mrgsimsds <- function(x, ...) {
@@ -50,6 +54,7 @@ collect.mrgsimsds <- function(x, ...) {
   check_files_fatal(x)
   dplyr::collect(x$ds, ... )  
 }
+
 #' @rdname as_tibble.mrgsimsds
 #' @export
 as.data.frame.mrgsimsds <- function(x, row.names = NULL, optional = FALSE, ...) {
@@ -74,6 +79,7 @@ as.data.frame.mrgsimsds <- function(x, row.names = NULL, optional = FALSE, ...) 
 #' 
 #' @examples
 #' mod <- house_ds(end = 5)
+#' 
 #' out <- mrgsim_ds(mod, events = ev(amt = 100))
 #' 
 #' as_arrow_ds(out)
@@ -86,6 +92,7 @@ as_arrow_ds <- function(x, ... ) UseMethod("as_arrow_ds")
 #' @export
 as_arrow_ds.mrgsimsds <- function(x, ...) {
   x <- safe_ds(x)
+  check_files_fatal(x)
   x$ds
 }
 

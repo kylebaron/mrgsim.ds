@@ -6,19 +6,6 @@ total_size <- function(files) {
   size
 }
 
-files_exist <- function(x, fatal = TRUE) {
-  if(isTRUE(fatal)) {
-    check_files_fatal(x)  
-  }
-  ans <- all(file.exists(x$files))
-  return(invisible(ans))
-}
-
-hash_files <- function(x) {
-  x$hash <- digest(x$files)
-  x
-}
-
 check_files_fatal <- function(x) {
   ans <- all(file.exists(x$files))
   if(!ans) {
@@ -69,7 +56,7 @@ file_ds <- function(id = NULL) {
 
 #' Move, rename, or write out data set files. 
 #' 
-#' Use `move_ds()` to just change the enclosing directory. `write_ds()` can also
+#' Use `move_ds()` to change the enclosing directory. `write_ds()` can also
 #' move the files, but also condenses all simulation output in to a single 
 #' parquet file if multiple files are backing the mrgsimsds object. All 
 #' operations are made on the object in place; see **Details**. 
@@ -91,6 +78,8 @@ file_ds <- function(id = NULL) {
 #' `tempdir()`. No change in finalization behavior due to garbage collection 
 #' of the containing object will happen when files are renamed. 
 #' 
+#' All three functions modify `x` in place and ownership stays with `x`. 
+#' 
 #' @return
 #' All three functions return the new file list, invisibly.
 #' 
@@ -98,11 +87,17 @@ file_ds <- function(id = NULL) {
 #' 
 #' mod <- house_ds()
 #' 
-#' out <- mrgsim_ds(mod, events = ev(amt = 100))
+#' out <- lapply(1:3, \(x) { mrgsim_ds(mod, events = ev(amt = 100)) })
+#' 
+#' out <- reduce_ds(out)
+#' 
+#' rename_ds(out, id = "example-sims")
+#' 
+#' basename(out$files)
 #' 
 #' write_ds(out, sink = file.path(tempdir(), "example.parquet"))
 #' 
-#' out$files
+#' basename(out$files)
 #' 
 #' \dontrun{
 #'   move_ds(out, path = "data/simulated") 

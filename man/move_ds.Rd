@@ -29,7 +29,7 @@ file containing all simulated data.}
 All three functions return the new file list, invisibly.
 }
 \description{
-Use \code{move_ds()} to just change the enclosing directory. \code{write_ds()} can also
+Use \code{move_ds()} to change the enclosing directory. \code{write_ds()} can also
 move the files, but also condenses all simulation output in to a single
 parquet file if multiple files are backing the mrgsimsds object. All
 operations are made on the object in place; see \strong{Details}.
@@ -42,16 +42,24 @@ those files, too, will no longer be cleaned up on garbage collection; but
 file cleanup will continue to occur as long as the files remain under
 \code{tempdir()}. No change in finalization behavior due to garbage collection
 of the containing object will happen when files are renamed.
+
+All three functions modify \code{x} in place and ownership stays with \code{x}.
 }
 \examples{
 
 mod <- house_ds()
 
-out <- mrgsim_ds(mod, events = ev(amt = 100))
+out <- lapply(1:3, \(x) { mrgsim_ds(mod, events = ev(amt = 100)) })
+
+out <- reduce_ds(out)
+
+rename_ds(out, id = "example-sims")
+
+basename(out$files)
 
 write_ds(out, sink = file.path(tempdir(), "example.parquet"))
 
-out$files
+basename(out$files)
 
 \dontrun{
   move_ds(out, path = "data/simulated") 

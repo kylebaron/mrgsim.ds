@@ -13,14 +13,19 @@
 #' data <- ev_expand(amt = 100, ID = 1:100)
 #' 
 #' out <- lapply(1:3, function(rep) {
-#'   out <- mrgsim_ds(mod, data) 
-#'   out
+#'   mrgsim_ds(mod, data) 
 #' })
 #' 
-#' out <- refresh_ds(out)
+#' refresh_ds(out)
 #' 
 #' @return
-#' The mrgsimsds object is returned with pointers refreshed. 
+#' The mrgsimsds object is returned invisibly with pointers refreshed; 
+#' modification is made in place. 
+#' 
+#' @details
+#' To refresh the pointers, `refresh_ds()` checks that the files still exist
+#' and passes the file list to [arrow::open_dataset()]. The object `pid` and 
+#' the `dim` attributes are also refreshed, after re-opening the data set.
 #' 
 #' @rdname refresh_ds
 #' @export
@@ -28,7 +33,7 @@ refresh_ds <- function(x, ...) UseMethod("refresh_ds")
 #' @rdname refresh_ds
 #' @export
 refresh_ds.mrgsimsds <- function(x, ...) {
-  files_exist(x, fatal = TRUE)
+  check_files_fatal(x)
   x$ds <- open_dataset(x$files)
   x$files <- x$ds$files
   x$dim <- dim(x$ds)

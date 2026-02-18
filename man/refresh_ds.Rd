@@ -18,12 +18,18 @@ refresh_ds(x, ...)
 \item{...}{for future use.}
 }
 \value{
-The mrgsimsds object is returned with pointers refreshed.
+The mrgsimsds object is returned invisibly with pointers refreshed;
+modification is made in place.
 }
 \description{
 Pointers to arrow data sets will be invalid when the simulation is run in a
 different process, for example when simulating in parallel. The pointers
 should be refreshed on the head node once the simulation is finished.
+}
+\details{
+To refresh the pointers, \code{refresh_ds()} checks that the files still exist
+and passes the file list to \code{\link[arrow:open_dataset]{arrow::open_dataset()}}. The object \code{pid} and
+the \code{dim} attributes are also refreshed, after re-opening the data set.
 }
 \examples{
 mod <- house_ds()
@@ -31,10 +37,9 @@ mod <- house_ds()
 data <- ev_expand(amt = 100, ID = 1:100)
 
 out <- lapply(1:3, function(rep) {
-  out <- mrgsim_ds(mod, data) 
-  out
+  mrgsim_ds(mod, data) 
 })
 
-out <- refresh_ds(out)
+refresh_ds(out)
 
 }

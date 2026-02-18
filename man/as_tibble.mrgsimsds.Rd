@@ -29,9 +29,11 @@ Coerce an mrgsimsds object to a tbl
 }
 \examples{
 mod <- house_ds(end = 5)
+
 out <- mrgsim_ds(mod, events = ev(amt = 100))
 
 tibble::as_tibble(out)
+
 dplyr::collect(out)
 
 }

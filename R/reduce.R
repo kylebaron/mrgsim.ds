@@ -29,8 +29,15 @@ simlist_reduce_ok <- function(x) {
 #' @param x a list of mrgsimsds objects or a single mrgsimsds object.
 #' @param ... not used.
 #' 
+#' @details
+#' When `x` is a list, a new object is created and returned. This new object
+#' will take ownership for all the files from the objects in the list. 
+#' 
+#' When `x` is an mrgsimsds object, it will be returned invisibly with no 
+#' modification.
+#' 
 #' @examples
-#' mod <- modlib_ds("1005")
+#' mod <- modlib_ds("1005", outvars = "IPRED")
 #' 
 #' data <- ev_expand(amt = 100, ID = 1:100)
 #' 
@@ -41,21 +48,26 @@ simlist_reduce_ok <- function(x) {
 #' 
 #' length(out)
 #' 
-#' out <- reduce_ds(out)
+#' sims <- reduce_ds(out)
 #' 
-#' out
+#' sims
+#' 
+#' check_ownership(sims)
+#' 
+#' lapply(out, check_ownership)
 #' 
 #' @export
 reduce_ds <- function(x, ...) UseMethod("reduce_ds")
 #' @export
 reduce_ds.mrgsimsds <- function(x, ...) {
-  files_exist(x, fatal = TRUE)
+  check_files_fatal(x)
   x <- safe_ds(x)
   invisible(x)
 }
 #' @export
 reduce_ds.list <- function(x, ...) {
   simlist_reduce_ok(x)
+  check_files_fatal(x)
   x <- refresh_ds(x)
   files <- simlist_files(x)
   ans <- copy_ds(x[[1]], own = TRUE)
@@ -64,7 +76,6 @@ reduce_ds.list <- function(x, ...) {
   sapply(x, disown)
   rm(x)
   ans$files <- files
-  files_exist(ans, fatal = TRUE)
   ans$ds <- open_dataset(sources = ans$files)
   ans$files <- ans$ds$files
   ans$dim <- dim(ans$ds)

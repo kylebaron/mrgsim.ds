@@ -14,8 +14,15 @@ reduce_ds(x, ...)
 \description{
 Reduce a list of mrgsimsds objects into a single object
 }
+\details{
+When \code{x} is a list, a new object is created and returned. This new object
+will take ownership for all the files from the objects in the list.
+
+When \code{x} is an mrgsimsds object, it will be returned invisibly with no
+modification.
+}
 \examples{
-mod <- modlib_ds("1005")
+mod <- modlib_ds("1005", outvars = "IPRED")
 
 data <- ev_expand(amt = 100, ID = 1:100)
 
@@ -26,8 +33,12 @@ out <- lapply(1:3, function(rep) {
 
 length(out)
 
-out <- reduce_ds(out)
+sims <- reduce_ds(out)
 
-out
+sims
+
+check_ownership(sims)
+
+lapply(out, check_ownership)
 
 }
