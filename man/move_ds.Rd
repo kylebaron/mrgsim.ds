@@ -4,7 +4,7 @@
 \alias{move_ds}
 \alias{rename_ds}
 \alias{write_ds}
-\title{Move data set files to a new directory.}
+\title{Move, rename, or write out data set files.}
 \usage{
 move_ds(x, path)
 
@@ -31,8 +31,8 @@ All three functions return the new file list, invisibly.
 \description{
 Use \code{move_ds()} to just change the enclosing directory. \code{write_ds()} can also
 move the files, but also condenses all simulation output in to a single
-parquet file if multiple files are backing the mrgsimsds object. See
-\emph{Details}.
+parquet file if multiple files are backing the mrgsimsds object. All
+operations are made on the object in place; see \strong{Details}.
 }
 \details{
 When dataset files are rewritten to a single file with \code{write_ds()}, those

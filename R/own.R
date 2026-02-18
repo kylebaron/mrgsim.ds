@@ -21,45 +21,36 @@ clean_up_ds <- function(x) {
 #' @export
 take_ownership <- function(x) {
   require_ds(x)
-  if(length(x$files) > 1) {
-    foo <- sapply(x$files, assign, value = x$address, envir = file_owner)  
-    return(invisible(x))
-  } else {
-    assign(x$files, x$address, envir = file_owner)
-    return(invisible(x))
-  }
+  hash_files(x)
+  assign(x$hash, value = list(address = x$address, files = x$files), envir = file_owner)
+  return(invisible(x))
 }
 
 #' @rdname take_ownership
 #' @export
 check_ownership <- function(x) {
   require_ds(x)
-  if(length(x$files) == 1) {
-    test <- file_owner[[x$files]]
-    if(is.null(test))return(FALSE)
-    return(test==x$address)
-  } else {
-    ans <- sapply(x$files, \(xi) {
-      test <- file_owner[[xi]]
-      if(is.null(test)) return(FALSE)
-      test==x$address
-    })
-    return(all(ans))
-  }
+  test <- file_owner[[x$hash]]
+  if(is.null(test)) return(FALSE)
+  return(x$address == test$address)
 }
 
 #' @rdname take_ownership
 #' @export
 list_ownership <- function(full.names = FALSE) {
-  ans <- as.list(file_owner)
-  if(!length(ans)) {
-    ans <- data.frame(object = "a", file = "b")[0,]
+  entries <- names(file_owner)
+  if(!length(entries)) {
+    ans <- data.frame(object = "a", file = "b", hash = "c")[0,]
     return(ans)
   }
+  objects <- mget(entries, envir = file_owner)
+  listing <- lapply(objects, \(x) {
+    data.frame(file = x$files, address = x$address)
+  })
+  ans <- bind_rows(listing)
   if(isFALSE(full.names)) {
-    names(ans) <- basename(names(ans)) 
+    ans$file <- basename(ans$file)
   }
-  ans <- data.frame(object = unlist(ans), file = names(ans))
   rownames(ans) <- NULL
   ans
 }
@@ -67,23 +58,24 @@ list_ownership <- function(full.names = FALSE) {
 #' @rdname take_ownership
 #' @export
 ownership <- function() {
-  files <- names(mrgsim.ds:::file_owner)
-  files <- files[grepl("parquet", files)]
-  objects <- mget(files, envir = mrgsim.ds:::file_owner)
+  entries <- names(file_owner)
+  objects <- mget(entries, envir = file_owner)
+  files <- unlist(sapply(objects, \(x) x$files, USE.NAMES=FALSE))
+  addresses <- sapply(objects, \(x) x$address)
   size <- total_size(files)
-  message(glue::glue("Files:   ", length(unique(files))))
-  message(glue::glue("Size:    ", size))
-  message(glue::glue("Objects: ", length(unique(objects))))
+  nfile <- length(unique(files))
+  nadd <- length(unique(addresses))
+  msg <- "Objects: {nadd} | Files: {nfile} | Size: {size}"
+  message(glue(msg))
 }
 
 #' @rdname take_ownership
 #' @export
 disown <- function(x) {
   require_ds(x)
-  files <- x$files
-  files <- files[files %in% names(file_owner)]
-  for(file in files) {
-    rm(list = file, envir = file_owner)  
+  if(is.null(x$hash)) abort("files are not hashed.")
+  if(x$hash %in% names(file_owner)) {
+    rm(list = x$hash, envir = file_owner)  
   }
   invisible(x)
 }

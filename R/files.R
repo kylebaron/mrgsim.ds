@@ -14,6 +14,11 @@ files_exist <- function(x, fatal = TRUE) {
   return(invisible(ans))
 }
 
+hash_files <- function(x) {
+  x$hash <- digest(x$files)
+  x
+}
+
 check_files_fatal <- function(x) {
   ans <- all(file.exists(x$files))
   if(!ans) {
@@ -62,12 +67,12 @@ file_ds <- function(id = NULL) {
   return(file)
 }
 
-#' Move data set files to a new directory. 
+#' Move, rename, or write out data set files. 
 #' 
 #' Use `move_ds()` to just change the enclosing directory. `write_ds()` can also
 #' move the files, but also condenses all simulation output in to a single 
-#' parquet file if multiple files are backing the mrgsimsds object. See
-#' *Details*. 
+#' parquet file if multiple files are backing the mrgsimsds object. All 
+#' operations are made on the object in place; see **Details**. 
 #' 
 #' @param x an mrgsimsds object. 
 #' @param path the new directory location for backing files.
