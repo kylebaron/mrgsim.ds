@@ -26,9 +26,7 @@ file containing all simulated data.}
 \item{...}{passed to \code{\link[arrow:write_parquet]{arrow::write_parquet()}}.}
 }
 \value{
-Both functions return the mrgsimsds object; it is critical to capture the
-return value in order to continue working with the object in the current
-R session.
+All three functions return the mrgsimsds object invisibly.
 }
 \description{
 Use \code{move_ds()} to just change the enclosing directory. \code{write_ds()} can also

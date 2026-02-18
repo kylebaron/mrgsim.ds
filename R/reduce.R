@@ -54,7 +54,7 @@ reduce_ds <- function(x, ...) UseMethod("reduce_ds")
 reduce_ds.mrgsimsds <- function(x, ...) {
   files_exist(x, fatal = TRUE)
   x <- safe_ds(x)
-  x
+  invisible(x)
 }
 #' @export
 reduce_ds.list <- function(x, ...) {

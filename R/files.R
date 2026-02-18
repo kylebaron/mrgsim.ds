@@ -13,24 +13,32 @@ total_size <- function(files) {
 }
 
 files_exist <- function(x, fatal = TRUE) {
-  ans <- all(file.exists(x$files))
-  if(!isTRUE(fatal)) return(ans)
-  if(!ans) {
-    abort(
-      "file(s) backing this object do not exist.", 
-      call = caller_env()
-    )    
+  if(isTRUE(fatal)) {
+    check_files_fatal(x)  
   }
+  ans <- all(file.exists(x$files))
   return(invisible(ans))
 }
 
-clean_up_ds <- function(x) {
-  if(getOption("mrgsim.ds.gc", FALSE)) {
-    n <- length(x$files)
-    msg <- glue("[mrgsim.ds] cleaning up {n} file(s) ...")
-    message(msg)
+check_files_fatal <- function(x) {
+  ans <- all(file.exists(x$files))
+  if(!ans) {
+    nfile <- length(x$files)
+    owner <- check_ownership(x)
+    model <- x$mod@model
+    body <- c(
+      "Files: {length(x$files)}", 
+      "Owner: {check_ownership(x)}", 
+      "Model: {x$mod@model}"
+    )
+    for(i in seq_along(body)) {
+      body[i] <- glue(body[i])  
+    }
+    names(body) <- rep("*", length(body))
+    abort(body = body, message = "[fatal] data set files do not exist.", 
+          call = caller_env())
   }
-  if(x$gc && check_ownership(x)) unlink(x$files, recursive = TRUE)
+  return(invisible(TRUE))
 }
 
 #' Create an output file name
@@ -82,9 +90,7 @@ file_ds <- function(id = NULL) {
 #' of the containing object will happen when files are renamed. 
 #' 
 #' @return
-#' Both functions return the mrgsimsds object; it is critical to capture the 
-#' return value in order to continue working with the object in the current
-#' R session.
+#' All three functions return the mrgsimsds object invisibly.
 #' 
 #' @examples
 #' 
@@ -114,7 +120,7 @@ move_ds <- function(x, path) {
   x$files <- file_move(files, path)
   x <- refresh_ds(x)
   take_ownership(x)
-  x
+  invisible(x)
 }
 
 #' @rdname move_ds
@@ -137,7 +143,7 @@ rename_ds <- function(x, id) {
   x$files <- x$ds$files
   x$gc <- FALSE
   take_ownership(x)
-  x
+  invisible(x)
 }
 
 #' @rdname move_ds
@@ -158,7 +164,7 @@ write_ds <- function(x, sink, ...) {
   x <- refresh_ds(x)
   x$gc <- FALSE
   take_ownership(x)
-  x
+  invisible(x)
 }
 
 #' Manage simulated outputs in tempdir()

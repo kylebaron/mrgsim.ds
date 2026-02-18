@@ -49,7 +49,7 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE, gc = TRUE) {
   ans$names <- names(ans$head)
   ans$pid <- Sys.getpid()
   ans$gc <- isTRUE(gc)
-  ans$add <- obj_addr(ans)
+  ans$address <- obj_addr(ans)
   
   rm(x)
   
@@ -156,12 +156,14 @@ dim.mrgsimsds <- function(x) {
 #' @name mrgsimsds-methods
 #' @export
 head.mrgsimsds <-  function(x, n = 6L, ...) {
+  check_files_fatal(x)
   as_tibble(get_nrow_from_ds(x, n = n))
 }
 
 #' @name mrgsimsds-methods
 #' @export
 tail.mrgsimsds <- function(x, n = 6L, ...) {
+  check_files_fatal(x)
   x <- safe_ds(x)
   nf <- length(x$files)
   if(nf > 1) {
