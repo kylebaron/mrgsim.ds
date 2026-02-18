@@ -4,14 +4,29 @@
 \alias{copy_ds}
 \title{Copy an mrgsims object}
 \usage{
-copy_ds(x, own = FALSE)
+copy_ds(x, own = TRUE)
 }
 \arguments{
 \item{x}{the object to copy.}
+
+\item{own}{logical; if \code{TRUE} the new object will own the files; otherwise
+there will be no change in ownership.}
 }
 \value{
 An mrgsims object with identical fields, but updated pid.
 }
 \description{
-Copy an mrgsims object
+By default, the new object will own the data files.
+}
+\examples{
+mod <- house_ds()
+
+out <- mrgsim_ds(mod)
+
+out2 <- copy_ds(out)
+
+check_ownership(out)
+
+check_ownership(out2)
+
 }

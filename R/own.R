@@ -12,12 +12,42 @@ clean_up_ds <- function(x) {
   }
 }
 
-#' Take or check ownership of simulation files
+#' Ownership of simulation files
+#' 
+#' Functions to take ownership or disown simulation output files on disk.
 #' 
 #' @param x an mrgsimsds object.
 #' @param full.names if `TRUE`, include the directory path when listing file 
 #' ownership. 
 #' 
+#' @details
+#' Only call `take_ownership()` when you really know what you're doing. If an 
+#' object doesn't own its own simulation files, there's probably a reason why 
+#' that is. Most often, whoever has ownership of the files is the one who 
+#' actually generated the simulation outputs.
+#' 
+#' @return 
+#' - `take_ownership`: `x` is returned invisibly after getting modified in 
+#'   place. 
+#' - `check_ownership`: `TRUE` if `x` owns the underlying files; `FALSE` 
+#'   otherwise.
+#' - `list_ownership`: a data.frame of ownership information.
+#' - `ownership`: nothing; used for side effects.
+#' - `disown`: `x` is returned invisibly; it is not modified.
+#' 
+#' @examples
+#' mod <- house_ds()
+#' 
+#' out <- mrgsim_ds(mod, id = 1)
+#' 
+#' check_ownership(out)
+#' 
+#' ownership()
+#' 
+#' list_ownership()
+#' 
+#' @rdname ownership
+#' @name ownership
 #' @export
 take_ownership <- function(x) {
   require_ds(x)
@@ -26,7 +56,7 @@ take_ownership <- function(x) {
   return(invisible(x))
 }
 
-#' @rdname take_ownership
+#' @rdname ownership
 #' @export
 check_ownership <- function(x) {
   require_ds(x)
@@ -35,7 +65,7 @@ check_ownership <- function(x) {
   return(x$address == test$address)
 }
 
-#' @rdname take_ownership
+#' @rdname ownership
 #' @export
 list_ownership <- function(full.names = FALSE) {
   entries <- names(file_owner)
@@ -55,7 +85,7 @@ list_ownership <- function(full.names = FALSE) {
   ans
 }
 
-#' @rdname take_ownership
+#' @rdname ownership
 #' @export
 ownership <- function() {
   entries <- names(file_owner)
@@ -67,9 +97,10 @@ ownership <- function() {
   nadd <- length(unique(addresses))
   msg <- "Objects: {nadd} | Files: {nfile} | Size: {size}"
   message(glue(msg))
+  return(invisible(NULL))
 }
 
-#' @rdname take_ownership
+#' @rdname ownership
 #' @export
 disown <- function(x) {
   require_ds(x)
@@ -89,7 +120,18 @@ disown <- function(x) {
 #' there will be no change in ownership.
 #' 
 #' @return
-#' An mrgsims object with identical fields, but updated pid. 
+#' An mrgsimsds object with identical fields, but updated pid. 
+#' 
+#' @examples
+#' mod <- house_ds()
+#' 
+#' out <- mrgsim_ds(mod)
+#' 
+#' out2 <- copy_ds(out)
+#' 
+#' check_ownership(out)
+#' 
+#' check_ownership(out2)
 #' 
 #' @export
 copy_ds <- function(x, own = TRUE) {
