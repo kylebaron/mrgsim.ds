@@ -87,7 +87,7 @@ file_ds <- function(id = NULL) {
 #' of the containing object will happen when files are renamed. 
 #' 
 #' @return
-#' All three functions return the mrgsimsds object invisibly.
+#' All three functions return the new file list, invisibly.
 #' 
 #' @examples
 #' 
@@ -95,12 +95,12 @@ file_ds <- function(id = NULL) {
 #' 
 #' out <- mrgsim_ds(mod, events = ev(amt = 100))
 #' 
-#' out <- write_ds(out, sink = file.path(tempdir(), "example.parquet"))
+#' write_ds(out, sink = file.path(tempdir(), "example.parquet"))
 #' 
 #' out$files
 #' 
 #' \dontrun{
-#'   out <- move_ds(out, path = "data/simulated") 
+#'   move_ds(out, path = "data/simulated") 
 #' }
 #' 
 #' @export

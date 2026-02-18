@@ -26,7 +26,7 @@ file containing all simulated data.}
 \item{...}{passed to \code{\link[arrow:write_parquet]{arrow::write_parquet()}}.}
 }
 \value{
-All three functions return the mrgsimsds object invisibly.
+All three functions return the new file list, invisibly.
 }
 \description{
 Use \code{move_ds()} to just change the enclosing directory. \code{write_ds()} can also
@@ -49,12 +49,12 @@ mod <- house_ds()
 
 out <- mrgsim_ds(mod, events = ev(amt = 100))
 
-out <- write_ds(out, sink = file.path(tempdir(), "example.parquet"))
+write_ds(out, sink = file.path(tempdir(), "example.parquet"))
 
 out$files
 
 \dontrun{
-  out <- move_ds(out, path = "data/simulated") 
+  move_ds(out, path = "data/simulated") 
 }
 
 }
