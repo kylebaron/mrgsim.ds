@@ -192,15 +192,17 @@ purge_temp()
 
 plan(multisession, workers = 5L)
 
-out1 <- mrgsim_ds(mod, data) %>% rename_ds("out1")
+out1 <- mrgsim_ds(mod, data)
+rename_ds(out1, "out1")
 
 out2 <- future_lapply(1:10, \(x) { mrgsim_ds(mod, data) }, future.seed = TRUE)
 
-out2 <- reduce_ds(out2) %>% rename_ds("out2")
+out2 <- reduce_ds(out2)
+rename_ds(out2, "out2")
 
-out3 <- mrgsim_ds(mod, data) %>% rename_ds("out3")
+out3 <- mrgsim_ds(mod, data) 
+rename_ds(out3, "out3")
 ```
-
 
 ```{r}
 list_temp()
@@ -215,3 +217,34 @@ gc()
 list_temp()
 ```
 
+### Ownership 
+
+This setup is only possible if one object owns the files on disk and `mrgsim.ds`
+tracks this.
+
+```{r}
+ownership()
+```
+
+If I make a copy of a simulation object, the old object no longer owns the 
+files. 
+
+```{r}
+out4 <- copy_ds(out1, own = TRUE)
+
+check_ownership(out1)
+check_ownership(out4)
+```
+
+
+
+
+
+
+## If this is so great, why not make it the default for mrgsolve?
+
+There is a cost to all of this. For small to mid-size simulations, you might 
+see a small slowdown with `mrgsim_ds()`; it definitely won't be faster than 
+`mrgsim()` ... even with the super-quick arrow ecosystem. This workflow is 
+really for large simulation volumes where you are happy to pay the cost of 
+writing outputs to file and then streaming them back in to summarize. 

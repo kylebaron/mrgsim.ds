@@ -121,6 +121,9 @@ move_ds <- function(x, path) {
   }
   x$files <- file_move(files, path)
   x <- refresh_ds(x)
+  if(!grepl(basename(tempdir()), path)) {
+    x$gc <- FALSE  
+  }
   take_ownership(x)
   invisible(x$files)
 }
@@ -143,7 +146,6 @@ rename_ds <- function(x, id) {
   x$files <- file_move(files, file.path(dirname(files), new_names))
   x <- refresh_ds(x)
   x$files <- x$ds$files
-  x$gc <- FALSE
   take_ownership(x)
   invisible(x$files)
 }

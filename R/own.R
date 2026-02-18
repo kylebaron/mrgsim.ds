@@ -82,13 +82,17 @@ disown <- function(x) {
 
 #' Copy an mrgsims object
 #' 
+#' By default, the new object will own the data files. 
+#' 
 #' @param x the object to copy.
+#' @param own logical; if `TRUE` the new object will own the files; otherwise
+#' there will be no change in ownership.
 #' 
 #' @return
 #' An mrgsims object with identical fields, but updated pid. 
 #' 
 #' @export
-copy_ds <- function(x, own = FALSE) {
+copy_ds <- function(x, own = TRUE) {
   require_ds(x)
   names_in <- names(x)
   ans <- new.env(parent = emptyenv())
