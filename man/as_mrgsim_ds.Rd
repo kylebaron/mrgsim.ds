@@ -9,18 +9,24 @@ as_mrgsim_ds(x, id = NULL, verbose = FALSE, gc = TRUE)
 \arguments{
 \item{x}{an mrgsims object.}
 
-\item{id}{used to label output files; see details.}
+\item{id}{used to generate an output file name.}
 
 \item{verbose}{if \code{TRUE}, print progress information to the console.}
 
 \item{gc}{if \code{TRUE}, a finalizer function will attempt to remove files once
-the object is out of scope.}
+the object is out of scope; set to \code{FALSE} to protect from automatic
+cleanup. Otherwise, move the files from \code{tempdir()}}
 }
 \value{
 An object with class \code{mrgsimsds}.
 }
 \description{
-Coerce an mrgsims object to 'Arrow'-backed mrgsimsds object
+All simulation data is saved to \code{tempdir()} according to the parent or head
+node that the computation is run from. See \code{\link[=move_ds]{move_ds()}} to \code{\link[=write_ds]{write_ds()}}
+change the location of the files, protecting them from the garbage collector.
+}
+\details{
+This function will only take output from \code{\link[mrgsolve:mrgsim]{mrgsolve::mrgsim()}}.
 }
 \examples{
 mod <- house_ds()

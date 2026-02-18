@@ -1,8 +1,15 @@
 
 #' Coerce an mrgsims object to 'Arrow'-backed mrgsimsds object
 #' 
+#' All simulation data is saved to `tempdir()` according to the parent or head
+#' node that the computation is run from. See [move_ds()] to [write_ds()]
+#' change the location of the files, protecting them from the garbage collector.
+#' 
 #' @inheritParams mrgsim_ds
 #' @param x an mrgsims object. 
+#' 
+#' @details
+#' This function will only take output from [mrgsolve::mrgsim()]. 
 #' 
 #' @examples
 #' mod <- house_ds()
@@ -70,14 +77,15 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE, gc = TRUE) {
 #' Note that full names must be used for all arguments. 
 #' 
 #' @param x a model object loaded through [mread_ds()], [mcode_ds()], 
-#' [modlib_ds()] or [house_ds()].
-#' @param id used to label output files; see details.
+#' [modlib_ds()], [mread_cache_ds()], or [house_ds()].
+#' @param id used to generate an output file name.
 #' @param ... passed to [mrgsolve::mrgsim()]. 
 #' @param tags a named list of atomic data to tag (or mutate) the simulated 
 #' output.
 #' @param verbose if `TRUE`, print progress information to the console.
 #' @param gc if `TRUE`, a finalizer function will attempt to remove files once 
-#' the object is out of scope.
+#' the object is out of scope; set to `FALSE` to protect from automatic 
+#' cleanup. Otherwise, move the files from `tempdir()` 
 #' 
 #' @examples
 #' mod <- house_ds()
