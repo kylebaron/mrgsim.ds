@@ -1,9 +1,9 @@
-# coverage: 89.1%
+# coverage: 94.22%
 
 |file          | coverage|
 |:-------------|--------:|
-|R/own.R       |    56.45|
 |R/utils.R     |    87.50|
+|R/own.R       |    90.62|
 |R/files.R     |    93.14|
 |R/mrgsim-ds.R |    93.33|
 |R/collect.R   |   100.00|
