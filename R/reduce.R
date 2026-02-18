@@ -60,16 +60,19 @@ reduce_ds.mrgsimsds <- function(x, ...) {
 reduce_ds.list <- function(x, ...) {
   simlist_reduce_ok(x)
   files <- simlist_files(x)
-  ans <- x[[1]]
+  ans <- copy_ds(x[[1]])
   run_gc <- isTRUE(ans$gc)
+  disown(ans)
+  sapply(x, disown)
   rm(x)
   ans$files <- files
   files_exist(ans, fatal = TRUE)
   ans$ds <- open_dataset(sources = ans$files)
-  ans$fiels <- ans$ds$files
+  ans$files <- ans$ds$files
   ans$dim <- dim(ans$ds)
   ans$pid <- Sys.getpid()
   if(run_gc) set_finalizer_ds(ans)
   class(ans) <- c("mrgsimsds", "environment")
+  ans <- take_ownership(ans)
   ans
 }

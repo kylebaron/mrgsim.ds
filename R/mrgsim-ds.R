@@ -49,15 +49,18 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE, gc = TRUE) {
   ans$names <- names(ans$head)
   ans$pid <- Sys.getpid()
   ans$gc <- isTRUE(gc)
+  ans$add <- obj_addr(ans)
   
   rm(x)
   
   if(isTRUE(ans$gc)) {
     set_finalizer_ds(ans)
   }
-  
+
   class(ans) <- c("mrgsimsds", "environment")
-  
+
+  take_ownership(ans)
+    
   ans
 }
 
@@ -106,32 +109,6 @@ mrgsim_ds <- function(x,  ..., id = NULL, tags = list(), verbose = FALSE,
     }
   }
   ans <- as_mrgsim_ds(x = out, id = id, verbose = verbose, gc = gc)
-  ans
-}
-
-#' Copy an mrgsims object
-#' 
-#' @param x the object to copy.
-#' 
-#' @return
-#' An mrgsims object with identical fields, but updated pid. 
-#' 
-#' @export
-copy_ds <- function(x) {
-  require_ds(x)
-  names_in <- names(x)
-  ans <- new.env(parent = emptyenv())
-  ans$ds <- open_dataset(x$files)
-  ans$files <- ans$ds$files
-  ans$mod <- x$mod
-  ans$dim <- x$dim
-  ans$head <- x$head
-  ans$names <- x$names
-  ans$pid <- Sys.getpid()
-  ans$gc <- x$gc
-  class(ans) <- c("mrgsimsds", "environment")
-  names_out <- names(ans)
-  stopifnot("bad copy" = identical(names_in, names_out))
   ans
 }
 
@@ -205,8 +182,7 @@ names.mrgsimsds <- function(x) {
 #' @name mrgsimsds-methods
 #' @export
 plot.mrgsimsds <- function(x, y = NULL, ...,  nid = 5, batch_size = 20000, 
-                           logy = FALSE, 
-                           .dots = list()) {
+                           logy = FALSE, .dots = list()) {
   sims <- get_nid_from_ds(x, nid = nid, batch_size = batch_size)
   if(!rlang::is_formula(y)) {
     cols <- names(sims)
