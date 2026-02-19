@@ -3,7 +3,7 @@ library(mrgsim.ds)
 
 mod <- house_ds(end = 3, delta = 1)
 data <- ev_expand(amt = 100, ID = 1:3)
-out <- mrgsim_ds(mod, gc = FALSE)
+out <- mrgsim_ds(mod, data = data, gc = FALSE)
 
 test_that("test verbs", {
   a <- dplyr::group_by(out)
@@ -23,14 +23,13 @@ test_that("test verbs", {
   expect_is(sims, "tbl")
   expect_equal(names(sims), c("time", "DV"))
   
-  d <- dplyr::filter(out, time < 3)
+  d <- dplyr::filter(out, time < 3, ID==1)
   sims <- dplyr::collect(d)
-  expect_equal(sims$time, c(0,1,2))
+  expect_equal(sims$time, c(0,0,1,2))
   
-  e <- dplyr::summarise(out, M = mean(DV), .by = ID)
-  sims <- dplyr::collect(d)
-  expect_
+  e <- dplyr::summarise(out, M = mean(DV), .by = "ID")
+  sims <- dplyr::collect(e)
+  expect_equal(sims$ID, c(1,2,3))
 })
 
-rm(out, mod)
-gc()
+rm(out, mod, data)

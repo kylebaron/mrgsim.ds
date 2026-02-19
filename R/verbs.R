@@ -27,8 +27,11 @@ filter.mrgsimsds <- function(.data, ..., .by = NULL, .preserve = FALSE) {
 }
 
 #' @export
-summarise.mrgsimsds <- function (.data, ..., .by = NULL, .groups = NULL) {
+summarise.mrgsimsds <- function(.data, ..., .by = NULL, .groups = NULL) {
   .data <- safe_ds(.data)
   check_files_fatal(.data)
   dplyr::summarise(as_arrow_ds(.data), ..., .by = .by, .groups = .groups)
 }
+
+#' @export
+summarize.mrgsimsds <- summarise.mrgsimsds # nocov
