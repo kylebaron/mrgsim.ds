@@ -36,11 +36,11 @@ later use.
 ## Installation
 
 You can install the development version of `mrgsim.ds` from 
-[GitHub](https://github.com/kylebaron/mrgsim.ds) with:
+[r-universe](https://kylebaron.r-universe.dev/mrgsim.ds) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("kylebaron/mrgsim.ds")
+# Install 'mrgsim.ds' in R:
+install.packages('mrgsim.ds', repos = c('https://kylebaron.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
 ## Example 
