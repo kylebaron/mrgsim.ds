@@ -6,7 +6,7 @@ test_that("mrgsim_ds", {
   out <- mrgsim_ds(mod, idata = expand.idata(1:10),, events = ev(amt=100))
   expect_is(out, "mrgsimsds")
   expect_all_true(file.exists(out$files))
-  expect_true(mrgsim.ds:::valid_ds(out))
+  expect_false(mrgsim.ds:::invalid_ds(out))
   
   sims <- as_tibble(out)
   expect_identical(dim(sims), out$dim)
@@ -30,7 +30,7 @@ test_that("as_mrgsim_ds", {
   out <- as_mrgsim_ds(x)
   expect_is(out, "mrgsimsds")
   expect_all_true(file.exists(out$files))
-  expect_true(mrgsim.ds:::valid_ds(out))
+  expect_false(mrgsim.ds:::invalid_ds(out))
 })
 
 test_that("named output files", {

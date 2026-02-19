@@ -9,7 +9,7 @@
 #' @importFrom glue glue glue_data
 #' @importFrom mrgsolve mrgsim ev ev_expand house ev
 #' @importFrom mrgsolve mread mcode mread_cache modlib house
-#' @importFrom mrgsolve plot_sims
+#' @importFrom mrgsolve plot_sims is.mrgmod
 #' @importFrom methods new
 #' @importFrom fs file_move dir_exists dir_create file_delete
 #' @importFrom stats as.formula
@@ -23,5 +23,4 @@ NULL
 .global <- new.env(parent = emptyenv())
 assign("file.prefix", "mrgsims-ds-", .global)
 assign("file.re", "^mrgsims-ds-.*\\.parquet$", .global)
-
-
+assign("nullptr", new("externalptr"), .global)

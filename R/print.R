@@ -14,15 +14,15 @@ print.mrgsimsds <- function(x, n = 8, ...) { # nocov start
   own <- ifelse(check_ownership(x), "yes", "no")
   nfile <- sum(file.exists(x$files))
   message("Model: ", x$mod@model)
-  message("Dim  : ", dm1, " ", dm[2L])
+  message("Dim  : ", dm1, " x ", dm[2L])
   message("Files: ", nfile, " [", size, "]")
   message("Owner: ", own)
   chunk <- head(x$head, n = n)
   rownames(chunk) <- paste0(seq(nrow(chunk)), ": ")
   print(chunk)
-  invalid <- identical(x$ds$pointer(), new("externalptr"))
-  if(invalid) {
-    message("! pointer is invalid; run refresh_ds().")  
+  if(invalid_ds(x)) {
+    refresh_ds(x)
+    message("[mrgsim.ds] dataset pointer was refreshed.")
   }
   return(invisible(NULL))
 } # nocov end

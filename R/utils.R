@@ -40,19 +40,22 @@ format_big <- function() {
 #' 
 #' @export
 save_process_info <- function(x) {
+  if(!is.mrgmod(x)) { # nocov start
+    abort("`x` must be an mrgmod object.")  
+  } # nocov end
   x@envir$mrgsim.ds.mread_valid <- TRUE
   x@envir$mrgsim.ds.mread_pid <- Sys.getpid()
   x@envir$mrgsim.ds.mread_tempdir <- tempdir()
   x
 }
 
-valid_ds <- function(x) {
-  !identical(x$ds$pointer(), new("externalptr"))  
+invalid_ds <- function(x) {
+  identical(x$ds$pointer(), .global$nullptr)  
 }
 
 safe_ds <- function(x) {
-  if(!valid_ds(x)) x <- refresh_ds(x)
-  x
+  if(invalid_ds(x)) x <- refresh_ds(x)
+  invisible(x)
 }
 
 pid_changed <- function(x) {
@@ -112,5 +115,5 @@ get_nid_from_ds <- function(x, nid = 10, batch_size = 10000) {
 
 set_finalizer_ds <- function(x) {
   reg.finalizer(x, clean_up_ds, onexit = TRUE)
-  return(x)
+  x
 }
