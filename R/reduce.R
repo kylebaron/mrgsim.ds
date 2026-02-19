@@ -37,7 +37,7 @@ simlist_reduce_ok <- function(x) {
 #' modification.
 #' 
 #' @examples
-#' mod <- modlib_ds("1005", outvars = "IPRED")
+#' mod <- modlib_ds("popex", outvars = "IPRED")
 #' 
 #' data <- ev_expand(amt = 100, ID = 1:100)
 #' 

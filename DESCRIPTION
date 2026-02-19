@@ -15,7 +15,7 @@ Depends:
   R (>= 4.1), 
   mrgsolve
 Imports: arrow, rlang, dplyr, scales, glue, methods, fs, tibble, lobstr, digest
-Suggests: testthat, knitr, rmarkdown, withr
+Suggests: testthat, knitr, rmarkdown, withr, duckdb
 Encoding: UTF-8
 URL: https://github.com/kylebaron/mrgsim.ds, https://kylebaron.github.io/mrgsim.ds/, 
   https://kylebaron.r-universe.dev/mrgsim.ds
