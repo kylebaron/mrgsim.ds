@@ -1,4 +1,6 @@
-file_owner <- new.env(parent = emptyenv())
+file_owner <- new.env(parent = emptyenv(), hash = TRUE, size = 5000L)
+
+digest_algo <- "xxh3_64"
 
 clean_up_ds <- function(x) {
   if(x$gc && check_ownership(x)) {
@@ -13,7 +15,8 @@ clean_up_ds <- function(x) {
 }
 
 hash_files <- function(x) {
-  x$hash <- digest(x$files)
+  h <- getVDigest(algo = digest_algo)
+  x$hash <- h(x$files)
   x
 }
 
@@ -79,13 +82,16 @@ hash_files <- function(x) {
 #' @name ownership
 #' @export
 ownership <- function() {
-  entries <- names(file_owner)
-  objects <- mget(entries, envir = file_owner)
-  files <- unlist(sapply(objects, \(x) x$files, USE.NAMES=FALSE))
-  addresses <- sapply(objects, \(x) x$address)
+  objects <- mget(names(file_owner), envir = file_owner)
+  if(!length(objects)) {
+    message("No ownership information yet.")
+    return(invisible(NULL))
+  }
+  files <- vapply(objects, \(obj) obj$file,    "a", USE.NAMES = FALSE)
+  addre <- vapply(objects, \(obj) obj$address, "a", USE.NAMES = FALSE)
   size <- total_size(files)
   nfile <- length(unique(files))
-  nadd <- length(unique(addresses))
+  nadd <- length(unique(addre))
   msg <- "Objects: {nadd} | Files: {nfile} | Size: {size}"
   message(glue(msg))
   return(invisible(NULL))
@@ -93,26 +99,19 @@ ownership <- function() {
 
 #' @rdname ownership
 #' @export
-check_ownership <- function(x) {
-  require_ds(x)
-  test <- file_owner[[x$hash]]
-  if(is.null(test)) return(FALSE)
-  return(x$address == test$address)
-}
-
-#' @rdname ownership
-#' @export
 list_ownership <- function(full.names = FALSE) {
-  entries <- names(file_owner)
-  if(!length(entries)) {
+  objects <- mget(names(file_owner), envir = file_owner)
+  if(!length(objects)) {
     ans <- data.frame(object = "a", file = "b", hash = "c")[0,]
     return(ans)
   }
-  objects <- mget(entries, envir = file_owner)
-  listing <- lapply(objects, \(x) {
-    data.frame(file = x$files, address = x$address)
-  })
-  ans <- bind_rows(listing)
+  files <- vapply(objects, \(obj) obj$file,    "a", USE.NAMES = FALSE)
+  addre <- vapply(objects, \(obj) obj$address, "a", USE.NAMES = FALSE)
+  ans <- data.frame(
+    file = files, 
+    address = addre, 
+    stringsAsFactors = FALSE
+  )
   if(isFALSE(full.names)) {
     ans$file <- basename(ans$file)
   }
@@ -122,12 +121,24 @@ list_ownership <- function(full.names = FALSE) {
 
 #' @rdname ownership
 #' @export
+check_ownership <- function(x) {
+  require_ds(x)
+  keys <- x$hash[x$hash %in% names(file_owner)]
+  if(length(keys) != length(x$hash)) {
+    return(FALSE)  
+  }
+  info <- mget(keys, envir = file_owner)
+  addre <- vapply(info, FUN = \(i) i$address, FUN.VALUE = "a")
+  return(all(addre==x$address))
+}
+
+#' @rdname ownership
+#' @export
 disown <- function(x) {
   require_ds(x)
   if(is.null(x$hash)) abort("files are not hashed.")
-  if(x$hash %in% names(file_owner)) {
-    rm(list = x$hash, envir = file_owner)  
-  }
+  to_rm <- x$hash[x$hash %in% names(file_owner)]
+  rm(list = to_rm, envir = file_owner)
   invisible(x)
 }
 
@@ -136,7 +147,12 @@ disown <- function(x) {
 take_ownership <- function(x) {
   require_ds(x)
   hash_files(x)
-  assign(x$hash, value = list(address = x$address, files = x$files), envir = file_owner)
+  if(!length(x$files) == length(x$hash)) {
+    abort("length mismatch between files and hash.")  
+  }
+  l <- lapply(x$files, \(f) list(address = x$address, file = f))
+  names(l) <- x$hash
+  list2env(l, envir = file_owner)
   return(invisible(x))
 }
 

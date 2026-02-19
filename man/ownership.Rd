@@ -2,27 +2,27 @@
 % Please edit documentation in R/own.R
 \name{ownership}
 \alias{ownership}
-\alias{check_ownership}
 \alias{list_ownership}
+\alias{check_ownership}
 \alias{disown}
 \alias{take_ownership}
 \title{Ownership of simulation files}
 \usage{
 ownership()
 
-check_ownership(x)
-
 list_ownership(full.names = FALSE)
+
+check_ownership(x)
 
 disown(x)
 
 take_ownership(x)
 }
 \arguments{
-\item{x}{an mrgsimsds object.}
-
 \item{full.names}{if \code{TRUE}, include the directory path when listing file
 ownership.}
+
+\item{x}{an mrgsimsds object.}
 }
 \value{
 \itemize{

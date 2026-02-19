@@ -9,7 +9,8 @@ test_that("hash files", {
   out <- mrgsim_ds(mod)
   
   expect_is(out$hash, "character")
-  expect_equal(out$hash, digest::digest(out$files))
+  h <- getVDigest(algo = mrgsim.ds:::digest_algo)
+  expect_equal(out$hash, h(out$files))
 })
 
 test_that("ownership", {
