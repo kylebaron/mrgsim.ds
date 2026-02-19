@@ -52,18 +52,18 @@ out <- mrgsim_ds(mod, data)
 
 out
 . Model: popex
-. Dim  : 1.4M 4
+. Dim  : 1.4M x 4
 . Files: 1 [11.9 Mb]
 . Owner: yes
 .     ID time       CL     IPRED
-. 1:   1  0.0 1.151232 0.0000000
-. 2:   1  0.0 1.151232 0.0000000
-. 3:   1  0.5 1.151232 0.2168593
-. 4:   1  1.0 1.151232 0.4165060
-. 5:   1  1.5 1.151232 0.6000356
-. 6:   1  2.0 1.151232 0.7684781
-. 7:   1  2.5 1.151232 0.9228018
-. 8:   1  3.0 1.151232 1.0639171
+. 1:   1  0.0 1.586346 0.0000000
+. 2:   1  0.0 1.586346 0.0000000
+. 3:   1  0.5 1.586346 0.3267541
+. 4:   1  1.0 1.586346 0.6164192
+. 5:   1  1.5 1.586346 0.8723580
+. 6:   1  2.0 1.586346 1.0976479
+. 7:   1  2.5 1.586346 1.2951043
+. 8:   1  3.0 1.586346 1.4673024
 ```
 
 ## Very lightweight simulation output object
@@ -74,7 +74,7 @@ disk.
 
 ``` r
 basename(out$files)
-. [1] "mrgsims-ds-25c834fc1464.parquet"
+. [1] "mrgsims-ds-44a564907013.parquet"
 ```
 
 This means there is almost nothing inside the object itself
@@ -114,27 +114,28 @@ plot(out, nid = 12)
 <img src="man/figures/README-plot_head_tail_dim-1.png" alt="" width="80%" style="display: block; margin: auto;" />
 
 ``` r
+
 head(out)
 . # A tibble: 6 × 4
 .      ID  time    CL IPRED
 .   <dbl> <dbl> <dbl> <dbl>
-. 1     1   0    1.15 0    
-. 2     1   0    1.15 0    
-. 3     1   0.5  1.15 0.217
-. 4     1   1    1.15 0.417
-. 5     1   1.5  1.15 0.600
-. 6     1   2    1.15 0.768
+. 1     1   0    1.59 0    
+. 2     1   0    1.59 0    
+. 3     1   0.5  1.59 0.327
+. 4     1   1    1.59 0.616
+. 5     1   1.5  1.59 0.872
+. 6     1   2    1.59 1.10
 
 tail(out)
 . # A tibble: 6 × 4
-.      ID  time    CL IPRED
-.   <dbl> <dbl> <dbl> <dbl>
-. 1  3000  238. 0.677 0.147
-. 2  3000  238  0.677 0.144
-. 3  3000  238. 0.677 0.141
-. 4  3000  239  0.677 0.139
-. 5  3000  240. 0.677 0.136
-. 6  3000  240  0.677 0.134
+.      ID  time    CL  IPRED
+.   <dbl> <dbl> <dbl>  <dbl>
+. 1  3000  238. 0.585 0.0222
+. 2  3000  238  0.585 0.0216
+. 3  3000  238. 0.585 0.0210
+. 4  3000  239  0.585 0.0204
+. 5  3000  240. 0.585 0.0198
+. 6  3000  240  0.585 0.0193
 
 dim(out)
 . [1] 1446000       4
@@ -148,16 +149,16 @@ as_tibble(out)
 . # A tibble: 1,446,000 × 4
 .       ID  time    CL IPRED
 .    <dbl> <dbl> <dbl> <dbl>
-.  1     1   0    1.15 0    
-.  2     1   0    1.15 0    
-.  3     1   0.5  1.15 0.217
-.  4     1   1    1.15 0.417
-.  5     1   1.5  1.15 0.600
-.  6     1   2    1.15 0.768
-.  7     1   2.5  1.15 0.923
-.  8     1   3    1.15 1.06 
-.  9     1   3.5  1.15 1.19 
-. 10     1   4    1.15 1.31 
+.  1     1   0    1.59 0    
+.  2     1   0    1.59 0    
+.  3     1   0.5  1.59 0.327
+.  4     1   1    1.59 0.616
+.  5     1   1.5  1.59 0.872
+.  6     1   2    1.59 1.10 
+.  7     1   2.5  1.59 1.30 
+.  8     1   3    1.59 1.47 
+.  9     1   3.5  1.59 1.62 
+. 10     1   4    1.59 1.75 
 . # ℹ 1,445,990 more rows
 ```
 
@@ -183,16 +184,16 @@ as_duckdb_ds(out)
 . # Database: DuckDB 1.4.3 [kyleb@Darwin 24.6.0:R 4.5.2/:memory:]
 .       ID  time    CL IPRED
 .    <dbl> <dbl> <dbl> <dbl>
-.  1     1   0    1.15 0    
-.  2     1   0    1.15 0    
-.  3     1   0.5  1.15 0.217
-.  4     1   1    1.15 0.417
-.  5     1   1.5  1.15 0.600
-.  6     1   2    1.15 0.768
-.  7     1   2.5  1.15 0.923
-.  8     1   3    1.15 1.06 
-.  9     1   3.5  1.15 1.19 
-. 10     1   4    1.15 1.31 
+.  1     1   0    1.59 0    
+.  2     1   0    1.59 0    
+.  3     1   0.5  1.59 0.327
+.  4     1   1    1.59 0.616
+.  5     1   1.5  1.59 0.872
+.  6     1   2    1.59 1.10 
+.  7     1   2.5  1.59 1.30 
+.  8     1   3    1.59 1.47 
+.  9     1   3.5  1.59 1.62 
+. 10     1   4    1.59 1.75 
 . # ℹ more rows
 ```
 
@@ -226,15 +227,15 @@ collect(dd)
 .     time  Mean     n
 .    <dbl> <dbl> <int>
 .  1   0    0     6000
-.  2   0.5  1.10  3000
-.  3   1    1.80  3000
-.  4   1.5  2.25  3000
-.  5   2    2.56  3000
+.  2   0.5  1.11  3000
+.  3   1    1.81  3000
+.  4   1.5  2.27  3000
+.  5   2    2.57  3000
 .  6   2.5  2.78  3000
-.  7   3    2.92  3000
-.  8   3.5  3.01  3000
-.  9   4    3.07  3000
-. 10   4.5  3.10  3000
+.  7   3    2.93  3000
+.  8   3.5  3.02  3000
+.  9   4    3.08  3000
+. 10   4.5  3.11  3000
 . # ℹ 471 more rows
 ```
 
@@ -254,18 +255,18 @@ out2 <- reduce_ds(out2)
 
 out2
 . Model: popex
-. Dim  : 14.5M 4
+. Dim  : 14.5M x 4
 . Files: 10 [119.1 Mb]
 . Owner: yes
-.     ID time       CL     IPRED
-. 1:   1  0.0 2.157381 0.0000000
-. 2:   1  0.0 2.157381 0.0000000
-. 3:   1  0.5 2.157381 0.9637376
-. 4:   1  1.0 2.157381 1.6536490
-. 5:   1  1.5 2.157381 2.1375072
-. 6:   1  2.0 2.157381 2.4666787
-. 7:   1  2.5 2.157381 2.6800793
-. 8:   1  3.0 2.157381 2.8071776
+.     ID time        CL    IPRED
+. 1:   1  0.0 0.8263138 0.000000
+. 2:   1  0.0 0.8263138 0.000000
+. 3:   1  0.5 0.8263138 1.416759
+. 4:   1  1.0 0.8263138 2.194898
+. 5:   1  1.5 0.8263138 2.613985
+. 6:   1  2.0 0.8263138 2.831307
+. 7:   1  2.5 0.8263138 2.935359
+. 8:   1  3.0 0.8263138 2.975924
 ```
 
 ## Files on disk are automagically managed
@@ -275,11 +276,11 @@ All `arrow` files are stored in the `tempdir()` in parquet format
 ``` r
 list_temp()
 . 11 files [131.1 Mb]
-. - mrgsims-ds-25c834fc1464.parquet
-. - mrgsims-ds-2626386cd288.parquet
+. - mrgsims-ds-44a564907013.parquet
+. - mrgsims-ds-44e25bca0e30.parquet
 .    ...
-. - mrgsims-ds-262a745ee30f.parquet
-. - mrgsims-ds-262a79d7c98.parquet
+. - mrgsims-ds-44e61d29da90.parquet
+. - mrgsims-ds-44e626cc32e5.parquet
 ```
 
 This directory is eventually removed when the R session ends. Tools are
@@ -291,11 +292,11 @@ retain_temp(out2)
 
 list_temp()
 . 10 files [119.1 Mb]
-. - mrgsims-ds-2626386cd288.parquet
-. - mrgsims-ds-26267071fba8.parquet
+. - mrgsims-ds-44e25bca0e30.parquet
+. - mrgsims-ds-44e264a05b4c.parquet
 .    ...
-. - mrgsims-ds-262a745ee30f.parquet
-. - mrgsims-ds-262a79d7c98.parquet
+. - mrgsims-ds-44e61d29da90.parquet
+. - mrgsims-ds-44e626cc32e5.parquet
 ```
 
 We also put a finalizer on each object so that, when it goes out of
@@ -337,8 +338,8 @@ cleaned up.
 ``` r
 gc()
 .            used  (Mb) gc trigger  (Mb) limit (Mb) max used  (Mb)
-. Ncells  1946639 104.0    3637280 194.3         NA  3202177 171.1
-. Vcells 15236543 116.3   29084680 221.9      16384 27039663 206.3
+. Ncells  1952362 104.3    3644074 194.7         NA  3169239 169.3
+. Vcells 15247009 116.4   29097250 222.0      16384 26998706 206.0
 
 list_temp()
 . 2 files [23.8 Mb]
@@ -353,7 +354,7 @@ This setup is only possible if one object owns the files on disk and
 
 ``` r
 ownership()
-. Objects: 4 | Files: 13 | Size: 23.8 Mb
+. > Objects: 4 | Files: 13 | Size: 23.8 Mb
 ```
 
 If I make a copy of a simulation object, the old object no longer owns
