@@ -1,5 +1,7 @@
 file_owner <- new.env(parent = emptyenv(), hash = TRUE, size = 5000L)
 
+digest_algo <- "xxh3_64"
+
 clean_up_ds <- function(x) {
   if(x$gc && check_ownership(x)) {
     if(getOption("mrgsim.ds.show.gc", FALSE)) {
@@ -13,8 +15,8 @@ clean_up_ds <- function(x) {
 }
 
 hash_files <- function(x) {
-  dig <- getVDigest(algo = "xxh3_64")
-  x$hash <- dig(x$files)
+  h <- getVDigest(algo = digest_algo)
+  x$hash <- h(x$files)
   x
 }
 
@@ -85,11 +87,11 @@ ownership <- function() {
     message("No ownership information yet.")
     return(invisible(NULL))
   }
-  files <- vapply(objects, \(obj) obj$files, "a", USE.NAMES = FALSE)
-  addresses <- vapply(objects, \(obj) obj$address, "a", USE.NAMES = FALSE)
+  files <- vapply(objects, \(obj) obj$file,    "a", USE.NAMES = FALSE)
+  addre <- vapply(objects, \(obj) obj$address, "a", USE.NAMES = FALSE)
   size <- total_size(files)
   nfile <- length(unique(files))
-  nadd <- length(unique(addresses))
+  nadd <- length(unique(addre))
   msg <- "Objects: {nadd} | Files: {nfile} | Size: {size}"
   message(glue(msg))
   return(invisible(NULL))
@@ -103,11 +105,11 @@ list_ownership <- function(full.names = FALSE) {
     ans <- data.frame(object = "a", file = "b", hash = "c")[0,]
     return(ans)
   }
-  files <- vapply(objects, \(obj) obj$files, "a", USE.NAMES = FALSE)
-  addresses <- vapply(objects, \(obj) obj$address, "a", USE.NAMES = FALSE)
+  files <- vapply(objects, \(obj) obj$file,    "a", USE.NAMES = FALSE)
+  addre <- vapply(objects, \(obj) obj$address, "a", USE.NAMES = FALSE)
   ans <- data.frame(
     file = files, 
-    address = addresses, 
+    address = addre, 
     stringsAsFactors = FALSE
   )
   if(isFALSE(full.names)) {
@@ -126,8 +128,8 @@ check_ownership <- function(x) {
     return(FALSE)  
   }
   info <- mget(keys, envir = file_owner)
-  addr <- vapply(info, FUN = \(i) i$address, FUN.VALUE = "a")
-  return(all(addr==x$address))
+  addre <- vapply(info, FUN = \(i) i$address, FUN.VALUE = "a")
+  return(all(addre==x$address))
 }
 
 #' @rdname ownership
@@ -145,7 +147,10 @@ disown <- function(x) {
 take_ownership <- function(x) {
   require_ds(x)
   hash_files(x)
-  l <- lapply(x$files, \(f) list(address = x$address, files = f))
+  if(!length(x$files) == length(x$hash)) {
+    abort("length mismatch between files and hash.")  
+  }
+  l <- lapply(x$files, \(f) list(address = x$address, file = f))
   names(l) <- x$hash
   list2env(l, envir = file_owner)
   return(invisible(x))
