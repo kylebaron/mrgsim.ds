@@ -37,8 +37,11 @@ The conversion is handled by
 
 ``` r
 mod <- house_ds(end = 5)
+
 out <- mrgsim_ds(mod, events = ev(amt = 100))
 
-as_duckdb_ds(out)
-#> Error in to_duckdb(as_arrow_ds(x, ...)): Please install the `duckdb` package to pass data with `to_duckdb()`.
+if(requireNamespace("duckdb")) {
+  as_duckdb_ds(out)
+}
+#> Loading required namespace: duckdb
 ```

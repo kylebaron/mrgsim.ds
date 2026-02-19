@@ -84,6 +84,31 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="mrgsim_ds.html">mrgsim_ds</a></span><span class="op">(</span><span class="va">mod</span>, events <span class="op">=</span> <span class="fu"><a href="https://mrgsolve.org/docs/reference/ev.html" class="external-link">ev</a></span><span class="op">(</span>amt <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ID time         GUT     CENT     RESP       DV       CP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1 0.00   0.0000000  0.00000 50.00000 0.000000 0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1 0.00 100.0000000  0.00000 50.00000 0.000000 0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1 0.25  74.0818221 25.74883 48.68223 1.287441 1.287441</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1 0.50  54.8811636 44.50417 46.18005 2.225208 2.225208</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1 0.75  40.6569660 58.08258 43.61333 2.904129 2.904129</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   1 1.00  30.1194212 67.82976 41.37943 3.391488 3.391488</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   1 1.25  22.3130160 74.74256 39.57649 3.737128 3.737128</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   1 1.50  16.5298888 79.55944 38.18381 3.977972 3.977972</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   1 1.75  12.2456428 82.82739 37.14045 4.141369 4.141369</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  1 2.00   9.0717953 84.95160 36.37858 4.247580 4.247580</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  1 2.25   6.7205513 86.23219 35.83664 4.311610 4.311610</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  1 2.50   4.9787069 86.89146 35.46331 4.344573 4.344573</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  1 2.75   3.6883168 87.09404 35.21773 4.354702 4.354702</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  1 3.00   2.7323723 86.96184 35.06817 4.348092 4.348092</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  1 3.25   2.0241912 86.58513 34.99041 4.329257 4.329257</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  1 3.50   1.4995577 86.03076 34.96614 4.301538 4.301538</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  1 3.75   1.1108997 85.34819 34.98160 4.267409 4.267409</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  1 4.00   0.8229747 84.57402 35.02650 4.228701 4.228701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19  1 4.25   0.6096747 83.73533 35.09315 4.186766 4.186766</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  1 4.50   0.4516581 82.85214 35.17583 4.142607 4.142607</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21  1 4.75   0.3345965 81.93923 35.27026 4.096961 4.096961</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22  1 5.00   0.2478752 81.00752 35.37329 4.050376 4.050376</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 22 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       ID  time    GUT  CENT  RESP    DV    CP</span>
