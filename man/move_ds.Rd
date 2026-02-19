@@ -21,7 +21,7 @@ write_ds(x, sink, ...)
 output.}
 
 \item{sink}{the complete path (including file name) for a single parquet
-file containing all simulated data.}
+file containing all simulated data; passed to \code{\link[arrow:write_parquet]{arrow::write_parquet()}}.}
 
 \item{...}{passed to \code{\link[arrow:write_parquet]{arrow::write_parquet()}}; files are always written
 in parquet format.}

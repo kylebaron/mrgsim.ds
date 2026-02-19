@@ -66,7 +66,7 @@ file_ds <- function(id = NULL) {
 #' @param id a short name used to create data set files for the simulated 
 #' output.
 #' @param sink the complete path (including file name) for a single parquet
-#' file containing all simulated data.
+#' file containing all simulated data; passed to [arrow::write_parquet()].
 #' @param ... passed to [arrow::write_parquet()]; files are always written 
 #' in parquet format.
 #' 
