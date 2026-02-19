@@ -23,11 +23,11 @@ test_that("test verbs", {
   expect_is(sims, "tbl")
   expect_equal(names(sims), c("time", "DV"))
   
-  d <- dplyr::filter(out, time < 3, ID==1)
+  d <- dplyr::filter(out, time < 3, ID==1, .by = ID)
   sims <- dplyr::collect(d)
   expect_equal(sims$time, c(0,0,1,2))
   
-  e <- dplyr::summarise(out, M = mean(DV), .by = "ID")
+  e <- dplyr::summarise(out, M = mean(DV), .by = ID)
   sims <- dplyr::collect(e)
   expect_equal(sims$ID, c(1,2,3))
 })
