@@ -1,0 +1,94 @@
+---
+title: "Get Started"
+author: ""
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette: 
+    toc: false
+    number_sections: true
+    keep_md: true
+vignette: >
+  %\VignetteIndexEntry{Get Started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r message = FALSE}
+library(mrgsim.ds)
+library(dplyr)
+library(here)
+```
+
+
+# Load the model
+
+Load a model using `mread_ds()` or other friends. 
+
+```{r message = FALSE}
+mod <- mread_ds("popex-2.mod", outvars = "IPRED, DV, ECL")
+```
+
+
+This model is almost identical to the same model loaded with `mread()`; there 
+is just some extra information included to make sure it works well with the 
+`mrgsim.ds` approach. 
+
+# Simulate
+
+To simulate, call `mrgsim_ds()`
+
+```{r}
+data <- evd_expand(amt = c(100, 300, 700), ii = 24, addl = 4, ID = 1:10)
+
+set.seed(98)
+out <- mrgsim_ds(mod, data = data)
+```
+
+The output handles very similar to regular `mrgsim()` output
+
+```{r, fig.width = 7, fig.height = 4}
+out
+
+head(out)
+
+dim(out)
+
+plot(out, nid = 10)
+```
+
+# Simulation files
+
+Simulation files are always initially stored in `tempdir()` 
+
+
+```{r}
+out1 <- mrgsim_ds(mod, data)
+out2 <- mrgsim_ds(mod, data, id = "regimens")
+out3 <- mrgsim_ds(mod, data = filter(data, AMT==300))
+
+list_temp()
+```
+
+
+
+To save outputs to a persistent location, use `write_ds()`.
+
+```{r, echo = FALSE}
+save_dir <- tempdir()
+```
+
+
+```{r}
+write_ds(out, sink = file.path(save_dir, "regimen1"))
+```
+
+This re-writes all the data into a single parquet file. This can take some time
+for very large outputs across multiple files. 
+
+An alternative is to rename ane move. 
+
+
+```{r}
+rename_ds(out, "regimen-1")
+move_ds(out, save_dir)
+```

@@ -1,3 +1,63 @@
-url: https://kylebaron.github.io/mrgsim.ds
+url: https://kylebaron.github.io/mrgsim.ds/
 template:
   bootstrap: 5
+reference:
+- title: Read or load models
+  desc: Functions to read models configured for use with `mrgsim_ds()`.
+  contents:
+  - mread_ds
+  - mread_cache_ds
+  - mcode_ds
+  - modlib_ds
+  - house_ds
+- title: Generate Apache Arrow Dataset-backed simulation outputs
+  desc: Simulate and write output to disk.
+  contents:
+  - mrgsim_ds
+  - as_mrgsim_ds
+- title: S3 Methods
+  desc: Work with `mrgsim_ds()` output.
+  contents:
+  - head.mrgsimsds
+  - tail.mrgsimsds
+  - dim.mrgsimsds
+  - names.mrgsimsds
+- title: Move or rename outputs
+  contents:
+  - move_ds
+  - write_ds
+  - rename_ds
+- title: Manage or query ownership
+  desc: This applies to parquet files holding simulation outputs.
+  contents:
+  - ownership
+  - check_ownership
+  - list_ownership
+  - take_ownership
+  - disown
+  - copy_ds
+- title: Work with lists of mrgsimsds objects
+  desc: Commonly needed after batch simulation in parallel
+  contents:
+  - reduce_ds
+  - refresh_ds
+  - prune_ds
+- title: Manage simulation outputs in `tempdir()`
+  contents:
+  - list_temp
+  - retain_temp
+  - purge_temp
+- title: Utility functions
+  contents:
+  - file_ds
+  - save_process_info
+  - is_mrgsimsds
+- title: Coerce output to an R object
+  contents:
+  - as.data.frame.mrgsimsds
+  - as_tibble.mrgsimsds
+  - collect.mrgsimsds
+  - as_arrow_ds
+  - as_arrow_table.mrgsimsds
+  - as_duckdb_ds
+
