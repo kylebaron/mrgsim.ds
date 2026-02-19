@@ -2,7 +2,6 @@
 % Please edit documentation in R/AAA.R
 \docType{package}
 \name{mrgsim.ds-package}
-\alias{mrgsim.ds}
 \alias{mrgsim.ds-package}
 \title{mrgsim.ds: 'Apache' 'Arrow' Dataset-Backed Simulation Outputs for 'mrgsolve'}
 \description{
