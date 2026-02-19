@@ -93,9 +93,9 @@ list_temp()
 ```
 
     ## 4 files [984.8 Kb]
-    ## - mrgsims-ds-1dd9125ed92b.parquet
-    ## - mrgsims-ds-1dd9378d8105.parquet
-    ## - mrgsims-ds-1dd9eee1c03.parquet
+    ## - mrgsims-ds-1dde386e364a.parquet
+    ## - mrgsims-ds-1dde59cbd6c9.parquet
+    ## - mrgsims-ds-1dde726060d2.parquet
     ## - mrgsims-ds-regimens.parquet
 
 To save outputs to a persistent location, use
@@ -108,7 +108,7 @@ write_ds(out, sink = file.path(save_dir, "regimen1"))
 This re-writes all the data into a single parquet file. This can take
 some time for very large outputs across multiple files.
 
-An alternative is to rename ane move.
+An alternative is to rename and move.
 
 ``` r
 rename_ds(out, "regimen-1")
