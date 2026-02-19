@@ -103,7 +103,7 @@ But, we can do a lot of the typical things we would with any `mrgsim()` output
 object. 
 
 
-```{r plot_head_tail_dim, fig.height = 4}
+```{r plot_head_tail_dim, fig.height = 3, fig.width = 4}
 plot(out, nid = 12)
 head(out)
 
