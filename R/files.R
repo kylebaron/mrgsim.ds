@@ -54,7 +54,7 @@ file_ds <- function(id = NULL) {
   return(file)
 }
 
-#' Move, rename, or write out data set files. 
+#' Move, rename, or write out data set files 
 #' 
 #' Use `move_ds()` to change the enclosing directory. `write_ds()` can also
 #' move the files, but also condenses all simulation output in to a single 
@@ -67,9 +67,17 @@ file_ds <- function(id = NULL) {
 #' output.
 #' @param sink the complete path (including file name) for a single parquet
 #' file containing all simulated data.
-#' @param ... passed to [arrow::write_parquet()].
+#' @param ... passed to [arrow::write_parquet()]; files are always written 
+#' in parquet format.
 #' 
 #' @details
+#' There is an important distinction between `write_ds()` and `move_ds()` or 
+#' `rename_ds()` for multi-file objects. The backing files can be moved or 
+#' written easily, without much computational burden. For multi-file simulation
+#' outputs, `write_ds()` will need to read each file and then write the data 
+#' out to a single file. Apache Arrow can do this very efficiently, but there 
+#' will still be an additional, potentially noticeable computational burden.  
+#' 
 #' When dataset files are rewritten to a single file with `write_ds()`, those 
 #' files will no longer be cleaned up when the containing R object is finalized 
 #' upon garbage collection. When dataset files are moved outside of `tempdir()`, 
@@ -78,7 +86,7 @@ file_ds <- function(id = NULL) {
 #' `tempdir()`. No change in finalization behavior due to garbage collection 
 #' of the containing object will happen when files are renamed. 
 #' 
-#' All three functions modify `x` in place and ownership stays with `x`. 
+#' All three functions modify `x` in place and file ownership stays with `x`. 
 #' 
 #' @return
 #' All three functions return the new file list, invisibly.
@@ -156,7 +164,7 @@ write_ds <- function(x, sink, ...) {
   if(length(x$files)==1) {
     file_move(x$files, sink)
   } else {
-    write_parquet(x$ds, sink, ...)
+    write_parquet(x$ds, sink, format = "parquet", ...)
     unlink(x$ds$files, recursive = TRUE)
   }
   x$files <- sink
@@ -207,7 +215,7 @@ list_temp <- function() {
     )
   }
   header <- paste0(length(temp), " files [", size, "]")
-  sapply(c(header, show), message)
+  cat(c(header, show), sep = "\n")
   return(invisible(temp))
 }
 

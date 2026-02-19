@@ -4,7 +4,7 @@
 \alias{move_ds}
 \alias{rename_ds}
 \alias{write_ds}
-\title{Move, rename, or write out data set files.}
+\title{Move, rename, or write out data set files}
 \usage{
 move_ds(x, path)
 
@@ -23,7 +23,8 @@ output.}
 \item{sink}{the complete path (including file name) for a single parquet
 file containing all simulated data.}
 
-\item{...}{passed to \code{\link[arrow:write_parquet]{arrow::write_parquet()}}.}
+\item{...}{passed to \code{\link[arrow:write_parquet]{arrow::write_parquet()}}; files are always written
+in parquet format.}
 }
 \value{
 All three functions return the new file list, invisibly.
@@ -35,6 +36,13 @@ parquet file if multiple files are backing the mrgsimsds object. All
 operations are made on the object in place; see \strong{Details}.
 }
 \details{
+There is an important distinction between \code{write_ds()} and \code{move_ds()} or
+\code{rename_ds()} for multi-file objects. The backing files can be moved or
+written easily, without much computational burden. For multi-file simulation
+outputs, \code{write_ds()} will need to read each file and then write the data
+out to a single file. Apache Arrow can do this very efficiently, but there
+will still be an additional, potentially noticeable computational burden.
+
 When dataset files are rewritten to a single file with \code{write_ds()}, those
 files will no longer be cleaned up when the containing R object is finalized
 upon garbage collection. When dataset files are moved outside of \code{tempdir()},
@@ -43,7 +51,7 @@ file cleanup will continue to occur as long as the files remain under
 \code{tempdir()}. No change in finalization behavior due to garbage collection
 of the containing object will happen when files are renamed.
 
-All three functions modify \code{x} in place and ownership stays with \code{x}.
+All three functions modify \code{x} in place and file ownership stays with \code{x}.
 }
 \examples{
 

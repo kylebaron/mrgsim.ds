@@ -92,8 +92,8 @@ ownership <- function() {
   size <- total_size(files)
   nfile <- length(unique(files))
   nadd <- length(unique(addre))
-  msg <- "Objects: {nadd} | Files: {nfile} | Size: {size}"
-  message(glue(msg))
+  msg <- "> Objects: {nadd} | Files: {nfile} | Size: {size}"
+  cat(glue(msg), sep = "")
   return(invisible(NULL))
 }
 

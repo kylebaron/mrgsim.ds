@@ -105,6 +105,7 @@ object.
 
 ```{r plot_head_tail_dim, fig.height = 4, fig.width = 7, out.width = "80%", fig.align = "center"}
 plot(out, nid = 12)
+
 head(out)
 
 tail(out)
