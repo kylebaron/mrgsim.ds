@@ -1,4 +1,4 @@
-# Move, rename, or write out data set files.
+# Move, rename, or write out data set files
 
 Use `move_ds()` to change the enclosing directory. `write_ds()` can also
 move the files, but also condenses all simulation output in to a single
@@ -37,13 +37,22 @@ write_ds(x, sink, ...)
 - ...:
 
   passed to
-  [`arrow::write_parquet()`](https://arrow.apache.org/docs/r/reference/write_parquet.html).
+  [`arrow::write_parquet()`](https://arrow.apache.org/docs/r/reference/write_parquet.html);
+  files are always written in parquet format.
 
 ## Value
 
 All three functions return the new file list, invisibly.
 
 ## Details
+
+There is an important distinction between `write_ds()` and `move_ds()`
+or `rename_ds()` for multi-file objects. The backing files can be moved
+or written easily, without much computational burden. For multi-file
+simulation outputs, `write_ds()` will need to read each file and then
+write the data out to a single file. Apache Arrow can do this very
+efficiently, but there will still be an additional, potentially
+noticeable computational burden.
 
 When dataset files are rewritten to a single file with `write_ds()`,
 those files will no longer be cleaned up when the containing R object is
@@ -55,7 +64,8 @@ cleanup will continue to occur as long as the files remain under
 finalization behavior due to garbage collection of the containing object
 will happen when files are renamed.
 
-All three functions modify `x` in place and ownership stays with `x`.
+All three functions modify `x` in place and file ownership stays with
+`x`.
 
 ## Examples
 
@@ -74,9 +84,12 @@ basename(out$files)
 #> [3] "mrgsims-ds-example-sims-0003.parquet"
 
 write_ds(out, sink = file.path(tempdir(), "example.parquet"))
+#> Error in write_parquet(x$ds, sink, format = "parquet", ...): unused argument (format = "parquet")
 
 basename(out$files)
-#> [1] "example.parquet"
+#> [1] "mrgsims-ds-example-sims-0001.parquet"
+#> [2] "mrgsims-ds-example-sims-0002.parquet"
+#> [3] "mrgsims-ds-example-sims-0003.parquet"
 
 if (FALSE) { # \dontrun{
   move_ds(out, path = "data/simulated") 

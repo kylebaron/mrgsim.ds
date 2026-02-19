@@ -41,7 +41,7 @@ output.
 - [`move_ds()`](https://kylebaron.github.io/mrgsim.ds/reference/move_ds.md)
   [`rename_ds()`](https://kylebaron.github.io/mrgsim.ds/reference/move_ds.md)
   [`write_ds()`](https://kylebaron.github.io/mrgsim.ds/reference/move_ds.md)
-  : Move, rename, or write out data set files.
+  : Move, rename, or write out data set files
 
 ## Manage or query ownership
 
