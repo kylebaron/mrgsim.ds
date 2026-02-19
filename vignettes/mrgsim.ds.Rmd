@@ -84,7 +84,7 @@ write_ds(out, sink = file.path(save_dir, "regimen1"))
 This re-writes all the data into a single parquet file. This can take some time
 for very large outputs across multiple files. 
 
-An alternative is to rename ane move. 
+An alternative is to rename and move. 
 
 
 ```{r}
