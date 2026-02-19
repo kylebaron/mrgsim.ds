@@ -26,6 +26,7 @@ test_that("arrow_table", {
 })
 
 test_that("duck_db", {
+  skip_if_not_installed("duckdb")
   out <- mrgsim_ds(mod)
   expect_is(as_duckdb_ds(out), "tbl_duckdb_connection")
 })
