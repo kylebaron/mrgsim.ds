@@ -30,8 +30,8 @@ modification.
 ## Examples
 
 ``` r
-mod <- modlib_ds("1005", outvars = "IPRED")
-#> Building 1005 ... 
+mod <- modlib_ds("popex", outvars = "IPRED")
+#> Building popex ... 
 #> done.
 
 data <- ev_expand(amt = 100, ID = 1:100)
@@ -47,19 +47,19 @@ length(out)
 sims <- reduce_ds(out)
 
 sims
-#> Model: 1005
-#> Dim  : 7,800 x 3
-#> Files: 3 [74.8 Kb]
+#> Model: popex
+#> Dim  : 144.6K x 3
+#> Files: 3 [1.5 Mb]
 #> Owner: yes
 #>     ID time     IPRED
-#> 1:   1    0 0.0000000
-#> 2:   1    0 0.0000000
-#> 3:   1    1 0.1184027
-#> 4:   1    2 0.1768468
-#> 5:   1    3 0.2030177
-#> 6:   1    4 0.2119433
-#> 7:   1    5 0.2117742
-#> 8:   1    6 0.2069247
+#> 1:   1  0.0 0.0000000
+#> 2:   1  0.0 0.0000000
+#> 3:   1  0.5 0.4872955
+#> 4:   1  1.0 0.9218375
+#> 5:   1  1.5 1.3084607
+#> 6:   1  2.0 1.6515715
+#> 7:   1  2.5 1.9551852
+#> 8:   1  3.0 2.2229609
 
 check_ownership(sims)
 #> [1] TRUE

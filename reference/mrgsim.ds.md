@@ -186,10 +186,10 @@ plot(out, nid = 10)
 
 list_temp()
 #> 1 files [129 Kb]
-#> - mrgsims-ds-194d4f223f63.parquet
+#> - mrgsims-ds-1bc43692bdc5.parquet
 
 ownership()
-#> > Objects: 5 | Files: 14 | Size: 162 Kb
+#> > Objects: 4 | Files: 4 | Size: 162 Kb
 
 rename_ds(out, "reg-100-300")
 

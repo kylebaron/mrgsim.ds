@@ -44,4 +44,5 @@ if(requireNamespace("duckdb")) {
   as_duckdb_ds(out)
 }
 #> Loading required namespace: duckdb
+#> Error in check_dbplyr(): The package "dbplyr" is required to communicate with database backends.
 ```
