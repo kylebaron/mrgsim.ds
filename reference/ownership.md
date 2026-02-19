@@ -76,22 +76,22 @@ ownership()
 
 list_ownership()
 #>                               file        address
-#> 1  mrgsims-ds-1bac12c6ac96.parquet 0x55f7567f5c90
-#> 2  mrgsims-ds-1bac17118006.parquet 0x55f756dd21a8
-#> 3  mrgsims-ds-1bac59458856.parquet 0x55f751ffe918
-#> 4  mrgsims-ds-1bac36f8eac6.parquet 0x55f756dd21a8
-#> 5             mrgsims-ds-1.parquet 0x55f7595a1858
-#> 6  mrgsims-ds-1bac73617447.parquet 0x55f756dd21a8
-#> 7  mrgsims-ds-1bac7fa3498a.parquet 0x55f756dd21a8
-#> 8  mrgsims-ds-1bac4c0d6d5e.parquet 0x55f756dd21a8
-#> 9  mrgsims-ds-1bac3780b6a3.parquet 0x55f756dd21a8
-#> 10 mrgsims-ds-1bac611418da.parquet 0x55f75205e5a8
-#> 11 mrgsims-ds-1bac14dfc5b8.parquet 0x55f756dd21a8
-#> 12                 example.parquet 0x55f755a70e40
-#> 13 mrgsims-ds-1bac180dddd3.parquet 0x55f756dd21a8
-#> 14 mrgsims-ds-1bac31ec5ec6.parquet 0x55f751ffc870
-#> 15 mrgsims-ds-1bac45ffd24c.parquet 0x55f756dd21a8
-#> 16 mrgsims-ds-1bac46c0ba9d.parquet 0x55f756dd21a8
+#> 1  mrgsims-ds-1b99182bdd95.parquet 0x55d31b3101e8
+#> 2  mrgsims-ds-1b99290c466a.parquet 0x55d31654da00
+#> 3  mrgsims-ds-1b9974d67efd.parquet 0x55d31b3101e8
+#> 4   mrgsims-ds-1b993192ffb.parquet 0x55d3169efb08
+#> 5  mrgsims-ds-1b99687907e8.parquet 0x55d31b3101e8
+#> 6  mrgsims-ds-1b991315f0d5.parquet 0x55d31b3101e8
+#> 7             mrgsims-ds-1.parquet 0x55d31da90a00
+#> 8  mrgsims-ds-1b991ac06322.parquet 0x55d31b3101e8
+#> 9                  example.parquet 0x55d319bb4b88
+#> 10 mrgsims-ds-1b9915bd8307.parquet 0x55d316535a00
+#> 11  mrgsims-ds-1b9924179f4.parquet 0x55d31b3101e8
+#> 12 mrgsims-ds-1b995c15d0ee.parquet 0x55d31b3101e8
+#> 13  mrgsims-ds-1b99e6f7145.parquet 0x55d31ad36528
+#> 14 mrgsims-ds-1b9949650fea.parquet 0x55d31b3101e8
+#> 15 mrgsims-ds-1b994c4b9041.parquet 0x55d31b3101e8
+#> 16 mrgsims-ds-1b995bf5fa94.parquet 0x55d31b3101e8
 
 e1 <- ev(amt = 100)
 e2 <- ev(amt = 200)
