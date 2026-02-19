@@ -11,6 +11,8 @@ Useful links:
 
 - <https://kylebaron.github.io/mrgsim.ds/>
 
+- <https://kylebaron.r-universe.dev/mrgsim.ds>
+
 - Report bugs at <https://github.com/kylebaron/mrgim.ds/issues>
 
 ## Author
