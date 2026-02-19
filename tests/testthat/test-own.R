@@ -9,7 +9,7 @@ test_that("hash files", {
   out <- mrgsim_ds(mod)
   
   expect_is(out$hash, "character")
-  h <- getVDigest(algo = mrgsim.ds:::digest_algo)
+  h <- digest::getVDigest(algo = mrgsim.ds:::digest_algo)
   expect_equal(out$hash, h(out$files))
 })
 
@@ -19,7 +19,8 @@ test_that("ownership", {
   
   expect_true(check_ownership(out))
   
-  expect_message(ownership())
+  x <- capture.output(ownership())
+  expect_match(x, "Objects: 1")
   
   df <- list_ownership()
   expect_is(df, "data.frame")

@@ -1,8 +1,8 @@
 #' @importFrom rlang abort warn inform caller_env is_named is_formula
 #' @importFrom arrow open_dataset  write_parquet Scanner
 #' @importFrom arrow to_duckdb as_arrow_table
-#' @importFrom dplyr collect distinct pull summarise summarize
-#' @importFrom dplyr mutate select group_by filter bind_rows
+#' @importFrom dplyr collect distinct pull summarise summarize rename
+#' @importFrom dplyr mutate select group_by filter bind_rows arrange
 #' @importFrom tibble as_tibble
 #' @importFrom utils head tail
 #' @importFrom scales label_number cut_short_scale

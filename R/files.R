@@ -164,7 +164,7 @@ write_ds <- function(x, sink, ...) {
   if(length(x$files)==1) {
     file_move(x$files, sink)
   } else {
-    write_parquet(x$ds, sink, format = "parquet", ...)
+    write_parquet(x$ds, sink, ...)
     unlink(x$ds$files, recursive = TRUE)
   }
   x$files <- sink

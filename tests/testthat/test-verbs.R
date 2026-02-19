@@ -30,6 +30,15 @@ test_that("test verbs", {
   e <- dplyr::summarise(out, M = mean(DV), .by = ID)
   sims <- dplyr::collect(e)
   expect_equal(sims$ID, c(1,2,3))
+  
+  f <- dplyr::arrange(out, DV)
+  sims <- dplyr::collect(f)
+  expect_equal(sims$DV, sort(sims$DV))
+
+  g <- dplyr::rename(out, subject = ID)
+  sims <- dplyr::collect(g)
+  expect_equal(names(sims)[1], "subject")
+
 })
 
 rm(out, mod, data)

@@ -81,9 +81,9 @@ test_that("temp file helpers", {
   out <- mrgsim_ds(mod, id = "AA1", gc = FALSE)
   out <- mrgsim_ds(mod, id = "AA2", gc = FALSE)
   out <- mrgsim_ds(mod, id = "AA3", gc = FALSE)
-  x <- suppressMessages(list_temp())
-  expect_length(x, 3)
-  expect_match(x, "mrgsims-ds-AA[0-9]")
+  x <- capture.output(list_temp())
+  expect_length(x, 4)
+  expect_match(x, "mrgsims-ds-AA[0-9]", all = FALSE)
   expect_message(x <- purge_temp(), "Discarding 3 files.")
   expect_null(x)
   
@@ -93,7 +93,7 @@ test_that("temp file helpers", {
   out3 <- mrgsim_ds(mod, id = "AA3", gc = FALSE)
   f <- c(out1$files, out3$files)  
   expect_message(retain_temp(out1, out3), "Discarding 1 files.")
-  suppressMessages(x <- list_temp())
+  devnull <- capture.output(x <- list_temp())
   expect_identical(
     normalizePath(f), 
     normalizePath(x)
@@ -101,7 +101,7 @@ test_that("temp file helpers", {
   
   suppressMessages(purge_temp())
   out <- lapply(1:7, \(x) mrgsim_ds(mod))
-  suppressMessages(x <- list_temp())
+  devnull <- capture.output(x <- list_temp())
   expect_length(x, 7)
 })
 

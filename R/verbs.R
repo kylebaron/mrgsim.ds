@@ -27,6 +27,20 @@ filter.mrgsimsds <- function(.data, ..., .by = NULL, .preserve = FALSE) {
 }
 
 #' @export
+arrange.mrgsimsds <- function(.data, ..., .by_group = FALSE)  {
+  .data <- safe_ds(.data)
+  check_files_fatal(.data)
+  dplyr::arrange(as_arrow_ds(.data), ..., .by_group = FALSE)
+}
+
+#' @export
+rename.mrgsimsds <- function(.data, ...) {
+  .data <- safe_ds(.data)
+  check_files_fatal(.data)
+  dplyr::rename(as_arrow_ds(.data), ...)
+}
+
+#' @export
 summarise.mrgsimsds <- function(.data, ..., .by = NULL, .groups = NULL) {
   .data <- safe_ds(.data)
   check_files_fatal(.data)
