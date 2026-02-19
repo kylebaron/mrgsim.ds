@@ -32,7 +32,8 @@ write_ds(x, sink, ...)
 - sink:
 
   the complete path (including file name) for a single parquet file
-  containing all simulated data.
+  containing all simulated data; passed to
+  [`arrow::write_parquet()`](https://arrow.apache.org/docs/r/reference/write_parquet.html).
 
 - ...:
 
