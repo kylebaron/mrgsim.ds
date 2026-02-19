@@ -54,7 +54,7 @@ out <- lapply(1:3, function(rep) {
 refresh_ds(out)
 #> [[1]]
 #> Model: housemodel
-#> Dim  : 48,200 7
+#> Dim  : 48,200 x 7
 #> Files: 1 [343.5 Kb]
 #> Owner: yes
 #>     ID time       GUT     CENT     RESP       DV       CP
@@ -69,7 +69,7 @@ refresh_ds(out)
 #> 
 #> [[2]]
 #> Model: housemodel
-#> Dim  : 48,200 7
+#> Dim  : 48,200 x 7
 #> Files: 1 [343.5 Kb]
 #> Owner: yes
 #>     ID time       GUT     CENT     RESP       DV       CP
@@ -84,7 +84,7 @@ refresh_ds(out)
 #> 
 #> [[3]]
 #> Model: housemodel
-#> Dim  : 48,200 7
+#> Dim  : 48,200 x 7
 #> Files: 1 [343.5 Kb]
 #> Owner: yes
 #>     ID time       GUT     CENT     RESP       DV       CP

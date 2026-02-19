@@ -48,7 +48,7 @@ sims <- reduce_ds(out)
 
 sims
 #> Model: 1005
-#> Dim  : 7,800 3
+#> Dim  : 7,800 x 3
 #> Files: 3 [74.8 Kb]
 #> Owner: yes
 #>     ID time     IPRED

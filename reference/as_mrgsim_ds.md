@@ -62,7 +62,7 @@ obj <- as_mrgsim_ds(out)
 
 obj
 #> Model: housemodel
-#> Dim  : 4,820 7
+#> Dim  : 4,820 x 7
 #> Files: 1 [55.4 Kb]
 #> Owner: yes
 #>     ID time       GUT     CENT     RESP       DV       CP

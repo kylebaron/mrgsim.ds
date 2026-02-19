@@ -48,7 +48,7 @@ prune_ds(sims)
 #> dropping 1 objects that are not mrgsimsds.
 #> [[1]]
 #> Model: housemodel
-#> Dim  : 98 7
+#> Dim  : 98 x 7
 #> Files: 1 [7.4 Kb]
 #> Owner: yes
 #>     ID time       GUT     CENT     RESP       DV       CP
