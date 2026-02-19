@@ -2,6 +2,7 @@ library(testthat)
 library(mrgsim.ds)
 
 mod <- house_ds(end = 3, delta = 1)
+data <- ev_expand(amt = 100, ID = 1:3)
 out <- mrgsim_ds(mod, gc = FALSE)
 
 test_that("test verbs", {
@@ -25,6 +26,10 @@ test_that("test verbs", {
   d <- dplyr::filter(out, time < 3)
   sims <- dplyr::collect(d)
   expect_equal(sims$time, c(0,1,2))
+  
+  e <- dplyr::summarise(out, M = mean(DV), .by = ID)
+  sims <- dplyr::collect(d)
+  expect_
 })
 
 rm(out, mod)

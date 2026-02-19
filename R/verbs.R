@@ -25,3 +25,10 @@ filter.mrgsimsds <- function(.data, ..., .by = NULL, .preserve = FALSE) {
   check_files_fatal(.data)
   dplyr::filter(as_arrow_ds(.data), ..., .by = .by, .preserve = .preserve)
 }
+
+#' @export
+summarise.mrgsimsds <- function (.data, ..., .by = NULL, .groups = NULL) {
+  .data <- safe_ds(.data)
+  check_files_fatal(.data)
+  dplyr::summarise(as_arrow_ds(.data), ..., .by = .by, .groups = .groups)
+}
