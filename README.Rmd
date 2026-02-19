@@ -57,6 +57,7 @@ data <- expand.ev(amt = 100, ii = 24, total = 6, ID = 1:3000)
 `mrgsim.ds` provides a new `mrgsim()` variant - `mrgsim_ds()`. The name implies 
 we are tapping into Apache Arrow 
 [Dataset](https://arrow.apache.org/docs/r/reference/Dataset.html) functionality.
+The simulation below carries `1,446,000` rows.
 
 ```{r}
 out <- mrgsim_ds(mod, data)
@@ -67,8 +68,8 @@ out
 
 ## Very lightweight simulation output object
 
-The output object doesn't actually carry the simulated data, but
-rather a pointer to the data in parquet files on your disk.
+The output object doesn't actually carry these 1.4M rows of simulated data. 
+Rather it stores a pointer to the data in parquet files on your disk.
 
 
 ```{r}
