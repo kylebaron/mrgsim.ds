@@ -95,3 +95,9 @@ Commonly needed after batch simulation in parallel
   : Coerce an mrgsimsds object to an arrow table
 - [`as_duckdb_ds()`](https://kylebaron.github.io/mrgsim.ds/reference/as_duckdb_ds.md)
   : Coerce an mrgsimsds object to a DuckDB table
+
+## Landing page
+
+- [`mrgsim.ds`](https://kylebaron.github.io/mrgsim.ds/reference/mrgsim.ds.md)
+  : mrgsim.ds: 'Apache' 'Arrow' Dataset-Backed Simulation Outputs for
+  'mrgsolve'

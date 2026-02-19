@@ -492,6 +492,12 @@ Commonly needed after batch simulation in parallel
 - [`as_duckdb_ds()`](https://kylebaron.github.io/mrgsim.ds/reference/as_duckdb_ds.md)
   : Coerce an mrgsimsds object to a DuckDB table
 
+## Landing page
+
+- [`mrgsim.ds`](https://kylebaron.github.io/mrgsim.ds/reference/mrgsim.ds.md)
+  : mrgsim.ds: 'Apache' 'Arrow' Dataset-Backed Simulation Outputs for
+  'mrgsolve'
+
 # Articles
 
 ### All vignettes
