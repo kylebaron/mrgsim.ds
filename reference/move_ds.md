@@ -84,12 +84,9 @@ basename(out$files)
 #> [3] "mrgsims-ds-example-sims-0003.parquet"
 
 write_ds(out, sink = file.path(tempdir(), "example.parquet"))
-#> Error in write_parquet(x$ds, sink, format = "parquet", ...): unused argument (format = "parquet")
 
 basename(out$files)
-#> [1] "mrgsims-ds-example-sims-0001.parquet"
-#> [2] "mrgsims-ds-example-sims-0002.parquet"
-#> [3] "mrgsims-ds-example-sims-0003.parquet"
+#> [1] "example.parquet"
 
 if (FALSE) { # \dontrun{
   move_ds(out, path = "data/simulated") 
