@@ -1,0 +1,9 @@
+pandoc: 3.1.11
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  mrgsim.ds: mrgsim.ds.html
+last_built: 2026-02-19T14:14Z
+urls:
+  reference: https://kylebaron.github.io/mrgsim.ds/reference
+  article: https://kylebaron.github.io/mrgsim.ds/articles
