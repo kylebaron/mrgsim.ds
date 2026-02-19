@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 # mrgsim.ds
 
 <!-- badges: start -->
+[![R-universe version](https://kylebaron.r-universe.dev/mrgsim.ds/badges/version)](https://kylebaron.r-universe.dev/mrgsim.ds)
+[![r-universe status](https://r-lib.r-universe.dev/cpp11/badges/checks)](https://r-lib.r-universe.dev/cpp11)
 <!-- badges: end -->
 
 
