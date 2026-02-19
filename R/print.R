@@ -18,7 +18,7 @@ print.mrgsimsds <- function(x, n = 8, ...) { # nocov start
   cat("Files: ", nfile, " [", size, "]", "\n", sep = "")
   cat("Owner: ", own, "\n", sep = "")
   chunk <- head(x$head, n = n)
-  rownames(chunk) <- paste0(seq(nrow(chunk)), "> ")
+  rownames(chunk) <- paste0(seq(nrow(chunk)), ": ")
   print(chunk) 
   if(invalid_ds(x)) {
     refresh_ds(x)
