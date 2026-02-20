@@ -176,7 +176,7 @@ out2 <- reduce_ds(out2)
 
 ```
 
-Now there are 10x the number of rows, but little change in object size.
+Now there are 10x the number of rows (14.5M), but little change in object size.
 ```{r}
 out2
 ```
