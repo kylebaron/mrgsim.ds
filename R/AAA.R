@@ -125,6 +125,8 @@ assign("nullptr", new("externalptr"), .global)
 #' 
 #' ownership()
 #' 
+#' Sys.sleep(0.5)
+#' 
 #' rename_ds(out, "reg-100-300")
 #' 
 #' list_temp()

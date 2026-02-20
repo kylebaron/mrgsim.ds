@@ -117,6 +117,8 @@ list_temp()
 
 ownership()
 
+Sys.sleep(0.5)
+
 rename_ds(out, "reg-100-300")
 
 list_temp()
