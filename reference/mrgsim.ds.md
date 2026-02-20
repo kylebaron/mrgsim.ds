@@ -186,10 +186,10 @@ plot(out, nid = 10)
 
 list_temp()
 #> 1 files [129 Kb]
-#> - mrgsims-ds-1b7279428d5a.parquet
+#> - mrgsims-ds-1c1e42a79aa.parquet
 
 ownership()
-#> > Objects: 6 | Files: 15 | Size: 162 Kb
+#> > Objects: 5 | Files: 5 | Size: 162 Kb
 
 if (FALSE) { # \dontrun{
 

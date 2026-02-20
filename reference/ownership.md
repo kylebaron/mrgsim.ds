@@ -72,27 +72,17 @@ check_ownership(out)
 #> [1] TRUE
 
 ownership()
-#> > Objects: 8 | Files: 17 | Size: 350.3 Kb
+#> > Objects: 7 | Files: 7 | Size: 350.3 Kb
 
 list_ownership()
-#>                               file        address
-#> 1  mrgsims-ds-1b721ecb9978.parquet 0x55afa7db2140
-#> 2  mrgsims-ds-1b723b0d30e2.parquet 0x55afa7db2140
-#> 3  mrgsims-ds-1b723b66aebf.parquet 0x55afa7db2140
-#> 4    mrgsims-ds-1b72ce0cb8.parquet 0x55afa7db2140
-#> 5                  example.parquet 0x55afa569c2c8
-#> 6  mrgsims-ds-1b72105bb4ad.parquet 0x55afa4ae7cd8
-#> 7  mrgsims-ds-1b722fbdbd08.parquet 0x55afa7db2140
-#> 8  mrgsims-ds-1b72692ed47a.parquet 0x55afa158dbb0
-#> 9  mrgsims-ds-1b72763a7886.parquet 0x55afa7db2140
-#> 10 mrgsims-ds-1b7279f4d761.parquet 0x55afa9e898a0
-#> 11            mrgsims-ds-1.parquet 0x55afa6e1efe8
-#> 12 mrgsims-ds-1b7254857b86.parquet 0x55afa7db2140
-#> 13 mrgsims-ds-1b7262577249.parquet 0x55afa965d858
-#> 14 mrgsims-ds-1b7279428d5a.parquet 0x55afabaee838
-#> 15 mrgsims-ds-1b723f1e8947.parquet 0x55afa7db2140
-#> 16 mrgsims-ds-1b722b7c78b0.parquet 0x55afa7db2140
-#> 17 mrgsims-ds-1b7240546edd.parquet 0x55afa7db2140
+#>                              file        address
+#> 1  mrgsims-ds-1c1ed37c80b.parquet 0x556a988b8f40
+#> 2            mrgsims-ds-1.parquet 0x556a98e265f0
+#> 3 mrgsims-ds-1c1e42c5b4a4.parquet 0x556a8f00c0b8
+#> 4  mrgsims-ds-1c1e42a79aa.parquet 0x556a8d05d230
+#> 5 mrgsims-ds-1c1e27d3ec25.parquet 0x556a86780af0
+#> 6 mrgsims-ds-1c1e4349ebf7.parquet 0x556a9454b438
+#> 7                 example.parquet 0x556a96aa88b8
 
 e1 <- ev(amt = 100)
 e2 <- ev(amt = 200)
@@ -102,7 +92,7 @@ out <- list(mrgsim_ds(mod, e1), mrgsim_ds(mod, e2))
 sims <- reduce_ds(out)
 
 ownership()
-#> > Objects: 9 | Files: 19 | Size: 403.5 Kb
+#> > Objects: 8 | Files: 9 | Size: 403.5 Kb
 
 check_ownership(sims)
 #> [1] TRUE
