@@ -107,15 +107,28 @@ you understand what is going on.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ownership</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; Objects: 5 | Files: 5 | Size: 221.2 Kb</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; Objects: 9 | Files: 18 | Size: 405.9 Kb</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">list_ownership</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                              file        address</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 mrgsims-ds-1bad3fd44292.parquet 0x564430732668</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2            mrgsims-ds-1.parquet 0x564433450cd0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 example.parquet 0x56442d7a2380</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  mrgsims-ds-1badb73ab24.parquet 0x56442b3d9598</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 mrgsims-ds-1bad3503117f.parquet 0x564429964210</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                   file        address</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      mrgsims-ds-1bad468acad5.parquet 0x556c1b4e80e0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      mrgsims-ds-1bad48eb53fd.parquet 0x556c1e92e800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      mrgsims-ds-1bad28d73f05.parquet 0x556c1e92e800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      mrgsims-ds-1bad7f6565e6.parquet 0x556c1e92e800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      mrgsims-ds-1bad1270b9d4.parquet 0x556c1e92e800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      mrgsims-ds-1bad3a4053d9.parquet 0x556c1e92e800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                 mrgsims-ds-1.parquet 0x556c1a921518</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      mrgsims-ds-1bad2d7f5ca9.parquet 0x556c209f1b50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9      mrgsims-ds-1bad330a93a9.parquet 0x556c1f75a378</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10     mrgsims-ds-1bad62cbabd4.parquet 0x556c1e92e800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 mrgsims-ds-reg-100-300-0001.parquet 0x556c2005e298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12     mrgsims-ds-1bad6fb31ebf.parquet 0x556c1e92e800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13     mrgsims-ds-1bad75f26fd4.parquet 0x556c1e92e800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                     example.parquet 0x556c1c01c4a0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15     mrgsims-ds-1bad4a5b7444.parquet 0x556c18587420</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16     mrgsims-ds-1bad157078b2.parquet 0x556c1e92e800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17     mrgsims-ds-1bad5df5590a.parquet 0x556c22142338</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18     mrgsims-ds-1bad2b3b002b.parquet 0x556c1e92e800</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">e1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mrgsolve.org/docs/reference/ev.html" class="external-link">ev</a></span><span class="op">(</span>amt <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">e2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mrgsolve.org/docs/reference/ev.html" class="external-link">ev</a></span><span class="op">(</span>amt <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span></span>
@@ -125,7 +138,7 @@ you understand what is going on.</p>
 <span class="r-in"><span><span class="va">sims</span> <span class="op">&lt;-</span> <span class="fu"><a href="reduce_ds.html">reduce_ds</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ownership</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; Objects: 6 | Files: 7 | Size: 274.5 Kb</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; Objects: 10 | Files: 20 | Size: 459.2 Kb</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">check_ownership</span><span class="op">(</span><span class="va">sims</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
