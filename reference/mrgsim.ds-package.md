@@ -13,7 +13,7 @@ Useful links:
 
 - <https://kylebaron.r-universe.dev/mrgsim.ds>
 
-- Report bugs at <https://github.com/kylebaron/mrgim.ds/issues>
+- Report bugs at <https://github.com/kylebaron/mrgsim.ds/issues>
 
 ## Author
 

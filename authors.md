@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/kylebaron/mrgim.ds/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/kylebaron/mrgsim.ds/blob/main/DESCRIPTION)
 
 Baron K (2026). *mrgsim.ds: 'Apache' 'Arrow' Dataset-Backed Simulation
 Outputs for 'mrgsolve'*. R package version 0.0.1,

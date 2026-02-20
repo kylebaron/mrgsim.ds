@@ -128,7 +128,7 @@ Useful links:
 
 - <https://kylebaron.r-universe.dev/mrgsim.ds>
 
-- Report bugs at <https://github.com/kylebaron/mrgim.ds/issues>
+- Report bugs at <https://github.com/kylebaron/mrgsim.ds/issues>
 
 ## Author
 
@@ -186,7 +186,7 @@ plot(out, nid = 10)
 
 list_temp()
 #> 1 files [129 Kb]
-#> - mrgsims-ds-1b9d1a162a83.parquet
+#> - mrgsims-ds-1bd612cd7021.parquet
 
 ownership()
 #> > Objects: 6 | Files: 15 | Size: 162 Kb

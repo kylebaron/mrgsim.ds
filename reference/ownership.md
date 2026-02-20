@@ -72,28 +72,29 @@ check_ownership(out)
 #> [1] TRUE
 
 ownership()
-#> > Objects: 9 | Files: 18 | Size: 405.9 Kb
+#> > Objects: 10 | Files: 19 | Size: 455 Kb
 
 list_ownership()
 #>                                   file        address
-#> 1      mrgsims-ds-1b9d275254a2.parquet 0x55671382def0
-#> 2  mrgsims-ds-reg-100-300-0001.parquet 0x556714f667f8
-#> 3      mrgsims-ds-1b9d496bc29a.parquet 0x55671382def0
-#> 4      mrgsims-ds-1b9d2dd90ffc.parquet 0x5567158f4cc0
-#> 5      mrgsims-ds-1b9d68b0dd94.parquet 0x55671382def0
-#> 6      mrgsims-ds-1b9d1a7e0a46.parquet 0x55671382def0
-#> 7                 mrgsims-ds-1.parquet 0x55670dfbf5d0
-#> 8      mrgsims-ds-1b9d5a295694.parquet 0x55671382def0
-#> 9      mrgsims-ds-1b9d34aafd41.parquet 0x55670d493900
-#> 10     mrgsims-ds-1b9d78f17ed8.parquet 0x55671382def0
-#> 11     mrgsims-ds-1b9d3ddd1d5c.parquet 0x55671382def0
-#> 12     mrgsims-ds-1b9d53f69f85.parquet 0x5567103fab28
-#> 13     mrgsims-ds-1b9d32609fed.parquet 0x55671382def0
-#> 14     mrgsims-ds-1b9d46f75539.parquet 0x55671382def0
-#> 15     mrgsims-ds-1b9d1bef25c3.parquet 0x556716c61008
-#> 16      mrgsims-ds-1b9d6d7e9f7.parquet 0x556716de70e0
-#> 17                     example.parquet 0x556710f5c160
-#> 18      mrgsims-ds-1b9da6d36b0.parquet 0x55671382def0
+#> 1      mrgsims-ds-1bd6780901fd.parquet 0x558866095b40
+#> 2                 mrgsims-ds-1.parquet 0x558865d393e0
+#> 3      mrgsims-ds-1bd641d01977.parquet 0x55886868aa90
+#> 4      mrgsims-ds-1bd65f54075b.parquet 0x558866095b40
+#> 5      mrgsims-ds-1bd674e7c172.parquet 0x558866095b40
+#> 6      mrgsims-ds-1bd618ad08ad.parquet 0x55886992d468
+#> 7  mrgsims-ds-reg-100-300-0001.parquet 0x558867ea8648
+#> 8       mrgsims-ds-1bd61a105f6.parquet 0x558862c4e460
+#> 9      mrgsims-ds-1bd67d98c78b.parquet 0x558866095b40
+#> 10     mrgsims-ds-1bd620a1be72.parquet 0x558866095b40
+#> 11                     example.parquet 0x55886376e940
+#> 12     mrgsims-ds-1bd63c435e16.parquet 0x5588681542f0
+#> 13     mrgsims-ds-1bd67f20c469.parquet 0x558869404f60
+#> 14     mrgsims-ds-1bd63fe3aa4d.parquet 0x558866095b40
+#> 15     mrgsims-ds-1bd621f22b4c.parquet 0x558866095b40
+#> 16     mrgsims-ds-1bd622fe7c1f.parquet 0x558866095b40
+#> 17     mrgsims-ds-1bd619dc704a.parquet 0x558866095b40
+#> 18     mrgsims-ds-1bd64a8b348e.parquet 0x558866095b40
+#> 19     mrgsims-ds-1bd67ed46322.parquet 0x55885fcea240
 
 e1 <- ev(amt = 100)
 e2 <- ev(amt = 200)
@@ -103,7 +104,7 @@ out <- list(mrgsim_ds(mod, e1), mrgsim_ds(mod, e2))
 sims <- reduce_ds(out)
 
 ownership()
-#> > Objects: 10 | Files: 20 | Size: 459.2 Kb
+#> > Objects: 11 | Files: 21 | Size: 508.2 Kb
 
 check_ownership(sims)
 #> [1] TRUE
