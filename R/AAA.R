@@ -125,13 +125,12 @@ assign("nullptr", new("externalptr"), .global)
 #' 
 #' ownership()
 #' 
-#' Sys.sleep(0.5)
+#' \dontrun{
 #' 
 #' rename_ds(out, "reg-100-300")
 #' 
 #' list_temp()
 #' 
-#' \dontrun{
 #' move_ds(out, "data/sim/regimens")
 #' }
 #' 
