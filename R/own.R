@@ -20,6 +20,19 @@ hash_files <- function(x) {
   x
 }
 
+# You can take ownership if no one owns the file 
+# or the object owns the file.
+can_take_ownership <- function(x) {
+  owned <- x$hash %in% names(file_owner)
+  if(!any(owned)) {
+    return(!owned)  
+  }
+  if(all(owned)) {
+    return(check_ownership(x))  
+  }
+  return(FALSE)
+}
+
 #' Ownership of simulation files
 #' 
 #' Functions to check ownership or disown simulation output files on disk.
@@ -151,6 +164,14 @@ take_ownership <- function(x) {
     abort("length mismatch between files and hash.")  
   }
   l <- lapply(x$files, \(f) list(address = x$address, file = f))
+  names(l) <- x$hash
+  list2env(l, envir = file_owner)
+  return(invisible(x))
+}
+
+# For testing only
+transfer_ownership <- function(x, address) {
+  l <- lapply(x$files, \(f) list(address = address, file = f))
   names(l) <- x$hash
   list2env(l, envir = file_owner)
   return(invisible(x))

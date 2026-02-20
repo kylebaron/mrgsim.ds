@@ -1,40 +1,49 @@
 simlist_classes <- function(x) {
-  classes <- vapply(
+  inh <- vapply(
     x,
     inherits,
     "mrgsimsds",
     FUN.VALUE = TRUE,
     USE.NAMES = FALSE
   )
-  classes
+  inh
 }
 
 simlist_models <- function(x) {
   models <- vapply(
     x,
-    FUN = function(xx) xx$mod@model,
+    FUN = \(xi) xi$mod@model,
     FUN.VALUE = "model",
     USE.NAMES = FALSE
   )
-  models <- models==models[1]
-  models
+  models_equal <- models==models[1]
+  models_equal
 }
 
-# Return a list of the column names
 simlist_cols <- function(x) {
-  cols <- lapply(x, function(xx) xx$names)
-  cols <- vapply(
-    cols,
+  cols_names <- lapply(x, \(xi) xi$names)
+  cols_equal <- vapply(
+    cols_names,
     FUN = setequal,
     FUN.VALUE = TRUE,
     USE.NAMES = FALSE,
-    y = cols[[1]]
+    y = cols_names[[1]]
   )
-  cols
+  cols_equal
 }
 
 # Return the files from a simlist
 simlist_files <- function(x) {
-  files <- lapply(x, FUN = function(xx) xx$files)
-  unlist(files, use.names=FALSE)
+  files <- lapply(x, \(xi) xi$files)
+  unlist(files, use.names = FALSE)
+}
+
+simlist_can_own <- function(x) {
+  owns <- vapply(
+    x, 
+    FUN = can_take_ownership, 
+    FUN.VALUE = TRUE, 
+    USE.NAMES = FALSE
+  )
+  owns
 }

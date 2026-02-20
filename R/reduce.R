@@ -1,24 +1,37 @@
 simlist_reduce_ok <- function(x) {
   classes <- simlist_classes(x)
   if(!all(classes)) {
-    abort("all objects in list must inherit from `mrgsimsds`.")
+    abort(
+      "all objects in list must inherit from `mrgsimsds`.",
+      call = caller_env()
+    )
   }
   models <- simlist_models(x)
   if(!all(models)) {
     abort(
       message = "all objects in list must be derived from the same model.",
+      call = caller_env()
     )
   }
   cols <- simlist_cols(x)
   if(!all(cols)) {
     abort(
       message = "all objects in list must have the same column names.",
+      call = caller_env()
     )
   }
   files <- simlist_files(x)
   if(length(files) != length(unique(files))) {
     abort(
-      message = "duplicate files found in list.",
+      message = "objects in list must have unique file names.",
+      call = caller_env()
+    )
+  }
+  can_own <- simlist_can_own(x)
+  if(!all(can_own)) {
+    abort(
+      message = "another object cannot own files in an object getting reduced.", 
+      call = caller_env()
     )
   }
 }
