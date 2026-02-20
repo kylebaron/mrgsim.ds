@@ -140,8 +140,9 @@ as_duckdb_ds(out)
 ## Tidyverse-friendly
 
 We've integrated into the `dplyr` ecosystem as well, allowing you to `filter()`, 
-`group_by()`, `mutate()`, or `select()` your way directly into a pipeline to 
-summarize your simulations using the power of Apache Arrow.
+`group_by()`, `mutate()`, `select()`, `summarise()`, `rename()`, or `arrange()` 
+your way directly into a pipeline to summarize your simulations using the power 
+of Apache Arrow.
 
 ```{r}
 dd <- 
@@ -257,8 +258,6 @@ check_ownership(out1)
 
 check_ownership(out4)
 ```
-
-
 
 
 ## If this is so great, why not make it the default for mrgsolve?
