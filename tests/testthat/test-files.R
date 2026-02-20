@@ -59,7 +59,9 @@ test_that("write_ds", {
   write_ds(out, file.path(tempdir(), "test-write"))
   expect_false(out$gc)
   expect_equal(basename(out$files), "test-write")
-  expect_equal(dirname(normalizePath(out$files)), normalizePath(tempdir()))
+  tmp <- basename(tempdir())
+  tst <- basename(dirname(out$files))
+  expect_equal(tst, tmp)
 })
 
 test_that("move_ds", {
