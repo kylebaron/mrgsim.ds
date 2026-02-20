@@ -11,13 +11,13 @@ Source:
 [`DESCRIPTION`](https://github.com/kylebaron/mrgsim.ds/blob/main/DESCRIPTION)
 
 Baron K (2026). *mrgsim.ds: 'Apache' 'Arrow' Dataset-Backed Simulation
-Outputs for 'mrgsolve'*. R package version 0.0.1,
+Outputs for 'mrgsolve'*. R package version 0.0.1.9000,
 <https://github.com/kylebaron/mrgsim.ds>.
 
     @Manual{,
       title = {mrgsim.ds: 'Apache' 'Arrow' Dataset-Backed Simulation Outputs for 'mrgsolve'},
       author = {Kyle T Baron},
       year = {2026},
-      note = {R package version 0.0.1},
+      note = {R package version 0.0.1.9000},
       url = {https://github.com/kylebaron/mrgsim.ds},
     }
