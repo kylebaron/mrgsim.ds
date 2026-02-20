@@ -14,6 +14,7 @@ test_that("hash files", {
 })
 
 test_that("ownership", {
+  mrgsim.ds:::clear_ownership()
   mod <- house_ds()
   out <- mrgsim_ds(mod)
   

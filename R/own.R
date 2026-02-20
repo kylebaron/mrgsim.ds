@@ -1,6 +1,12 @@
-file_owner <- new.env(parent = emptyenv(), hash = TRUE, size = 5000L)
+hash2addr <- new.env(parent = emptyenv(), hash = TRUE, size = 5000L)
+hash2file <- new.env(parent = emptyenv(), hash = TRUE, size = 5000L)
 
 digest_algo <- "xxh3_64"
+
+clear_ownership <- function() {
+  rm(list = names(hash2addr), envir = hash2addr)  
+  rm(list = names(hash2file), envir = hash2file)
+}
 
 clean_up_ds <- function(x) {
   if(x$gc && check_ownership(x)) {
@@ -23,7 +29,7 @@ hash_files <- function(x) {
 # You can take ownership if no one owns the file 
 # or the object owns the file.
 can_take_ownership <- function(x) {
-  owned <- x$hash %in% names(file_owner)
+  owned <- x$hash %in% names(hash2addr)
   if(!any(owned)) {
     return(!owned)  
   }
@@ -95,16 +101,15 @@ can_take_ownership <- function(x) {
 #' @name ownership
 #' @export
 ownership <- function() {
-  objects <- mget(names(file_owner), envir = file_owner)
-  if(!length(objects)) {
+  addrs <- mget(names(hash2addr), envir = hash2addr)
+  if(!length(addrs)) {
     message("No ownership information yet.")
     return(invisible(NULL))
   }
-  files <- vapply(objects, \(obj) obj$file,    "a", USE.NAMES = FALSE)
-  addre <- vapply(objects, \(obj) obj$address, "a", USE.NAMES = FALSE)
+  files <- mget(names(hash2file), envir = hash2file)
   size <- total_size(files)
   nfile <- length(unique(files))
-  nadd <- length(unique(addre))
+  nadd <- length(unique(addrs))
   msg <- "> Objects: {nadd} | Files: {nfile} | Size: {size}"
   cat(glue(msg), sep = "")
   return(invisible(NULL))
@@ -113,16 +118,15 @@ ownership <- function() {
 #' @rdname ownership
 #' @export
 list_ownership <- function(full.names = FALSE) {
-  objects <- mget(names(file_owner), envir = file_owner)
-  if(!length(objects)) {
-    ans <- data.frame(object = "a", file = "b", hash = "c")[0,]
+  addrs <- unname(mget(names(hash2addr), envir = hash2addr))
+  if(!length(addrs)) {
+    ans <- data.frame(object = "a", file = "b")[0,]
     return(ans)
   }
-  files <- vapply(objects, \(obj) obj$file,    "a", USE.NAMES = FALSE)
-  addre <- vapply(objects, \(obj) obj$address, "a", USE.NAMES = FALSE)
+  files <- unname(mget(names(hash2file), envir = hash2file))
   ans <- data.frame(
-    file = files, 
-    address = addre, 
+    file = unlist(files), 
+    address = unlist(addrs), 
     stringsAsFactors = FALSE
   )
   if(isFALSE(full.names)) {
@@ -136,13 +140,12 @@ list_ownership <- function(full.names = FALSE) {
 #' @export
 check_ownership <- function(x) {
   require_ds(x)
-  keys <- x$hash[x$hash %in% names(file_owner)]
+  keys <- x$hash[x$hash %in% names(hash2addr)]
   if(length(keys) != length(x$hash)) {
     return(FALSE)  
   }
-  info <- mget(keys, envir = file_owner)
-  addre <- vapply(info, FUN = \(i) i$address, FUN.VALUE = "a")
-  return(all(addre==x$address))
+  addrs <- mget(keys, envir = hash2addr)
+  return(all(addrs==x$address))
 }
 
 #' @rdname ownership
@@ -150,8 +153,10 @@ check_ownership <- function(x) {
 disown <- function(x) {
   require_ds(x)
   if(is.null(x$hash)) abort("files are not hashed.")
-  to_rm <- x$hash[x$hash %in% names(file_owner)]
-  rm(list = to_rm, envir = file_owner)
+  to_rm <- x$hash[x$hash %in% names(hash2addr)]
+  rm(list = to_rm, envir = hash2addr)
+  to_rm <- x$hash[x$hash %in% names(hash2file)]
+  rm(list = to_rm, envir = hash2file)
   invisible(x)
 }
 
@@ -163,18 +168,23 @@ take_ownership <- function(x) {
   if(!length(x$files) == length(x$hash)) {
     abort("length mismatch between files and hash.")  
   }
-  l <- lapply(x$files, \(f) list(address = x$address, file = f))
-  names(l) <- x$hash
-  list2env(l, envir = file_owner)
+  
+  l1 <- as.list(rep(x$address, length(x$hash)))
+  names(l1) <- x$hash
+  list2env(l1, envir = hash2addr)
+  
+  l2 <- as.list(x$files)
+  names(l2) <- x$hash
+  list2env(l2, envir = hash2file)
+  
   return(invisible(x))
 }
 
 # For testing only
 transfer_ownership <- function(x, address) {
-  l <- lapply(x$files, \(f) list(address = address, file = f))
+  l <- as.list(rep(address, length(x$files)))
   names(l) <- x$hash
-  list2env(l, envir = file_owner)
-  return(invisible(x))
+  list2env(l, envir = hash2addr)
 }
 
 #' Copy an mrgsimsds object
