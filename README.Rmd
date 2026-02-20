@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![R-universe version](https://kylebaron.r-universe.dev/mrgsim.ds/badges/version)](https://kylebaron.r-universe.dev/mrgsim.ds)
 [![r-universe status](https://kylebaron.r-universe.dev/mrgsim.ds/badges/checks)](https://kylebaron.r-universe.dev/mrgsim.ds)
+[![R-CMD-check](https://github.com/kylebaron/mrgsim.ds/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kylebaron/mrgsim.ds/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 
