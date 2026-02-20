@@ -61,14 +61,14 @@ out
 . Files: 1 [11.9 Mb]
 . Owner: yes
 .     ID time        CL     IPRED
-. 1:   1  0.0 0.9372974 0.0000000
-. 2:   1  0.0 0.9372974 0.0000000
-. 3:   1  0.5 0.9372974 0.1176296
-. 4:   1  1.0 0.9372974 0.2293213
-. 5:   1  1.5 0.9372974 0.3353099
-. 6:   1  2.0 0.9372974 0.4358218
-. 7:   1  2.5 0.9372974 0.5310750
-. 8:   1  3.0 0.9372974 0.6212796
+. 1:   1  0.0 0.9842626 0.0000000
+. 2:   1  0.0 0.9842626 0.0000000
+. 3:   1  0.5 0.9842626 0.6553811
+. 4:   1  1.0 0.9842626 1.2101379
+. 5:   1  1.5 0.9842626 1.6776054
+. 6:   1  2.0 0.9842626 2.0693958
+. 7:   1  2.5 0.9842626 2.3956201
+. 8:   1  3.0 0.9842626 2.6650809
 ```
 
 ## Very lightweight simulation output object
@@ -79,7 +79,7 @@ disk.
 
 ``` r
 basename(out$files)
-. [1] "mrgsims-ds-4de769d0004e.parquet"
+. [1] "mrgsims-ds-6d29612b7df3.parquet"
 ```
 
 This means there is almost nothing inside the object itself
@@ -124,23 +124,23 @@ head(out)
 . # A tibble: 6 × 4
 .      ID  time    CL IPRED
 .   <dbl> <dbl> <dbl> <dbl>
-. 1     1   0   0.937 0    
-. 2     1   0   0.937 0    
-. 3     1   0.5 0.937 0.118
-. 4     1   1   0.937 0.229
-. 5     1   1.5 0.937 0.335
-. 6     1   2   0.937 0.436
+. 1     1   0   0.984 0    
+. 2     1   0   0.984 0    
+. 3     1   0.5 0.984 0.655
+. 4     1   1   0.984 1.21 
+. 5     1   1.5 0.984 1.68 
+. 6     1   2   0.984 2.07
 
 tail(out)
 . # A tibble: 6 × 4
-.      ID  time    CL     IPRED
-.   <dbl> <dbl> <dbl>     <dbl>
-. 1  3000  238.  1.98 0.0000180
-. 2  3000  238   1.98 0.0000170
-. 3  3000  238.  1.98 0.0000161
-. 4  3000  239   1.98 0.0000153
-. 5  3000  240.  1.98 0.0000145
-. 6  3000  240   1.98 0.0000137
+.      ID  time    CL  IPRED
+.   <dbl> <dbl> <dbl>  <dbl>
+. 1  3000  238.  1.16 0.0130
+. 2  3000  238   1.16 0.0126
+. 3  3000  238.  1.16 0.0123
+. 4  3000  239   1.16 0.0120
+. 5  3000  240.  1.16 0.0116
+. 6  3000  240   1.16 0.0113
 
 dim(out)
 . [1] 1446000       4
@@ -154,16 +154,16 @@ as_tibble(out)
 . # A tibble: 1,446,000 × 4
 .       ID  time    CL IPRED
 .    <dbl> <dbl> <dbl> <dbl>
-.  1     1   0   0.937 0    
-.  2     1   0   0.937 0    
-.  3     1   0.5 0.937 0.118
-.  4     1   1   0.937 0.229
-.  5     1   1.5 0.937 0.335
-.  6     1   2   0.937 0.436
-.  7     1   2.5 0.937 0.531
-.  8     1   3   0.937 0.621
-.  9     1   3.5 0.937 0.707
-. 10     1   4   0.937 0.787
+.  1     1   0   0.984 0    
+.  2     1   0   0.984 0    
+.  3     1   0.5 0.984 0.655
+.  4     1   1   0.984 1.21 
+.  5     1   1.5 0.984 1.68 
+.  6     1   2   0.984 2.07 
+.  7     1   2.5 0.984 2.40 
+.  8     1   3   0.984 2.67 
+.  9     1   3.5 0.984 2.89 
+. 10     1   4   0.984 3.06 
 . # ℹ 1,445,990 more rows
 ```
 
@@ -189,16 +189,16 @@ as_duckdb_ds(out)
 . # Database: DuckDB 1.4.3 [kyleb@Darwin 24.6.0:R 4.5.2/:memory:]
 .       ID  time    CL IPRED
 .    <dbl> <dbl> <dbl> <dbl>
-.  1     1   0   0.937 0    
-.  2     1   0   0.937 0    
-.  3     1   0.5 0.937 0.118
-.  4     1   1   0.937 0.229
-.  5     1   1.5 0.937 0.335
-.  6     1   2   0.937 0.436
-.  7     1   2.5 0.937 0.531
-.  8     1   3   0.937 0.621
-.  9     1   3.5 0.937 0.707
-. 10     1   4   0.937 0.787
+.  1     1   0   0.984 0    
+.  2     1   0   0.984 0    
+.  3     1   0.5 0.984 0.655
+.  4     1   1   0.984 1.21 
+.  5     1   1.5 0.984 1.68 
+.  6     1   2   0.984 2.07 
+.  7     1   2.5 0.984 2.40 
+.  8     1   3   0.984 2.67 
+.  9     1   3.5 0.984 2.89 
+. 10     1   4   0.984 3.06 
 . # ℹ more rows
 ```
 
@@ -232,15 +232,15 @@ collect(dd)
 .     time  Mean     n
 .    <dbl> <dbl> <int>
 .  1   0    0     6000
-.  2   0.5  1.09  3000
-.  3   1    1.77  3000
-.  4   1.5  2.23  3000
-.  5   2    2.54  3000
-.  6   2.5  2.75  3000
-.  7   3    2.89  3000
-.  8   3.5  2.99  3000
-.  9   4    3.05  3000
-. 10   4.5  3.08  3000
+.  2   0.5  1.11  3000
+.  3   1    1.81  3000
+.  4   1.5  2.27  3000
+.  5   2    2.58  3000
+.  6   2.5  2.79  3000
+.  7   3    2.94  3000
+.  8   3.5  3.03  3000
+.  9   4    3.09  3000
+. 10   4.5  3.13  3000
 . # ℹ 471 more rows
 ```
 
@@ -257,21 +257,30 @@ plan(multisession, workers = 5L)
 out2 <- future_lapply(1:10, \(x) { mrgsim_ds(mod, data) }, future.seed = TRUE)
 
 out2 <- reduce_ds(out2)
+```
 
+Now there are 10x the number of rows, but little change in object size.
+
+``` r
 out2
 . Model: popex
 . Dim  : 14.5M x 4
-. Files: 10 [119.2 Mb]
+. Files: 10 [119.1 Mb]
 . Owner: yes
 .     ID time        CL    IPRED
-. 1:   1  0.0 0.8645649 0.000000
-. 2:   1  0.0 0.8645649 0.000000
-. 3:   1  0.5 0.8645649 1.190697
-. 4:   1  1.0 0.8645649 2.155009
-. 5:   1  1.5 0.8645649 2.929847
-. 6:   1  2.0 0.8645649 3.546268
-. 7:   1  2.5 0.8645649 4.030403
-. 8:   1  3.0 0.8645649 4.404227
+. 1:   1  0.0 0.4933386 0.000000
+. 2:   1  0.0 0.4933386 0.000000
+. 3:   1  0.5 0.4933386 1.114750
+. 4:   1  1.0 0.4933386 1.969898
+. 5:   1  1.5 0.4933386 2.622833
+. 6:   1  2.0 0.4933386 3.118296
+. 7:   1  2.5 0.4933386 3.491162
+. 8:   1  3.0 0.4933386 3.768619
+```
+
+``` r
+lobstr::obj_size(out2)
+. 295.56 kB
 ```
 
 ## Files on disk are automagically managed
@@ -281,11 +290,11 @@ All `arrow` files are stored in the `tempdir()` in parquet format
 ``` r
 list_temp()
 . 11 files [131.1 Mb]
-. - mrgsims-ds-4de769d0004e.parquet
-. - mrgsims-ds-4e24111c646f.parquet
+. - mrgsims-ds-6d29612b7df3.parquet
+. - mrgsims-ds-6d676470501e.parquet
 .    ...
-. - mrgsims-ds-4e281de28880.parquet
-. - mrgsims-ds-4e287965204.parquet
+. - mrgsims-ds-6d6b1af63d2.parquet
+. - mrgsims-ds-6d6b21c270db.parquet
 ```
 
 This directory is eventually removed when the R session ends. Tools are
@@ -296,21 +305,20 @@ retain_temp(out2)
 . Discarding 1 files.
 
 list_temp()
-. 10 files [119.2 Mb]
-. - mrgsims-ds-4e24111c646f.parquet
-. - mrgsims-ds-4e245f05bc2f.parquet
+. 10 files [119.1 Mb]
+. - mrgsims-ds-6d676470501e.parquet
+. - mrgsims-ds-6d6799c1516.parquet
 .    ...
-. - mrgsims-ds-4e281de28880.parquet
-. - mrgsims-ds-4e287965204.parquet
+. - mrgsims-ds-6d6b1af63d2.parquet
+. - mrgsims-ds-6d6b21c270db.parquet
 ```
 
 We also put a finalizer on each object so that, when it goes out of
 scope, the files are automatically cleaned up.
 
-``` r
-purge_temp()
-. Discarding 10 files.
+First, run a bunch of simulations.
 
+``` r
 plan(multisession, workers = 5L)
 
 out1 <- mrgsim_ds(mod, data)
@@ -325,6 +333,8 @@ out3 <- mrgsim_ds(mod, data)
 rename_ds(out3, "out3")
 ```
 
+There are 12 files holding simulation outputs.
+
 ``` r
 list_temp()
 . 12 files [143 Mb]
@@ -333,7 +343,11 @@ list_temp()
 .    ...
 . - mrgsims-ds-out2-0010.parquet
 . - mrgsims-ds-out3-0001.parquet
+```
 
+Now, remove one of the objects containing 10 files.
+
+``` r
 rm(out2)
 ```
 
@@ -343,8 +357,8 @@ cleaned up.
 ``` r
 gc()
 .            used  (Mb) gc trigger  (Mb) limit (Mb) max used  (Mb)
-. Ncells  1946786 104.0    3643260 194.6         NA  3174244 169.6
-. Vcells 15237023 116.3   29085081 222.0      16384 26988613 206.0
+. Ncells  1946963 104.0    3643548 194.6         NA  3289688 175.7
+. Vcells 15237378 116.3   29085772 222.0      16384 27013637 206.1
 
 list_temp()
 . 2 files [23.8 Mb]

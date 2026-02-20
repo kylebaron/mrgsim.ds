@@ -174,8 +174,17 @@ out2 <- future_lapply(1:10, \(x) { mrgsim_ds(mod, data) }, future.seed = TRUE)
 
 out2 <- reduce_ds(out2)
 
+```
+
+Now there are 10x the number of rows, but little change in object size.
+```{r}
 out2
 ```
+
+```{r}
+lobstr::obj_size(out2)
+```
+
 
 
 ## Files on disk are automagically managed
@@ -199,9 +208,14 @@ list_temp()
 We also put a finalizer on each object so that, when it goes out of scope, 
 the files are automatically cleaned up. 
 
-```{r}
-purge_temp()
+First, run a bunch of simulations.
 
+
+```{r, echo = FALSE, message = FALSE}
+purge_temp()
+```
+
+```{r, message = FALSE}
 plan(multisession, workers = 5L)
 
 out1 <- mrgsim_ds(mod, data)
@@ -216,9 +230,15 @@ out3 <- mrgsim_ds(mod, data)
 rename_ds(out3, "out3")
 ```
 
+There are 12 files holding simulation outputs. 
+
 ```{r}
 list_temp()
+```
 
+Now, remove one of the objects containing 10 files.
+
+```{r}
 rm(out2)
 ```
 
