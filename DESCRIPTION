@@ -19,7 +19,7 @@ Suggests: testthat, knitr, rmarkdown, withr, duckdb, dbplyr, DBI, lattice
 Encoding: UTF-8
 URL: https://github.com/kylebaron/mrgsim.ds, https://kylebaron.github.io/mrgsim.ds/, 
   https://kylebaron.r-universe.dev/mrgsim.ds
-BugReports: https://github.com/kylebaron/mrgim.ds/issues
+BugReports: https://github.com/kylebaron/mrgsim.ds/issues
 RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
