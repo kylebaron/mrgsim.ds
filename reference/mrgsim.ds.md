@@ -186,20 +186,17 @@ plot(out, nid = 10)
 
 list_temp()
 #> 1 files [129 Kb]
-#> - mrgsims-ds-1be2713d61a5.parquet
+#> - mrgsims-ds-1b7279428d5a.parquet
 
 ownership()
 #> > Objects: 6 | Files: 15 | Size: 162 Kb
 
-Sys.sleep(0.5)
+if (FALSE) { # \dontrun{
 
 rename_ds(out, "reg-100-300")
 
 list_temp()
-#> 1 files [129 Kb]
-#> - mrgsims-ds-reg-100-300-0001.parquet
 
-if (FALSE) { # \dontrun{
 move_ds(out, "data/sim/regimens")
 } # }
 ```
