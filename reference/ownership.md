@@ -76,24 +76,24 @@ ownership()
 
 list_ownership()
 #>                                   file        address
-#> 1      mrgsims-ds-1bb57f0277ac.parquet 0x5562ad2f6338
-#> 2      mrgsims-ds-1bb52540d45f.parquet 0x5562ad2f6338
-#> 3  mrgsims-ds-reg-100-300-0001.parquet 0x5562ae556ac0
-#> 4      mrgsims-ds-1bb55e95a05b.parquet 0x5562ad2f6338
-#> 5      mrgsims-ds-1bb5695f169d.parquet 0x5562ad2f6338
-#> 6      mrgsims-ds-1bb513b0a5a4.parquet 0x5562b1a4e118
-#> 7       mrgsims-ds-1bb5d2a718c.parquet 0x5562ad2f6338
-#> 8       mrgsims-ds-1bb5bcae9a1.parquet 0x5562ad2f6338
-#> 9       mrgsims-ds-1bb54caf56d.parquet 0x5562a9ed8c28
-#> 10                     example.parquet 0x5562aaa54870
-#> 11     mrgsims-ds-1bb5295de744.parquet 0x5562ad2f6338
-#> 12                mrgsims-ds-1.parquet 0x5562a1d4bd88
-#> 13      mrgsims-ds-1bb526cd5d3.parquet 0x5562ad2f6338
-#> 14     mrgsims-ds-1bb5364019d8.parquet 0x5562af85b180
-#> 15     mrgsims-ds-1bb5289430cb.parquet 0x5562af3c7530
-#> 16     mrgsims-ds-1bb57f0da185.parquet 0x5562ad2f6338
-#> 17     mrgsims-ds-1bb514a1bad6.parquet 0x5562a6f5ce28
-#> 18     mrgsims-ds-1bb518162ee6.parquet 0x5562ad2f6338
+#> 1      mrgsims-ds-1be241648f9f.parquet 0x55f59a8a9d70
+#> 2      mrgsims-ds-1be223db5891.parquet 0x55f5940638e8
+#> 3       mrgsims-ds-1be2d1437aa.parquet 0x55f59a8a9d70
+#> 4      mrgsims-ds-1be237c69c49.parquet 0x55f59a8a9d70
+#> 5                      example.parquet 0x55f59819e0a0
+#> 6       mrgsims-ds-1be28cc4b33.parquet 0x55f59c975138
+#> 7  mrgsims-ds-reg-100-300-0001.parquet 0x55f59e2a0230
+#> 8      mrgsims-ds-1be26aaee7a0.parquet 0x55f59a8a9d70
+#> 9      mrgsims-ds-1be24244e3d3.parquet 0x55f59a8a9d70
+#> 10     mrgsims-ds-1be27cf201cb.parquet 0x55f59c63afc8
+#> 11     mrgsims-ds-1be21a0f3df6.parquet 0x55f59a8a9d70
+#> 12     mrgsims-ds-1be23eacc495.parquet 0x55f59a8a9d70
+#> 13     mrgsims-ds-1be27bbee412.parquet 0x55f59a8a9d70
+#> 14     mrgsims-ds-1be22ed6135b.parquet 0x55f5975eb1c0
+#> 15     mrgsims-ds-1be241a09d02.parquet 0x55f59ccf0a80
+#> 16                mrgsims-ds-1.parquet 0x55f58f9d5a28
+#> 17     mrgsims-ds-1be2605c214a.parquet 0x55f59a8a9d70
+#> 18     mrgsims-ds-1be24f10f069.parquet 0x55f59a8a9d70
 
 e1 <- ev(amt = 100)
 e2 <- ev(amt = 200)
