@@ -93,9 +93,9 @@ list_temp()
 ```
 
     ## 4 files [984.8 Kb]
-    ## - mrgsims-ds-1dfe3235cf46.parquet
-    ## - mrgsims-ds-1dfe3a7450a4.parquet
-    ## - mrgsims-ds-1dfe7535e1fa.parquet
+    ## - mrgsims-ds-204b206aeb40.parquet
+    ## - mrgsims-ds-204b30ed8422.parquet
+    ## - mrgsims-ds-204bb6703fd.parquet
     ## - mrgsims-ds-regimens.parquet
 
 To save outputs to a persistent location, use
