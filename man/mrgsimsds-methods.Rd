@@ -21,7 +21,7 @@
   x,
   y = NULL,
   ...,
-  nid = 25,
+  nid = 16,
   batch_size = 20000,
   logy = FALSE,
   .dots = list()

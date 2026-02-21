@@ -197,7 +197,7 @@ names.mrgsimsds <- function(x) {
 
 #' @name mrgsimsds-methods
 #' @export
-plot.mrgsimsds <- function(x, y = NULL, ...,  nid = 25, batch_size = 20000, 
+plot.mrgsimsds <- function(x, y = NULL, ...,  nid = 16, batch_size = 20000, 
                            logy = FALSE, .dots = list()) {
   check_files_fatal(x)
   sims <- get_nid_from_ds(x, nid = nid, batch_size = batch_size)
