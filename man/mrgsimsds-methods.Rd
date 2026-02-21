@@ -21,7 +21,7 @@
   x,
   y = NULL,
   ...,
-  nid = 5,
+  nid = 25,
   batch_size = 20000,
   logy = FALSE,
   .dots = list()
@@ -50,8 +50,10 @@ columns will be plotted.}
 Interact with mrgsimsds objects
 }
 \details{
-\code{head()} and \code{tail()} only look at the first and last file in the data
-set, respectively.
+\code{head()} and \code{tail()} only look at the first and last \code{file} in the data
+set, respectively, when simulations are stored across multiple files. It is
+possible this won't correspond to the first and last chunks rows of data
+you will see when collecting the data via \code{\link[dplyr:compute]{dplyr::collect()}}.
 }
 \examples{
 mod <- house_ds(end = 24)
