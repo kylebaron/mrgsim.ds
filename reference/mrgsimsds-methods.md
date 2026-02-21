@@ -22,7 +22,7 @@ plot(
   x,
   y = NULL,
   ...,
-  nid = 5,
+  nid = 16,
   batch_size = 20000,
   logy = FALSE,
   .dots = list()
@@ -72,7 +72,10 @@ plot(
 
 [`head()`](https://rdrr.io/r/utils/head.html) and
 [`tail()`](https://rdrr.io/r/utils/head.html) only look at the first and
-last file in the data set, respectively.
+last `file` in the data set, respectively, when simulations are stored
+across multiple files. It is possible this won't correspond to the first
+and last chunks rows of data you will see when collecting the data via
+[`dplyr::collect()`](https://dplyr.tidyverse.org/reference/compute.html).
 
 ## Examples
 

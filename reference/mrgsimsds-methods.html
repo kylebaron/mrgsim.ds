@@ -60,7 +60,7 @@
 <span>  <span class="va">x</span>,</span>
 <span>  y <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span>,</span>
-<span>  nid <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  nid <span class="op">=</span> <span class="fl">16</span>,</span>
 <span>  batch_size <span class="op">=</span> <span class="fl">20000</span>,</span>
 <span>  logy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  .dots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -107,8 +107,10 @@ columns will be plotted.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code><a href="https://rdrr.io/r/utils/head.html" class="external-link">head()</a></code> and <code><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail()</a></code> only look at the first and last file in the data
-set, respectively.</p>
+    <p><code><a href="https://rdrr.io/r/utils/head.html" class="external-link">head()</a></code> and <code><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail()</a></code> only look at the first and last <code>file</code> in the data
+set, respectively, when simulations are stored across multiple files. It is
+possible this won't correspond to the first and last chunks rows of data
+you will see when collecting the data via <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">dplyr::collect()</a></code>.</p>
     </div>
 
     <div class="section level2">

@@ -76,13 +76,13 @@ ownership()
 
 list_ownership()
 #>                              file        address
-#> 1 mrgsims-ds-1b9c235ae2c4.parquet 0x55a29c6efdd8
-#> 2 mrgsims-ds-1b9c473abdde.parquet 0x55a29a7b3198
-#> 3                 example.parquet 0x55a2a414b6d0
-#> 4 mrgsims-ds-1b9c1969f58f.parquet 0x55a2950da7f8
-#> 5 mrgsims-ds-1b9c2e0f007c.parquet 0x55a2a1bf3b30
-#> 6            mrgsims-ds-1.parquet 0x55a2a64c4200
-#> 7 mrgsims-ds-1b9c6272cf0c.parquet 0x55a2a5f60a10
+#> 1 mrgsims-ds-1b914460a94c.parquet 0x555e19729940
+#> 2                 example.parquet 0x555e1791abb0
+#> 3 mrgsims-ds-1b9165f2b26f.parquet 0x555e15335db8
+#> 4            mrgsims-ds-1.parquet 0x555e19d47160
+#> 5 mrgsims-ds-1b911d4f2d4b.parquet 0x555e0df4ac40
+#> 6 mrgsims-ds-1b911cc532ed.parquet 0x555e1067ece8
+#> 7 mrgsims-ds-1b917c8416e2.parquet 0x555e0889f788
 
 e1 <- ev(amt = 100)
 e2 <- ev(amt = 200)
