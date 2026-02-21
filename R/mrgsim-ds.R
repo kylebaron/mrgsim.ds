@@ -138,8 +138,10 @@ mrgsim_ds <- function(x,  ..., id = NULL, tags = list(), verbose = FALSE,
 #' @param ... arguments to be passed to or from other methods.
 #' 
 #' @details
-#' `head()` and `tail()` only look at the first and last file in the data
-#' set, respectively. 
+#' `head()` and `tail()` only look at the first and last `file` in the data 
+#' set, respectively, when simulations are stored across multiple files. It is 
+#' possible this won't correspond to the first and last chunks rows of data
+#' you will see when collecting the data via [dplyr::collect()].
 #' 
 #' @examples
 #' mod <- house_ds(end = 24)
@@ -195,7 +197,7 @@ names.mrgsimsds <- function(x) {
 
 #' @name mrgsimsds-methods
 #' @export
-plot.mrgsimsds <- function(x, y = NULL, ...,  nid = 5, batch_size = 20000, 
+plot.mrgsimsds <- function(x, y = NULL, ...,  nid = 25, batch_size = 20000, 
                            logy = FALSE, .dots = list()) {
   check_files_fatal(x)
   sims <- get_nid_from_ds(x, nid = nid, batch_size = batch_size)
