@@ -34,9 +34,10 @@ as_mrgsim_ds <- function(x, id = NULL, verbose = FALSE, gc = TRUE) {
   
   if(verbose) message("Writing dataset [2/3].")
   stopifnot(mread_with_ds(x@mod))
+  stopifnot(inherits(x, "mrgsims"))
   
   dir <- get_mread_tempdir(x@mod)
-  
+
   file <- file.path(dir, file_ds(id))
   if(grepl(" ", file)) {
     abort("output file name cannot contain spaces.")  

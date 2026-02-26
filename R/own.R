@@ -9,7 +9,7 @@ clear_ownership <- function() {
 }
 
 clean_up_ds <- function(x) {
-  if(x$gc && check_ownership(x)) {
+  if(x$gc && check_ownership(x) && !pid_changed(x$mod)) {
     if(getOption("mrgsim.ds.show.gc", FALSE)) {
       n <- length(x$files)
       msg <- glue("[mrgsim.ds.show.gc] cleaning up {n} file(s) ...")
