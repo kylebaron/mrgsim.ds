@@ -45,7 +45,7 @@ if(requireNamespace("duckdb")) {
 }
 #> Loading required namespace: duckdb
 #> # Source:   table<arrow_001> [?? x 7]
-#> # Database: DuckDB 1.4.4 [unknown@Linux 6.11.0-1018-azure:R 4.5.2/:memory:]
+#> # Database: DuckDB 1.4.4 [unknown@Linux 6.14.0-1017-azure:R 4.5.2/:memory:]
 #>       ID  time    GUT  CENT  RESP    DV    CP
 #>    <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <dbl>
 #>  1     1  0      0      0    50    0     0   
