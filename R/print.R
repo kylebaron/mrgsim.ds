@@ -11,7 +11,11 @@ print.mrgsimsds <- function(x, n = 8, ...) { # nocov start
   if(dm1 > 99999) {
     dm1 <- format_big()(dm1)  
   }
-  own <- ifelse(check_ownership(x), "yes", "no")
+  owner <- check_ownership(x)
+  own <- ifelse(owner, "yes", "no")
+  if(owner) {
+    own <- paste0(own, ifelse(x$gc, " (gc)", " (no gc)"))  
+  }
   nfile <- sum(file.exists(x$files))
   cat("Model: ", x$mod@model, "\n", sep = "")
   cat("Dim  : ", dm1, " x ", dm[2L], "\n", sep = "")
@@ -22,7 +26,7 @@ print.mrgsimsds <- function(x, n = 8, ...) { # nocov start
   print(chunk) 
   if(invalid_ds(x)) {
     refresh_ds(x)
-    message("[mrgsim.ds] dataset pointer was refreshed.")
+    message("[mrgsim.ds] pointer and source pid refreshed.")
   }
   return(invisible(NULL))
 } # nocov end

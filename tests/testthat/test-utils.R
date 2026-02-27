@@ -16,3 +16,15 @@ test_that("format numbers for print", {
   x <- mrgsim.ds:::format_big()(123456789)  
   expect_equal(x, "123.5M")
 })
+
+test_that("check if pid changed", {
+  mod <- house_ds(end = 1)
+  expect_false(mrgsim.ds:::pid_changed(mod))
+  
+  mod@envir$mrgsim.ds.mread_pid <- -123456789
+  expect_true(mrgsim.ds:::pid_changed(mod))
+  
+  mod <- house_ds(end = 1)
+  out <- mrgsim_ds(mod)
+  expect_false(mrgsim.ds:::pid_changed(out))
+})

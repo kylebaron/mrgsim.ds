@@ -59,7 +59,13 @@ safe_ds <- function(x) {
 }
 
 pid_changed <- function(x) {
-  Sys.getpid() != get_mread_pid(x)  
+  if(is.mrgmod(x)) {
+    return(Sys.getpid() != get_mread_pid(x))
+  }
+  if(is_mrgsimsds(x)) {
+    return(Sys.getpid() != x$pid)  
+  }
+  abort("cannot assess pid on this object.")
 }
 
 get_mread_pid <- function(x) {

@@ -43,6 +43,7 @@ reference:
   - refresh_ds
   - gc_ds
   - prune_ds
+  - gc_ds
 - title: Manage simulation outputs in `tempdir()`
   contents:
   - list_temp
