@@ -11,6 +11,10 @@ reduce_ds(x, ...)
 
 \item{...}{not used.}
 }
+\value{
+A single mrgsimsds object. For the list method, the returned object
+will own all underlying files.
+}
 \description{
 Reduce a list of mrgsimsds objects into a single object
 }
@@ -24,7 +28,7 @@ modification.
 \examples{
 mod <- modlib_ds("popex", outvars = "IPRED")
 
-data <- ev_expand(amt = 100, ID = 1:100)
+data <- ev_expand(amt = 100, ID = 1:10)
 
 out <- lapply(1:3, function(rep) {
   out <- mrgsim_ds(mod, data) 

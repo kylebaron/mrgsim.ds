@@ -34,7 +34,7 @@ gc_ds.mrgsimsds <- function(x, value, ...) {
 }
 
 #' @export
-gc_ds.list <- function(x, value ...) {
+gc_ds.list <- function(x, value, ...) {
   x <- lapply(x, gc_ds, value = value)
   x
 }
