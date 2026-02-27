@@ -18,6 +18,11 @@ reduce_ds(x, ...)
 
   not used.
 
+## Value
+
+A single mrgsimsds object. For the list method, the returned object will
+own all underlying files.
+
 ## Details
 
 When `x` is a list, a new object is created and returned. This new
@@ -31,10 +36,9 @@ modification.
 
 ``` r
 mod <- modlib_ds("popex", outvars = "IPRED")
-#> Building popex ... 
-#> done.
+#> Loading model from cache.
 
-data <- ev_expand(amt = 100, ID = 1:100)
+data <- ev_expand(amt = 100, ID = 1:10)
 
 out <- lapply(1:3, function(rep) {
   out <- mrgsim_ds(mod, data) 
@@ -48,18 +52,18 @@ sims <- reduce_ds(out)
 
 sims
 #> Model: popex
-#> Dim  : 144.6K x 3
-#> Files: 3 [1.5 Mb]
+#> Dim  : 14,460 x 3
+#> Files: 3 [161.7 Kb]
 #> Owner: yes
-#>     ID time     IPRED
-#> 1:   1  0.0 0.0000000
-#> 2:   1  0.0 0.0000000
-#> 3:   1  0.5 0.4872955
-#> 4:   1  1.0 0.9218375
-#> 5:   1  1.5 1.3084607
-#> 6:   1  2.0 1.6515715
-#> 7:   1  2.5 1.9551852
-#> 8:   1  3.0 2.2229609
+#>     ID time    IPRED
+#> 1:   1  0.0 0.000000
+#> 2:   1  0.0 0.000000
+#> 3:   1  0.5 1.938575
+#> 4:   1  1.0 2.999619
+#> 5:   1  1.5 3.517396
+#> 6:   1  2.0 3.703363
+#> 7:   1  2.5 3.690902
+#> 8:   1  3.0 3.563794
 
 check_ownership(sims)
 #> [1] TRUE

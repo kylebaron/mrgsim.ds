@@ -64,6 +64,8 @@ Commonly needed after batch simulation in parallel
   : Reduce a list of mrgsimsds objects into a single object
 - [`refresh_ds()`](https://kylebaron.github.io/mrgsim.ds/reference/refresh_ds.md)
   : Refresh 'Arrow' dataset pointers.
+- [`gc_ds()`](https://kylebaron.github.io/mrgsim.ds/reference/gc_ds.md)
+  : Set collection status for mrgsimsds objects
 - [`prune_ds()`](https://kylebaron.github.io/mrgsim.ds/reference/prune_ds.md)
   : Prune a list of mrgsimsds objects
 
