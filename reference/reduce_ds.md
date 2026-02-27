@@ -54,7 +54,7 @@ sims
 #> Model: popex
 #> Dim  : 14,460 x 3
 #> Files: 3 [161.7 Kb]
-#> Owner: yes
+#> Owner: yes (gc)
 #>     ID time    IPRED
 #> 1:   1  0.0 0.000000
 #> 2:   1  0.0 0.000000

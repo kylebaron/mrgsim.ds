@@ -64,7 +64,7 @@ obj
 #> Model: housemodel
 #> Dim  : 4,820 x 7
 #> Files: 1 [55.4 Kb]
-#> Owner: yes
+#> Owner: yes (gc)
 #>     ID time       GUT     CENT     RESP       DV       CP
 #> 1:   1 0.00   0.00000  0.00000 50.00000 0.000000 0.000000
 #> 2:   1 0.00 100.00000  0.00000 50.00000 0.000000 0.000000

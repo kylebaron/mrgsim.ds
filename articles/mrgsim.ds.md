@@ -42,7 +42,7 @@ out
     ## Model: popex-2_mod
     ## Dim  : 14,460 x 5
     ## Files: 1 [295 Kb]
-    ## Owner: yes
+    ## Owner: yes (gc)
     ##     ID TIME        ECL     IPRED        DV
     ## 1:   1  0.0 -0.1397334 0.0000000 0.0000000
     ## 2:   1  0.0 -0.1397334 0.0000000 0.0000000
@@ -93,9 +93,9 @@ list_temp()
 ```
 
     ## 4 files [984.8 Kb]
-    ## - mrgsims-ds-1c0a1b60cb9f.parquet
-    ## - mrgsims-ds-1c0a24dea428.parquet
-    ## - mrgsims-ds-1c0a33fd9d3d.parquet
+    ## - mrgsims-ds-1c162f4ca8f1.parquet
+    ## - mrgsims-ds-1c165cb4cefb.parquet
+    ## - mrgsims-ds-1c167553a384.parquet
     ## - mrgsims-ds-regimens.parquet
 
 To save outputs to a persistent location, use

@@ -148,7 +148,7 @@ out
 #> Model: housemodel
 #> Dim  : 2,730 x 7
 #> Files: 1 [129 Kb]
-#> Owner: yes
+#> Owner: yes (gc)
 #>     ID TIME       GUT     CENT     RESP       DV       CP
 #> 1:   1 0.00   0.00000  0.00000 50.00000 0.000000 0.000000
 #> 2:   1 0.00 100.00000  0.00000 50.00000 0.000000 0.000000
@@ -186,7 +186,7 @@ plot(out, nid = 10)
 
 list_temp()
 #> 1 files [129 Kb]
-#> - mrgsims-ds-19ac6357fb80.parquet
+#> - mrgsims-ds-19b75197fdaa.parquet
 
 ownership()
 #> > Objects: 9 | Files: 18 | Size: 162 Kb
