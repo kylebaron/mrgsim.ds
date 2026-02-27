@@ -52,7 +52,7 @@ simlist_reduce_ok <- function(x) {
 #' @examples
 #' mod <- modlib_ds("popex", outvars = "IPRED")
 #' 
-#' data <- ev_expand(amt = 100, ID = 1:100)
+#' data <- ev_expand(amt = 100, ID = 1:10)
 #' 
 #' out <- lapply(1:3, function(rep) {
 #'   out <- mrgsim_ds(mod, data) 
@@ -69,14 +69,20 @@ simlist_reduce_ok <- function(x) {
 #' 
 #' lapply(out, check_ownership)
 #' 
+#' @return
+#' A single mrgsimsds object. For the list method, the returned object
+#' will own all underlying files.
+#' 
 #' @export
 reduce_ds <- function(x, ...) UseMethod("reduce_ds")
 #' @export
 reduce_ds.mrgsimsds <- function(x, ...) {
   check_files_fatal(x)
   x <- safe_ds(x)
+  x$pid <- Sys.getpid()
   invisible(x)
 }
+
 #' @export
 reduce_ds.list <- function(x, ...) {
   simlist_reduce_ok(x)
