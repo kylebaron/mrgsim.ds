@@ -63,7 +63,7 @@ pid_changed <- function(x) {
     return(Sys.getpid() != get_mread_pid(x))
   }
   if(is_mrgsimsds(x)) {
-    return(Sys.getpid() != get_mread_pid(x$mod))  
+    return(Sys.getpid() != x$pid)  
   }
   abort("cannot assess pid on this object.")
 }

@@ -26,7 +26,7 @@ print.mrgsimsds <- function(x, n = 8, ...) { # nocov start
   print(chunk) 
   if(invalid_ds(x)) {
     refresh_ds(x)
-    message("[mrgsim.ds] dataset pointer was refreshed.")
+    message("[mrgsim.ds] pointer and source pid refreshed.")
   }
   return(invisible(NULL))
 } # nocov end
