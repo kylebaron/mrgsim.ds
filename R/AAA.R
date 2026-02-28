@@ -3,6 +3,7 @@
 #' @importFrom arrow to_duckdb as_arrow_table
 #' @importFrom dplyr collect distinct pull summarise summarize rename
 #' @importFrom dplyr mutate select group_by filter bind_rows arrange
+#' @importFrom dplyr consecutive_id
 #' @importFrom tibble as_tibble
 #' @importFrom utils head tail
 #' @importFrom scales label_number cut_short_scale

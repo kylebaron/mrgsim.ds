@@ -203,6 +203,9 @@ plot.mrgsimsds <- function(x, y = NULL, ...,  nid = 16, batch_size = 20000,
                            logy = FALSE, .dots = list()) {
   check_files_fatal(x)
   sims <- get_nid_from_ds(x, nid = nid, batch_size = batch_size)
+  if(length(unique(sims$ID)) < nid) {
+    sims$ID <- consecutive_id(sims$ID)  
+  }
   if(!is_formula(y)) {
     cols <- names(sims)
     cols <- cols[!(cols %in% c("ID", "id", "TIME", "time"))]
