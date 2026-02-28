@@ -49,17 +49,17 @@ out <- mrgsim_ds(mod, data)
 out
 . Model: popex
 . Dim  : 1.4M x 4
-. Files: 1 [11.9 Mb]
-. Owner: yes
-.     ID time        CL    IPRED
-. 1:   1  0.0 0.6601045 0.000000
-. 2:   1  0.0 0.6601045 0.000000
-. 3:   1  0.5 0.6601045 1.756330
-. 4:   1  1.0 0.6601045 2.947337
-. 5:   1  1.5 0.6601045 3.744798
-. 6:   1  2.0 0.6601045 4.268478
-. 7:   1  2.5 0.6601045 4.601877
-. 8:   1  3.0 0.6601045 4.803204
+. Files: 1 [13.2 Mb]
+. Owner: yes (gc)
+.     ID time        CL     IPRED
+. 1:   1  0.0 0.8242913 0.0000000
+. 2:   1  0.0 0.8242913 0.0000000
+. 3:   1  0.5 0.8242913 0.3899083
+. 4:   1  1.0 0.8242913 0.7272115
+. 5:   1  1.5 0.8242913 1.0183801
+. 6:   1  2.0 0.8242913 1.2690964
+. 7:   1  2.5 0.8242913 1.4843502
+. 8:   1  3.0 0.8242913 1.6685229
 ```
 
 ## Very lightweight simulation output object
@@ -70,14 +70,14 @@ disk.
 
 ``` r
 basename(out$files)
-. [1] "mrgsims-ds-6ece3b5bb339.parquet"
+. [1] "mrgsims-ds-f17e7528f9fe.parquet"
 ```
 
 This means there is almost nothing inside the object itself
 
 ``` r
 lobstr:::obj_size(out)
-. 292.51 kB
+. 293.24 kB
 
 dim(out)
 . [1] 1446000       4
@@ -116,23 +116,23 @@ head(out)
 . # A tibble: 6 × 4
 .      ID  time    CL IPRED
 .   <dbl> <dbl> <dbl> <dbl>
-. 1     1   0   0.660  0   
-. 2     1   0   0.660  0   
-. 3     1   0.5 0.660  1.76
-. 4     1   1   0.660  2.95
-. 5     1   1.5 0.660  3.74
-. 6     1   2   0.660  4.27
+. 1     1   0   0.824 0    
+. 2     1   0   0.824 0    
+. 3     1   0.5 0.824 0.390
+. 4     1   1   0.824 0.727
+. 5     1   1.5 0.824 1.02 
+. 6     1   2   0.824 1.27
 
 tail(out)
 . # A tibble: 6 × 4
 .      ID  time    CL IPRED
 .   <dbl> <dbl> <dbl> <dbl>
-. 1  3000  238. 0.779 0.119
-. 2  3000  238  0.779 0.117
-. 3  3000  238. 0.779 0.115
-. 4  3000  239  0.779 0.113
-. 5  3000  240. 0.779 0.111
-. 6  3000  240  0.779 0.109
+. 1  3000  238. 0.769 0.527
+. 2  3000  238  0.769 0.521
+. 3  3000  238. 0.769 0.516
+. 4  3000  239  0.769 0.510
+. 5  3000  240. 0.769 0.504
+. 6  3000  240  0.769 0.499
 
 dim(out)
 . [1] 1446000       4
@@ -146,16 +146,16 @@ as_tibble(out)
 . # A tibble: 1,446,000 × 4
 .       ID  time    CL IPRED
 .    <dbl> <dbl> <dbl> <dbl>
-.  1     1   0   0.660  0   
-.  2     1   0   0.660  0   
-.  3     1   0.5 0.660  1.76
-.  4     1   1   0.660  2.95
-.  5     1   1.5 0.660  3.74
-.  6     1   2   0.660  4.27
-.  7     1   2.5 0.660  4.60
-.  8     1   3   0.660  4.80
-.  9     1   3.5 0.660  4.91
-. 10     1   4   0.660  4.96
+.  1     1   0   0.824 0    
+.  2     1   0   0.824 0    
+.  3     1   0.5 0.824 0.390
+.  4     1   1   0.824 0.727
+.  5     1   1.5 0.824 1.02 
+.  6     1   2   0.824 1.27 
+.  7     1   2.5 0.824 1.48 
+.  8     1   3   0.824 1.67 
+.  9     1   3.5 0.824 1.83 
+. 10     1   4   0.824 1.96 
 . # ℹ 1,445,990 more rows
 ```
 
@@ -178,19 +178,19 @@ Or try your hand at duckdb
 ``` r
 as_duckdb_ds(out)
 . # Source:   table<arrow_001> [?? x 4]
-. # Database: DuckDB 1.4.3 [kyleb@Darwin 24.6.0:R 4.5.2/:memory:]
+. # Database: DuckDB 1.4.4 [kyleb@Darwin 24.6.0:R 4.5.2/:memory:]
 .       ID  time    CL IPRED
 .    <dbl> <dbl> <dbl> <dbl>
-.  1     1   0   0.660  0   
-.  2     1   0   0.660  0   
-.  3     1   0.5 0.660  1.76
-.  4     1   1   0.660  2.95
-.  5     1   1.5 0.660  3.74
-.  6     1   2   0.660  4.27
-.  7     1   2.5 0.660  4.60
-.  8     1   3   0.660  4.80
-.  9     1   3.5 0.660  4.91
-. 10     1   4   0.660  4.96
+.  1     1   0   0.824 0    
+.  2     1   0   0.824 0    
+.  3     1   0.5 0.824 0.390
+.  4     1   1   0.824 0.727
+.  5     1   1.5 0.824 1.02 
+.  6     1   2   0.824 1.27 
+.  7     1   2.5 0.824 1.48 
+.  8     1   3   0.824 1.67 
+.  9     1   3.5 0.824 1.83 
+. 10     1   4   0.824 1.96 
 . # ℹ more rows
 ```
 
@@ -230,15 +230,15 @@ collect(dd)
 .     time  Mean     n
 .    <dbl> <dbl> <int>
 .  1   0    0     6000
-.  2   0.5  1.13  3000
-.  3   1    1.83  3000
+.  2   0.5  1.12  3000
+.  3   1    1.82  3000
 .  4   1.5  2.29  3000
 .  5   2    2.60  3000
 .  6   2.5  2.81  3000
 .  7   3    2.96  3000
 .  8   3.5  3.05  3000
-.  9   4    3.10  3000
-. 10   4.5  3.13  3000
+.  9   4    3.11  3000
+. 10   4.5  3.14  3000
 . # ℹ 471 more rows
 ```
 
@@ -264,22 +264,22 @@ object size.
 out2
 . Model: popex
 . Dim  : 14.5M x 4
-. Files: 10 [119.2 Mb]
-. Owner: yes
-.     ID time        CL     IPRED
-. 1:   1  0.0 0.7453202 0.0000000
-. 2:   1  0.0 0.7453202 0.0000000
-. 3:   1  0.5 0.7453202 0.2004743
-. 4:   1  1.0 0.7453202 0.3821993
-. 5:   1  1.5 0.7453202 0.5467789
-. 6:   1  2.0 0.7453202 0.6956808
-. 7:   1  2.5 0.7453202 0.8302481
-. 8:   1  3.0 0.7453202 0.9517104
+. Files: 10 [131.8 Mb]
+. Owner: yes (gc)
+.     ID time       CL     IPRED
+. 1:   1  0.0 1.989064 0.0000000
+. 2:   1  0.0 1.989064 0.0000000
+. 3:   1  0.5 1.989064 0.3122063
+. 4:   1  1.0 1.989064 0.5793169
+. 5:   1  1.5 1.989064 0.8068758
+. 6:   1  2.0 1.989064 0.9997664
+. 7:   1  2.5 1.989064 1.1622894
+. 8:   1  3.0 1.989064 1.2982322
 ```
 
 ``` r
 lobstr::obj_size(out2)
-. 295.56 kB
+. 296.29 kB
 ```
 
 ## Files on disk are automagically managed
@@ -289,12 +289,12 @@ All `arrow` files are stored in the
 
 ``` r
 list_temp()
-. 11 files [131.1 Mb]
-. - mrgsims-ds-6ece3b5bb339.parquet
-. - mrgsims-ds-6f0c360fd6d3.parquet
+. 11 files [145 Mb]
+. - mrgsims-ds-f17e7528f9fe.parquet
+. - mrgsims-ds-f1bb13944e57.parquet
 .    ...
-. - mrgsims-ds-6f10225ef974.parquet
-. - mrgsims-ds-6f1094b404d.parquet
+. - mrgsims-ds-f1bf19aa644.parquet
+. - mrgsims-ds-f1bf5019bb2e.parquet
 ```
 
 This directory is eventually removed when the R session ends. Tools are
@@ -305,12 +305,12 @@ retain_temp(out2)
 . Discarding 1 files.
 
 list_temp()
-. 10 files [119.2 Mb]
-. - mrgsims-ds-6f0c360fd6d3.parquet
-. - mrgsims-ds-6f0c49e0d25f.parquet
+. 10 files [131.8 Mb]
+. - mrgsims-ds-f1bb13944e57.parquet
+. - mrgsims-ds-f1bb7eef5864.parquet
 .    ...
-. - mrgsims-ds-6f10225ef974.parquet
-. - mrgsims-ds-6f1094b404d.parquet
+. - mrgsims-ds-f1bf19aa644.parquet
+. - mrgsims-ds-f1bf5019bb2e.parquet
 ```
 
 We also put a finalizer on each object so that, when it goes out of
@@ -337,7 +337,7 @@ There are 12 files holding simulation outputs.
 
 ``` r
 list_temp()
-. 12 files [143 Mb]
+. 12 files [158.2 Mb]
 . - mrgsims-ds-out1-0001.parquet
 . - mrgsims-ds-out2-0001.parquet
 .    ...
@@ -357,11 +357,11 @@ cleaned up.
 ``` r
 gc()
 .            used  (Mb) gc trigger  (Mb) limit (Mb) max used  (Mb)
-. Ncells  1946964 104.0    3643540 194.6         NA  3271222 174.8
-. Vcells 15237389 116.3   29085557 222.0      16384 27013458 206.1
+. Ncells  1958669 104.7    3760151 200.9         NA  3263146 174.3
+. Vcells 15254258 116.4   27368429 208.9      16384 27028521 206.3
 
 list_temp()
-. 2 files [23.8 Mb]
+. 2 files [26.4 Mb]
 . - mrgsims-ds-out1-0001.parquet
 . - mrgsims-ds-out3-0001.parquet
 ```
@@ -373,7 +373,7 @@ This setup is only possible if one object owns the files on disk and
 
 ``` r
 ownership()
-. > Objects: 4 | Files: 13 | Size: 23.8 Mb
+. > Objects: 4 | Files: 13 | Size: 26.4 Mb
 ```
 
 If I make a copy of a simulation object, the old object no longer owns
@@ -400,6 +400,132 @@ check_ownership(out1)
 check_ownership(out4)
 . [1] FALSE
 ```
+
+## Simulation in parallel
+
+Some special handling is required when simulations are actually run in
+an R session different from the one where the model was loaded and where
+simulation outputs will be processed. One key example of this situation
+is simulation in parallel, especially when worker nodes are different R
+processes.
+
+For example, we can run this simulation in parallel.
+
+``` r
+library(mirai)
+
+mod <- modlib_ds("popex", end = 72)
+. Loading model from cache.
+
+data <- evd_expand(amt = 100, ID = 1:6)
+
+daemons(3)
+
+out <- mirai_map(
+  1:3, 
+  \(x, mod, data) { mrgsim.ds::mrgsim_ds(mod, data) },
+  .args = list(mod = mod, data = data)
+)[]
+
+daemons(0)
+```
+
+First, notice that we used
+[`modlib_ds()`](https://kylebaron.github.io/mrgsim.ds/reference/mread_ds.md)
+rather than
+[`mrgsolve::modlib()`](https://mrgsolve.org/docs/reference/modlib.html).
+The resulting object has the important information tucked away to safely
+simulate in parallel.
+
+Now look at the output. When we print the object to the console, you
+will see that `mrgsim.ds` recognizes that the object was created in a
+different R process and updates `pid` as well as the pointer to the
+`arrow` data set:
+
+``` r
+out[[1]]
+. Model: popex
+. Dim  : 876 x 4
+. Files: 1 [10.5 Kb]
+. Owner: no
+.     ID TIME        CL     IPRED
+. 1:   1  0.0 0.8873704 0.0000000
+. 2:   1  0.0 0.8873704 0.0000000
+. 3:   1  0.5 0.8873704 0.7798188
+. 4:   1  1.0 0.8873704 1.4345372
+. 5:   1  1.5 0.8873704 1.9815253
+. 6:   1  2.0 0.8873704 2.4357992
+. 7:   1  2.5 0.8873704 2.8103394
+. 8:   1  3.0 0.8873704 3.1163647
+. [mrgsim.ds] pointer and source pid refreshed.
+```
+
+I refer to this as “refreshing” the output: relocate back on the parent
+R process and re-create the pointer to the data on disk.
+
+You can refresh a list of simulations like this
+
+``` r
+out <- refresh_ds(out)
+```
+
+This will get you relocated back on the parent R process. Better yet,
+you should call
+[`reduce_ds()`](https://kylebaron.github.io/mrgsim.ds/reference/reduce_ds.md)
+
+``` r
+out <- reduce_ds(out)
+```
+
+This refreshes the simulation output objects *and* collects them into a
+single object
+
+``` r
+out
+. Model: popex
+. Dim  : 2,628 x 4
+. Files: 3 [31.4 Kb]
+. Owner: yes (gc)
+.     ID TIME        CL     IPRED
+. 1:   1  0.0 0.8873704 0.0000000
+. 2:   1  0.0 0.8873704 0.0000000
+. 3:   1  0.5 0.8873704 0.7798188
+. 4:   1  1.0 0.8873704 1.4345372
+. 5:   1  1.5 0.8873704 1.9815253
+. 6:   1  2.0 0.8873704 2.4357992
+. 7:   1  2.5 0.8873704 2.8103394
+. 8:   1  3.0 0.8873704 3.1163647
+```
+
+Now we have all three files collected in a single object that we can
+work with
+
+``` r
+plot(out, IPRED ~ time, nid = 5)
+```
+
+![](reference/figures/README-parallel_output-1.png)
+
+### Details
+
+`mrgsim.ds` tracks the
+[`tempdir()`](https://rdrr.io/r/base/tempfile.html) location and the
+process ID (via
+[`Sys.getpid()`](https://rdrr.io/r/base/Sys.getpid.html)) of the R
+process where the model was loaded. When simulation outputs are saved to
+file, the save location is always
+[`tempdir()`](https://rdrr.io/r/base/tempfile.html) from that parent R
+process. When simulating in parallel, this will likely be *different*
+than what a call to [`tempdir()`](https://rdrr.io/r/base/tempfile.html)
+says on the worker node.
+
+At the time simulations are saved, the current R process id (`pid`) is
+saved to the simulation output object. In the parallel simulation case,
+this will be different than the `pid` from the parent R process, saved
+in the model object. The finalizer function for a simulation object
+which removes output files from disk when the object goes out of scope
+is only run when the finalizer is called from the parent R process as
+determined by [`Sys.getpid()`](https://rdrr.io/r/base/Sys.getpid.html).
 
 ## If this is so great, why not make it the default for mrgsolve?
 
