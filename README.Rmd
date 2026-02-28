@@ -11,6 +11,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+using.parallel <- requireNamespace("mirai", quietly = TRUE)
 ```
 
 # mrgsim.ds
@@ -278,6 +279,95 @@ check_ownership(out1)
 
 check_ownership(out4)
 ```
+
+## Simulation in parallel
+
+Some special handling is required when simulations are actually run in an R 
+session different from the one where the model was loaded and where simulation
+outputs will be processed. One key example of this situation is simulation 
+in parallel, especially when worker nodes are different R processes. 
+
+For example, we can run this simulation in parallel. 
+
+
+```{r, eval = using.parallel}
+library(mirai)
+
+mod <- modlib_ds("popex", end = 72)
+
+data <- evd_expand(amt = 100, ID = 1:6)
+
+daemons(3)
+
+out <- mirai_map(
+  1:3, 
+  \(x, mod, data) { mrgsim.ds::mrgsim_ds(mod, data) },
+  .args = list(mod = mod, data = data)
+)[]
+
+daemons(0)
+```
+
+First, notice that we used `modlib_ds()` rather than `mrgsolve::modlib()`. The 
+resulting object has the important information tucked away to safely simulate
+in parallel. 
+
+Now look at the output. When we print the object to the console, you will see
+that `mrgsim.ds` recognizes that the object was created in a different R 
+process and updates `pid` as well as the pointer to the `arrow` data set:
+
+
+```{r, eval = using.parallel}
+out[[1]]
+```
+
+I refer to this as "refreshing" the output: relocate back on the parent R 
+process and re-create the pointer to the data on disk. 
+
+You can refresh a list of simulations like this
+
+```{r, eval = using.parallel}
+out <- refresh_ds(out)
+```
+
+This will get you relocated back on the parent R process. Better yet, you 
+should call `reduce_ds()`
+
+```{r, eval = using.parallel}
+out <- reduce_ds(out)
+```
+
+This refreshes the simulation output objects _and_ collects them into a 
+single object
+
+```{r, eval = using.parallel}
+out
+```
+
+Now we have all three files collected in a single object that we can work with
+
+```{r parallel_output, eval = using.parallel, fig.height = 4, fig.width = 5, out.width = "80%", fig.align = "center"}
+plot(out, IPRED ~ time, nid = 5)
+```
+
+
+### Details
+
+`mrgsim.ds` tracks the `tempdir()` location and the process ID (via 
+`Sys.getpid()`) of the R process where the model was loaded. When simulation 
+outputs are saved to file, the save location is always `tempdir()` from that 
+parent R process. When simulating in parallel, this will likely be _different_
+than what  a call to `tempdir()` says on the worker node. 
+
+At the time simulations are saved, the current R process id (`pid`) is saved
+to the simulation output object. In the parallel simulation case, this will be 
+different than the `pid` from the parent R process, saved in the model 
+object. The finalizer function for a simulation object which removes output 
+files from disk when the object goes out of scope is only run when the finalizer
+is called from the parent R process as determined by `Sys.getpid()`. 
+
+
+
 
 
 ## If this is so great, why not make it the default for mrgsolve?
