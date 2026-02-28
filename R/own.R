@@ -8,6 +8,8 @@ clear_ownership <- function() {
   rm(list = names(hash2file), envir = hash2file)
 }
 
+# This code needs to check pid_changed on the model object, 
+# not the mrgsimsds object.
 clean_up_ds <- function(x) {
   if(x$gc && check_ownership(x) && !pid_changed(x$mod)) {
     if(getOption("mrgsim.ds.show.gc", FALSE)) {
