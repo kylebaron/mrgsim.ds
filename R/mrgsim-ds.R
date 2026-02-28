@@ -172,6 +172,7 @@ dim.mrgsimsds <- function(x) {
 #' @export
 head.mrgsimsds <-  function(x, n = 6L, ...) {
   check_files_fatal(x)
+  x <- safe_ds(x)
   as_tibble(get_nrow_from_ds(x, n = n))
 }
 
@@ -202,7 +203,7 @@ plot.mrgsimsds <- function(x, y = NULL, ...,  nid = 16, batch_size = 20000,
                            logy = FALSE, .dots = list()) {
   check_files_fatal(x)
   sims <- get_nid_from_ds(x, nid = nid, batch_size = batch_size)
-  if(!rlang::is_formula(y)) {
+  if(!is_formula(y)) {
     cols <- names(sims)
     cols <- cols[!(cols %in% c("ID", "id", "TIME", "time"))]
     y <- paste0(cols, collapse = "+")
